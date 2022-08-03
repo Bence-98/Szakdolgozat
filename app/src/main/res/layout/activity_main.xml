@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/playbtn"
+        android:layout_width="500px"
+        android:layout_height="150px"
+        android:layout_marginTop="150px"
+        android:layout_centerHorizontal="true"
+        android:text="Játék" />
+
+    <Button
+        android:id="@+id/levelsbtn"
+        android:layout_width="500px"
+        android:layout_height="150px"
+        android:layout_marginTop="350px"
+        android:layout_centerHorizontal="true"
+        android:text="Szintek" />
+
+    <Button
+        android:id="@+id/optionsbtn"
+        android:layout_width="500px"
+        android:layout_height="150px"
+        android:layout_marginTop="550px"
+        android:layout_centerHorizontal="true"
+        android:text="Beállítások" />
+
+    <Button
+        android:id="@+id/quitbtn"
+        android:layout_width="500px"
+        android:layout_height="150px"
+        android:layout_marginTop="750px"
+        android:layout_centerHorizontal="true"
+        android:text="Kilépés" />
+
+
+
+</RelativeLayout>
