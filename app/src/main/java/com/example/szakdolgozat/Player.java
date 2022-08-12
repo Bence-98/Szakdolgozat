@@ -14,9 +14,12 @@ public class Player implements GameObject{
     private int color;
 
     private Animation idle;
-    private  Animation walkRight;
+    private Animation walkRight;
     private Animation walkLeft;
+    private Animation jumpRight;
+    private Animation jumpLeft;
     private AnimationManager animManager;
+
 
 
     public Rect getRectangle(){
@@ -31,6 +34,8 @@ public class Player implements GameObject{
         Bitmap idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue);
         Bitmap walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk1);
         Bitmap walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
+        Bitmap jump = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_jump);
+
 
         idle = new Animation(new Bitmap[]{idleImg}, 2);
         walkRight = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
@@ -61,6 +66,7 @@ public class Player implements GameObject{
 
     public void update(Point point) {
         float oldLeft = rectangle.left;
+        float oldBottom = rectangle.bottom;
 
         //l,t,r,b
         rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2 , point.x + rectangle.width()/2,  point.y + rectangle.height()/2);
