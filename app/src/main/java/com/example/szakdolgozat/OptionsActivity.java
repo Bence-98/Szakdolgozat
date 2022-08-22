@@ -14,7 +14,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        Constants.SCREEN_WITDH = dm.widthPixels;
+        Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
 
 
@@ -22,7 +22,7 @@ public class OptionsActivity extends AppCompatActivity {
 
 
         TextView textView = (TextView) findViewById(R.id.szelesseg);
-        textView.setText("Szelesseg: " + String.valueOf(Constants.SCREEN_WITDH));
+        textView.setText("Szelesseg: " + String.valueOf(Constants.SCREEN_WIDTH));
 
         TextView textView2 = (TextView) findViewById(R.id.magassag);
         textView2.setText("Magassag: " + String.valueOf(Constants.SCREEN_HEIGHT));

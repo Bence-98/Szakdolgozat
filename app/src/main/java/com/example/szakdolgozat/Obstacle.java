@@ -25,7 +25,7 @@ public class Obstacle implements GameObject {
         this.color = color;
         //left top right bottom
         rectangle = new Rect(0, startY, startX, startY+rectHeight);
-        rectangle2 = new Rect(startX + playerGap, startY, Constants.SCREEN_WITDH, startY + rectHeight);
+        rectangle2 = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectHeight);
     }
 
     public boolean playerCollide(Player player){

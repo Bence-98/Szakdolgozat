@@ -22,7 +22,7 @@ public class GameplayScene implements Scene {
 
     public GameplayScene(){
         player = new Player(new Rect(100,100,200,200), Color.rgb(255,0,0));
-        playerPoint = new Point(Constants.SCREEN_WITDH/2, 3*Constants.SCREEN_HEIGHT/4);
+        playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
 
         obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
@@ -30,7 +30,7 @@ public class GameplayScene implements Scene {
     }
 
     public void reset() {
-        playerPoint = new Point(Constants.SCREEN_WITDH/2, 3*Constants.SCREEN_HEIGHT/4);
+        playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
         movingPlayer = false;

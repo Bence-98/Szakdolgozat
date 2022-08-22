@@ -4,10 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-import java.util.Timer;
 
 public class ObstacleManager {
     //magasabb index = lejjebb a képernyőn = magasabb Y érték
@@ -48,13 +45,15 @@ public class ObstacleManager {
     private void populateObstacles(){
         int currY = -5*Constants.SCREEN_HEIGHT/4;
         while (currY < 0){
-            int xStart = (int)(Math.random()*(Constants.SCREEN_WITDH - playerGap));
+            int xStart = (int)(Math.random()*(Constants.SCREEN_WIDTH - playerGap));
             obstacles.add(new Obstacle(obstacleHeight, color, xStart, currY, playerGap));
             currY += obstacleHeight + obstacleGap;
 
         }
     }
      public void update() {
+        if (startTime < Constants.INIT_TIME)
+            startTime = Constants.INIT_TIME;
         int elapsedTime = (int)(System.currentTimeMillis() - startTime);
         startTime = System.currentTimeMillis();
         float speed = (float)(Math.sqrt(1 + (startTime - initTime)/2000.0))*Constants.SCREEN_HEIGHT/(10000.0f);
@@ -62,7 +61,7 @@ public class ObstacleManager {
             ob.inrementY(speed * elapsedTime);
         }
         if (obstacles.get(obstacles.size()-1).getRectangle().top >= Constants.SCREEN_HEIGHT) {
-            int xStart = (int)(Math.random()*(Constants.SCREEN_WITDH - playerGap));
+            int xStart = (int)(Math.random()*(Constants.SCREEN_WIDTH - playerGap));
             obstacles.add(0, new Obstacle(obstacleHeight, color, xStart, obstacles.get(0).getRectangle().top - obstacleHeight - obstacleGap, playerGap));
             obstacles.remove(obstacles.size() - 1);
             score++;

@@ -47,7 +47,14 @@ public class Player implements GameObject{
 
         walkLeft = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
 
-        animManager = new AnimationManager(new  Animation[]{idle, walkRight, walkLeft});
+        jumpRight = new Animation(new Bitmap[]{jump}, 1);
+
+        m.preScale(-1, 1);
+        jump = Bitmap.createBitmap(jump, 0, 0, jump.getWidth(), jump.getHeight(), m, false);
+
+        jumpLeft = new Animation(new Bitmap[]{jump}, 1);
+
+        animManager = new AnimationManager(new  Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});
 
     }
 
@@ -72,10 +79,18 @@ public class Player implements GameObject{
         rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2 , point.x + rectangle.width()/2,  point.y + rectangle.height()/2);
 
         int state = 0;
-        if (rectangle.left - oldLeft > 5)
-            state = 1;
-        else if (rectangle.left - oldLeft < -5)
-            state = 2;
+        if (rectangle.bottom - oldBottom == 0) {
+            if (rectangle.left - oldLeft > 5)
+                state = 1;
+            else if (rectangle.left - oldLeft < -5)
+                state = 2;
+        }
+        else{
+            if (rectangle.left - oldLeft > 5)
+                state = 3;
+            else if (rectangle.left - oldLeft < -5)
+                state = 4;
+        }
 
         animManager.playAnim(state);
         animManager.update();
