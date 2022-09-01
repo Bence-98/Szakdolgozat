@@ -14,6 +14,9 @@ public class GameplayScene implements Scene {
     private Player player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
+    private int isGoing;
+    private Rect upArrow, leftArrow, rightArrow;
+    private int szin =200;
 
     private boolean movingPlayer = false;
 
@@ -21,7 +24,7 @@ public class GameplayScene implements Scene {
     private long gameOverTime;
 
     public GameplayScene(){
-        player = new Player(new Rect(100,100,200,200), Color.rgb(255,0,0));
+        player = new Player(new Rect(100,100,200,200), Color.rgb(0,0,0));
         playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
 
@@ -41,7 +44,25 @@ public class GameplayScene implements Scene {
         SceneManager.ACTIVE_SCENE = 0;
     }
 
-    @Override
+
+    public void isMoving(){
+        if(isGoing != 0) {
+            szin = 100;
+            switch (isGoing){
+                case 1:
+                    playerPoint.y -= 20;
+                    break;
+                case 2:
+                    playerPoint.x -= 20;
+                    break;
+                case 3:
+                    playerPoint.x += 20;
+            }
+        }else szin = 200;
+    }
+
+
+/*    @Override
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -60,6 +81,30 @@ public class GameplayScene implements Scene {
                 movingPlayer = false;
                 break;
         }
+    }*/
+
+    @Override
+    public void receiveTouch(MotionEvent event){
+
+/*        if (upArrow.contains((int)event.getX(), (int)event.getY()))
+            isGoing = 1;*/
+
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                if (upArrow.contains((int)event.getX(), (int)event.getY()))
+                    isGoing = 1;
+                if (leftArrow.contains((int)event.getX(), (int)event.getY()))
+                    isGoing = 2;
+                if (rightArrow.contains((int)event.getX(), (int)event.getY()))
+                    isGoing = 3;
+                break;
+
+            case MotionEvent.ACTION_UP:
+                    isGoing = 0;
+                    szin=200;
+                break;
+
+        }
     }
 
     @Override
@@ -68,6 +113,17 @@ public class GameplayScene implements Scene {
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
+
+
+
+        Paint paintt = new Paint();
+        paintt.setColor(Color.rgb(szin,szin,szin));
+        upArrow = new Rect(2000,850,2150,1000);
+        leftArrow = new Rect(50,850,200,1000);
+        rightArrow = new Rect(250,850,400,1000);
+        canvas.drawRect(upArrow,paintt);
+        canvas.drawRect(leftArrow,paintt);
+        canvas.drawRect(rightArrow,paintt);
 
         if (gameOver) {
             Paint paint = new Paint();
@@ -79,6 +135,7 @@ public class GameplayScene implements Scene {
 
     @Override
     public void update() {
+        isMoving();
         if (!gameOver) {
             player.update(playerPoint);
             obstacleManager.update();

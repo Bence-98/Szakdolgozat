@@ -26,5 +26,9 @@ public class OptionsActivity extends AppCompatActivity {
 
         TextView textView2 = (TextView) findViewById(R.id.magassag);
         textView2.setText("Magassag: " + String.valueOf(Constants.SCREEN_HEIGHT));
+
+        TextView textView3 = (TextView) findViewById(R.id.ido);
+        textView3.setText("Ido: " + String.valueOf(System.currentTimeMillis()));
+
     }
 }

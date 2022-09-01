@@ -16,12 +16,12 @@
         android:text="Játék" />
 
     <Button
-        android:id="@+id/levelsbtn"
+        android:id="@+id/sparebtn"
         android:layout_width="500px"
         android:layout_height="150px"
         android:layout_marginTop="350px"
         android:layout_centerHorizontal="true"
-        android:text="Szintek" />
+        android:text="Tartalék" />
 
     <Button
         android:id="@+id/optionsbtn"
