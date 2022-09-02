@@ -49,8 +49,10 @@ public class Player implements GameObject{
 
         jumpRight = new Animation(new Bitmap[]{jump}, 1);
 
-        m.preScale(-1, 1);
-        jump = Bitmap.createBitmap(jump, 0, 0, jump.getWidth(), jump.getHeight(), m, false);
+
+        Matrix n = new Matrix();
+        n.preScale(-1, 1);
+        jump = Bitmap.createBitmap(jump, 0, 0, jump.getWidth(), jump.getHeight(), n, false);
 
         jumpLeft = new Animation(new Bitmap[]{jump}, 1);
 

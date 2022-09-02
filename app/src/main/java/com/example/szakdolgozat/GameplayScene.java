@@ -7,6 +7,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import java.util.concurrent.TimeUnit;
+
 public class GameplayScene implements Scene {
 
     private Rect r = new Rect();
@@ -17,6 +19,8 @@ public class GameplayScene implements Scene {
     private int isGoing;
     private Rect upArrow, leftArrow, rightArrow;
     private int szin =200;
+
+
 
     private boolean movingPlayer = false;
 
@@ -49,9 +53,6 @@ public class GameplayScene implements Scene {
         if(isGoing != 0) {
             szin = 100;
             switch (isGoing){
-                case 1:
-                    playerPoint.y -= 20;
-                    break;
                 case 2:
                     playerPoint.x -= 20;
                     break;
@@ -61,6 +62,19 @@ public class GameplayScene implements Scene {
         }else szin = 200;
     }
 
+   public void jumping() {
+        for (int i = 0; i < 10; i++){
+            try {
+                wait(10);
+            } catch (Exception e) {e.printStackTrace();}
+           playerPoint.y -= 10;}
+    }
+
+    public void gravity(){
+        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
+            playerPoint.y += 10;
+
+    }
 
 /*    @Override
     public void receiveTouch(MotionEvent event) {
@@ -86,13 +100,10 @@ public class GameplayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event){
 
-/*        if (upArrow.contains((int)event.getX(), (int)event.getY()))
-            isGoing = 1;*/
-
-        switch (event.getAction()){
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (upArrow.contains((int)event.getX(), (int)event.getY()))
-                    isGoing = 1;
+                if (upArrow.contains((int) event.getX(), (int) event.getY()))
+                    jumping();
                 if (leftArrow.contains((int)event.getX(), (int)event.getY()))
                     isGoing = 2;
                 if (rightArrow.contains((int)event.getX(), (int)event.getY()))
@@ -103,7 +114,6 @@ public class GameplayScene implements Scene {
                     isGoing = 0;
                     szin=200;
                 break;
-
         }
     }
 
@@ -116,14 +126,14 @@ public class GameplayScene implements Scene {
 
 
 
-        Paint paintt = new Paint();
-        paintt.setColor(Color.rgb(szin,szin,szin));
+        Paint arrowPaint = new Paint();
+        arrowPaint.setColor(Color.rgb(szin,szin,szin));
         upArrow = new Rect(2000,850,2150,1000);
         leftArrow = new Rect(50,850,200,1000);
         rightArrow = new Rect(250,850,400,1000);
-        canvas.drawRect(upArrow,paintt);
-        canvas.drawRect(leftArrow,paintt);
-        canvas.drawRect(rightArrow,paintt);
+        canvas.drawRect(upArrow,arrowPaint);
+        canvas.drawRect(leftArrow,arrowPaint);
+        canvas.drawRect(rightArrow,arrowPaint);
 
         if (gameOver) {
             Paint paint = new Paint();
@@ -136,6 +146,7 @@ public class GameplayScene implements Scene {
     @Override
     public void update() {
         isMoving();
+        gravity();
         if (!gameOver) {
             player.update(playerPoint);
             obstacleManager.update();
