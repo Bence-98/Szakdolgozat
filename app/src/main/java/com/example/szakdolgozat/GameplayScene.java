@@ -126,7 +126,6 @@ public class GameplayScene implements Scene {
                     isGoingRight =true;
                 break;
 
-
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
