@@ -145,7 +145,6 @@ public class GameplayScene implements Scene {
         obstacleManager.draw(canvas);
 
 
-
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(szin,szin,szin));
         upArrow = new Rect(2000,850,2150,1000);
