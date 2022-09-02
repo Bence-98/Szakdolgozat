@@ -19,6 +19,7 @@ public class GameplayScene implements Scene {
     private int isGoing;
     private Rect upArrow, leftArrow, rightArrow;
     private int szin =200;
+    private boolean isGoingLeft, isGoingRight;
 
 
 
@@ -70,6 +71,17 @@ public class GameplayScene implements Scene {
            playerPoint.y -= 10;}
     }
 
+    public void goingLeft(){
+        if (isGoingLeft)
+            playerPoint.x -= 20;
+
+    }
+
+    public void goingRight(){
+        if (isGoingRight)
+            playerPoint.x += 20;
+    }
+
     public void gravity(){
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
             playerPoint.y += 10;
@@ -100,18 +112,27 @@ public class GameplayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event){
 
-        switch (event.getAction()) {
+        int pointerIndex = event.getActionIndex();
+        int maskedAction = event.getActionMasked();
+
+        switch (maskedAction) {
             case MotionEvent.ACTION_DOWN:
-                if (upArrow.contains((int) event.getX(), (int) event.getY()))
+            case MotionEvent.ACTION_POINTER_DOWN:
+                if (upArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
                     jumping();
-                if (leftArrow.contains((int)event.getX(), (int)event.getY()))
-                    isGoing = 2;
-                if (rightArrow.contains((int)event.getX(), (int)event.getY()))
-                    isGoing = 3;
+                if (leftArrow.contains((int)event.getX(pointerIndex), (int)event.getY(pointerIndex)))
+                    isGoingLeft = true;
+                if (rightArrow.contains((int)event.getX(pointerIndex), (int)event.getY(pointerIndex)))
+                    isGoingRight =true;
                 break;
 
+
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_CANCEL:
                     isGoing = 0;
+                    isGoingRight = false;
+                    isGoingLeft = false;
                     szin=200;
                 break;
         }
@@ -145,7 +166,9 @@ public class GameplayScene implements Scene {
 
     @Override
     public void update() {
-        isMoving();
+        //isMoving();
+        goingLeft();
+        goingRight();
         gravity();
         if (!gameOver) {
             player.update(playerPoint);

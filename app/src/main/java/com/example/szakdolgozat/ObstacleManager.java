@@ -56,7 +56,7 @@ public class ObstacleManager {
             startTime = Constants.INIT_TIME;
         int elapsedTime = (int)(System.currentTimeMillis() - startTime);
         startTime = System.currentTimeMillis();
-        float speed = (float)(Math.sqrt(1 + (startTime - initTime)/2000.0))*Constants.SCREEN_HEIGHT/(30000.0f);
+        float speed = (float)(Math.sqrt(1 + (startTime - initTime)/2000.0))*Constants.SCREEN_HEIGHT/(50000.0f);
         for (Obstacle ob : obstacles){
             ob.incrementY(speed * elapsedTime);
         }
