@@ -13,9 +13,9 @@ public class Platform implements  GameObject{
         return platform;
     }
 
-    public Platform(int pleft, int ptop, int pright, int pbottom, int color) {
+    public Platform(int pLeft, int pTop, int pRight, int pBottom, int color) {
         this.color = color;
-        platform = new Rect(pleft,ptop,pright,pbottom);
+        platform = new Rect(pLeft,pTop,pRight,pBottom);
     }
 
     public boolean playerCollidePlatform(Player player){

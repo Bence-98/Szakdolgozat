@@ -30,4 +30,10 @@
         android:layout_height="250px"
         android:layout_marginTop="600px"/>
 
+    <TextView
+        android:id="@+id/olvasas"
+        android:layout_width="500px"
+        android:layout_height="250px"
+        android:layout_marginTop="800px"/>
+
 </RelativeLayout>

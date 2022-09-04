@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.concurrent.TimeUnit;
@@ -20,7 +21,9 @@ public class GameplayScene implements Scene {
     private Rect upArrow, leftArrow, rightArrow;
     private int szin =200;
     private boolean isGoingLeft, isGoingRight;
-
+    private PlatformManager platformManager;
+    private LevelCoords levelCoords;
+    private int[] currLvl;
 
 
     private boolean movingPlayer = false;
@@ -32,9 +35,10 @@ public class GameplayScene implements Scene {
         player = new Player(new Rect(100,100,200,200), Color.rgb(0,0,0));
         playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
-
+        levelCoords = new LevelCoords();
+        currLvl = levelCoords.getLevelOne();
         obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
-
+        platformManager = new PlatformManager(currLvl, Color.BLACK);
     }
 
     public void reset() {
@@ -143,7 +147,7 @@ public class GameplayScene implements Scene {
 
         player.draw(canvas);
         obstacleManager.draw(canvas);
-
+        platformManager.draw(canvas);
 
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(szin,szin,szin));
