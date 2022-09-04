@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 public class ObstacleManager {
-    //magasabb index = lejjebb a képernyőn = magasabb Y érték
     private ArrayList<Obstacle> obstacles;
     private int playerGap;
     private  int obstacleGap;

@@ -64,7 +64,7 @@ public class GameplayScene implements Scene {
     }
 
    public void jumping() {
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 20; i++){
             try {
                 wait(10);
             } catch (Exception e) {e.printStackTrace();}
@@ -72,13 +72,13 @@ public class GameplayScene implements Scene {
     }
 
     public void goingLeft(){
-        if (isGoingLeft)
+        if (isGoingLeft && playerPoint.x > 50)
             playerPoint.x -= 20;
 
     }
 
     public void goingRight(){
-        if (isGoingRight)
+        if (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH)
             playerPoint.x += 20;
     }
 
