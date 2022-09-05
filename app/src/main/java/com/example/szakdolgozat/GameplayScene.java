@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.concurrent.TimeUnit;
 
 public class GameplayScene implements Scene {
 
@@ -33,7 +31,7 @@ public class GameplayScene implements Scene {
 
     public GameplayScene(){
         player = new Player(new Rect(100,100,200,200), Color.rgb(0,0,0));
-        playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
+        playerPoint = new Point(1000,945);
         player.update(playerPoint);
         levelCoords = new LevelCoords();
         currLvl = levelCoords.getLevelOne();
@@ -68,29 +66,45 @@ public class GameplayScene implements Scene {
     }
 
    public void jumping() {
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < 25; i++){
             try {
                 wait(10);
             } catch (Exception e) {e.printStackTrace();}
+            if (platformManager.enoughSpaceToJump(player))
            playerPoint.y -= 10;}
     }
 
     public void goingLeft(){
-        if (isGoingLeft && playerPoint.x > 50)
-            playerPoint.x -= 20;
+        int steps = 0;
+        while (isGoingLeft && playerPoint.x > 50 && !platformManager.playerCollidePlatform(player) && steps < 20) {
+            playerPoint.x--;
+            steps++;
+        }
+        /*if (platformManager.playerCollidePlatform(player))
+            playerPoint.x++;*/
 
     }
 
     public void goingRight(){
-        if (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH)
-            playerPoint.x += 20;
+        int steps = 0;
+        while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && !platformManager.playerCollidePlatform(player) && steps < 20) {
+            playerPoint.x++;
+            steps++;
+        }
+
+
+/*        if (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH)
+            playerPoint.x += 20;*/
     }
 
     public void gravity(){
-        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
-            playerPoint.y += 10;
+        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.onPlatforms(player))
+            playerPoint.y += 5;
+
 
     }
+
+
 
 /*    @Override
     public void receiveTouch(MotionEvent event) {
@@ -134,6 +148,10 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
                     isGoing = 0;
+                if (isGoingRight && platformManager.playerCollidePlatform(player))
+                    playerPoint.x -=10;
+                if (isGoingLeft && platformManager.playerCollidePlatform(player))
+                    playerPoint.x += 10;
                     isGoingRight = false;
                     isGoingLeft = false;
                     szin=200;

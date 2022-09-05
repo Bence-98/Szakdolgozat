@@ -26,8 +26,27 @@ public class PlatformManager {
 
     public boolean playerCollidePlatform(Player player){
         for (Platform pf : platforms)
-            if (pf.playerCollidePlatform(player))
+            if (pf.playerCollidePlatform(player)){
+
+
                 return true;
+            }
+
+        return false;
+    }
+
+
+    public boolean onPlatforms(Player player){
+        for (Platform pf : platforms)
+            if (player.getRectangle().bottom + 5 < pf.getPlatform().top)
+                return  true;
+        return false;
+    }
+
+    public boolean enoughSpaceToJump(Player player){
+        for (Platform pf : platforms)
+            if (player.getRectangle().top + 5 < pf.getPlatform().bottom)
+                return  true;
         return false;
     }
 

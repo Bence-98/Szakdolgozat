@@ -13,6 +13,7 @@ public class Platform implements  GameObject{
         return platform;
     }
 
+
     public Platform(int pLeft, int pTop, int pRight, int pBottom, int color) {
         this.color = color;
         platform = new Rect(pLeft,pTop,pRight,pBottom);
