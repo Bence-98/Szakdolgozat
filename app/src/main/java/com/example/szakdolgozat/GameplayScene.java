@@ -17,16 +17,12 @@ public class GameplayScene implements Scene {
     private ObstacleManager obstacleManager;
     private int isGoing;
     private Rect upArrow, leftArrow, rightArrow;
-    private int szin = 200;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
     private int[] currLvl;
-    private Player fallingPlayer;
-    private Player biggerPlayer;
+    private int[] currLvlObs;
 
-
-    private boolean movingPlayer = false;
 
     private boolean gameOver = false;
     private long gameOverTime;
@@ -36,20 +32,18 @@ public class GameplayScene implements Scene {
         playerPoint = new Point(1000, 940);
         player.update(playerPoint);
 
-        biggerPlayer = new Player(new Rect(80, 100, 200, 200), Color.rgb(0, 0, 0));
-        biggerPlayer.update(playerPoint);
-
         levelCoords = new LevelCoords();
         currLvl = levelCoords.getLevelOne();
-        obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
         platformManager = new PlatformManager(currLvl, Color.BLACK);
+
+
+        currLvl = levelCoords.getLevelOneObs();
+        obstacleManager = new ObstacleManager(currLvl, Color.RED);
     }
 
     public void reset() {
-        playerPoint = new Point(Constants.SCREEN_WIDTH / 2, 3 * Constants.SCREEN_HEIGHT / 4);
+        playerPoint = new Point(1000,940);
         player.update(playerPoint);
-        obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
-        movingPlayer = false;
     }
 
     @Override
@@ -76,9 +70,6 @@ public class GameplayScene implements Scene {
             playerPoint.x--;
             steps++;
         }
-        /*if (platformManager.playerCollidePlatform(player))
-            playerPoint.x++;*/
-
     }
 
     public void goingRight() {
@@ -87,43 +78,14 @@ public class GameplayScene implements Scene {
             playerPoint.x++;
             steps++;
         }
-
-
-/*        if (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH)
-            playerPoint.x += 20;*/
     }
 
     public void gravity() {
-/*        fallingPlayer = player;
-        fallingPlayer.getRectangle().bottom += 5;*/
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.canIGoDown(playerPoint))
-            playerPoint.y += 5;
-
-
+            playerPoint.y += 10;
     }
 
 
-
-/*    @Override
-    public void receiveTouch(MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                if (!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY()))
-                    movingPlayer = true;
-                if (gameOver && System.currentTimeMillis() - gameOverTime >= 2000){
-                    reset();
-                    gameOver = false;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (!gameOver && movingPlayer)
-                    playerPoint.set((int)event.getX(), (int)event.getY());
-                break;
-            case MotionEvent.ACTION_UP:
-                movingPlayer = false;
-                break;
-        }
-    }*/
 
     @Override
     public void receiveTouch(MotionEvent event) {
@@ -146,13 +108,8 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
                 isGoing = 0;
-/*                if (isGoingRight && platformManager.playerCollidePlatform(biggerPlayer))
-                    playerPoint.x -= 20;
-                if (isGoingLeft && platformManager.playerCollidePlatform(biggerPlayer))
-                    playerPoint.x += 20;*/
                 isGoingRight = false;
                 isGoingLeft = false;
-                szin = 200;
                 break;
         }
     }
@@ -166,7 +123,7 @@ public class GameplayScene implements Scene {
         platformManager.draw(canvas);
 
         Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(szin, szin, szin));
+        arrowPaint.setColor(Color.rgb(125,125,125));
         arrowPaint.setAlpha(100);
         upArrow = new Rect(2000, 850, 2150, 1000);
         leftArrow = new Rect(50, 850, 200, 1000);
@@ -190,12 +147,15 @@ public class GameplayScene implements Scene {
         gravity();
         if (!gameOver) {
             player.update(playerPoint);
-            biggerPlayer.update(playerPoint);
             obstacleManager.update();
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }
+        }
+        if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
+            reset();
+            gameOver = false;
         }
     }
 
