@@ -26,6 +26,11 @@ public class Player implements GameObject{
         return rectangle;
     }
 
+    public Rect setRectangle(Rect rect){
+        rectangle.set(rect);
+        return  rectangle;
+    }
+
     public Player(Rect rectangle, int color) {
         this.rectangle = rectangle;
         this.color = color;

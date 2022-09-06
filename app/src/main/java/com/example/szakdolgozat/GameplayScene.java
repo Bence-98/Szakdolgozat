@@ -22,6 +22,8 @@ public class GameplayScene implements Scene {
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
     private int[] currLvl;
+    private Player fallingPlayer;
+    private Player biggerPlayer;
 
 
     private boolean movingPlayer = false;
@@ -31,8 +33,12 @@ public class GameplayScene implements Scene {
 
     public GameplayScene(){
         player = new Player(new Rect(100,100,200,200), Color.rgb(0,0,0));
-        playerPoint = new Point(1000,945);
+        playerPoint = new Point(1000,940);
         player.update(playerPoint);
+
+        biggerPlayer = new Player(new Rect(80,100,200,200),Color.rgb(0,0,0));
+        biggerPlayer.update(playerPoint);
+
         levelCoords = new LevelCoords();
         currLvl = levelCoords.getLevelOne();
         obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
@@ -52,31 +58,19 @@ public class GameplayScene implements Scene {
     }
 
 
-    public void isMoving(){
-        if(isGoing != 0) {
-            szin = 100;
-            switch (isGoing){
-                case 2:
-                    playerPoint.x -= 20;
-                    break;
-                case 3:
-                    playerPoint.x += 20;
-            }
-        }else szin = 200;
-    }
-
    public void jumping() {
         for (int i = 0; i < 25; i++){
             try {
                 wait(10);
             } catch (Exception e) {e.printStackTrace();}
-            if (platformManager.enoughSpaceToJump(player))
-           playerPoint.y -= 10;}
+            if (platformManager.canIGoUp(playerPoint))
+           playerPoint.y -= 10;
+        }
     }
 
     public void goingLeft(){
         int steps = 0;
-        while (isGoingLeft && playerPoint.x > 50 && !platformManager.playerCollidePlatform(player) && steps < 20) {
+        while (isGoingLeft && playerPoint.x > 50 && platformManager.canIGoLeft(playerPoint) && steps < 20) {
             playerPoint.x--;
             steps++;
         }
@@ -87,7 +81,7 @@ public class GameplayScene implements Scene {
 
     public void goingRight(){
         int steps = 0;
-        while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && !platformManager.playerCollidePlatform(player) && steps < 20) {
+        while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && platformManager.canIGoRight(playerPoint) && steps < 20) {
             playerPoint.x++;
             steps++;
         }
@@ -98,7 +92,9 @@ public class GameplayScene implements Scene {
     }
 
     public void gravity(){
-        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.onPlatforms(player))
+/*        fallingPlayer = player;
+        fallingPlayer.getRectangle().bottom += 5;*/
+        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.canIGoDown(playerPoint))
             playerPoint.y += 5;
 
 
@@ -148,10 +144,10 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
                     isGoing = 0;
-                if (isGoingRight && platformManager.playerCollidePlatform(player))
-                    playerPoint.x -=10;
-                if (isGoingLeft && platformManager.playerCollidePlatform(player))
-                    playerPoint.x += 10;
+/*                if (isGoingRight && platformManager.playerCollidePlatform(biggerPlayer))
+                    playerPoint.x -= 20;
+                if (isGoingLeft && platformManager.playerCollidePlatform(biggerPlayer))
+                    playerPoint.x += 20;*/
                     isGoingRight = false;
                     isGoingLeft = false;
                     szin=200;
@@ -169,6 +165,7 @@ public class GameplayScene implements Scene {
 
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(szin,szin,szin));
+        arrowPaint.setAlpha(100);
         upArrow = new Rect(2000,850,2150,1000);
         leftArrow = new Rect(50,850,200,1000);
         rightArrow = new Rect(250,850,400,1000);
@@ -186,12 +183,12 @@ public class GameplayScene implements Scene {
 
     @Override
     public void update() {
-        //isMoving();
         goingLeft();
         goingRight();
         gravity();
         if (!gameOver) {
             player.update(playerPoint);
+            biggerPlayer.update(playerPoint);
             obstacleManager.update();
             if (obstacleManager.playerCollide(player)){
                 gameOver = true;

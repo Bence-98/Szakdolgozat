@@ -1,6 +1,8 @@
 package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
+import android.graphics.Point;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -26,28 +28,47 @@ public class PlatformManager {
 
     public boolean playerCollidePlatform(Player player){
         for (Platform pf : platforms)
-            if (pf.playerCollidePlatform(player)){
-
-
+            if (pf.playerCollidePlatform(player))
                 return true;
-            }
-
         return false;
     }
 
-
-    public boolean onPlatforms(Player player){
+/*    public boolean canIGoRight(Player player){
+        player.getRectangle();
         for (Platform pf : platforms)
-            if (player.getRectangle().bottom + 5 < pf.getPlatform().top)
-                return  true;
+            if (pf.playerCollidePlatform(player))
+                return true;
         return false;
+
+    }*/
+
+    public boolean canIGoRight(Point point){
+        for (Platform pf: platforms)
+            if (pf.getPlatform().contains(point.x+55,point.y+50) || pf.getPlatform().contains(point.x+55,point.y-50) || pf.getPlatform().contains(point.x+55,point.y))
+                return false;
+        return true;
     }
 
-    public boolean enoughSpaceToJump(Player player){
-        for (Platform pf : platforms)
-            if (player.getRectangle().top + 5 < pf.getPlatform().bottom)
-                return  true;
-        return false;
+    public boolean canIGoLeft(Point point){
+        for (Platform pf: platforms)
+            if (pf.getPlatform().contains(point.x-55,point.y+50) || pf.getPlatform().contains(point.x-55,point.y-50) || pf.getPlatform().contains(point.x-55,point.y))
+                return false;
+        return true;
+    }
+
+    public boolean canIGoDown(Point point){
+        for (Platform pf: platforms)
+            if (pf.getPlatform().contains(point.x+50,point.y+55) || pf.getPlatform().contains(point.x-50,point.y+55))
+                return false;
+        return true;
+    }
+
+    public boolean canIGoUp(Point point){
+        for (Platform pf: platforms)
+            if (pf.getPlatform().contains(point.x+50,point.y-55) || pf.getPlatform().contains(point.x-50,point.y-55))
+                return false;
+        return true;
+
     }
 
     public void draw(Canvas canvas){
