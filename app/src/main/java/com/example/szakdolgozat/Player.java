@@ -8,7 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-public class Player implements GameObject{
+public class Player implements GameObject {
 
     private Rect rectangle;
     private int color;
@@ -21,14 +21,13 @@ public class Player implements GameObject{
     private AnimationManager animManager;
 
 
-
-    public Rect getRectangle(){
+    public Rect getRectangle() {
         return rectangle;
     }
 
-    public Rect setRectangle(Rect rect){
+    public Rect setRectangle(Rect rect) {
         rectangle.set(rect);
-        return  rectangle;
+        return rectangle;
     }
 
     public Player(Rect rectangle, int color) {
@@ -61,7 +60,7 @@ public class Player implements GameObject{
 
         jumpLeft = new Animation(new Bitmap[]{jump}, 1);
 
-        animManager = new AnimationManager(new  Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});
+        animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});
 
     }
 
@@ -83,7 +82,7 @@ public class Player implements GameObject{
         float oldBottom = rectangle.bottom;
 
         //l,t,r,b
-        rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2 , point.x + rectangle.width()/2,  point.y + rectangle.height()/2);
+        rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
 
         int state = 0;
         if (rectangle.bottom - oldBottom == 0) {
@@ -91,8 +90,7 @@ public class Player implements GameObject{
                 state = 1;
             else if (rectangle.left - oldLeft < -5)
                 state = 2;
-        }
-        else{
+        } else {
             if (rectangle.left - oldLeft > 5)
                 state = 3;
             else if (rectangle.left - oldLeft < -5)

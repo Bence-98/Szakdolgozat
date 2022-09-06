@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void openOptionsActivity(){
+    public void openOptionsActivity() {
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
         //this.overridePendingTransition(0, 0);
     }
 
-    public void openGameActivity(){
+    public void openGameActivity() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
         //this.overridePendingTransition(0, 0);

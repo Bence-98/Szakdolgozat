@@ -29,14 +29,13 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
-
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder){
+    public void surfaceCreated(SurfaceHolder holder) {
         thread = new MainThread(getHolder(), this);
         Constants.INIT_TIME = System.currentTimeMillis();
         thread.setRunning(true);
@@ -44,14 +43,16 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder){
-        boolean retry=true;
-        while (retry){
-            try{
+    public void surfaceDestroyed(SurfaceHolder holder) {
+        boolean retry = true;
+        while (retry) {
+            try {
                 thread.setRunning(false);
                 thread.join();
-            } catch (Exception e) {e.printStackTrace();}
-            retry=false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            retry = false;
         }
     }
 
@@ -75,7 +76,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         manager.draw(canvas);
 
     }
-
 
 
 }

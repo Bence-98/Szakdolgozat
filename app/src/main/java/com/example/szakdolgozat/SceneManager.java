@@ -15,16 +15,16 @@ public class SceneManager {
 
     }
 
-    public void  receiveTouch(MotionEvent event) {
+    public void receiveTouch(MotionEvent event) {
         scenes.get(ACTIVE_SCENE).receiveTouch(event);
 
     }
 
-    public void update(){
+    public void update() {
         scenes.get(ACTIVE_SCENE).update();
     }
 
-    public void draw(Canvas canvas){
+    public void draw(Canvas canvas) {
         scenes.get(ACTIVE_SCENE).draw(canvas);
     }
 }

@@ -10,14 +10,17 @@ public class Animation {
     private int frameIndex;
 
     private boolean isPlaying = false;
+
     public boolean isPlaying() {
         return isPlaying;
     }
+
     public void play() {
         isPlaying = true;
         frameIndex = 0;
         lastFrame = System.currentTimeMillis();
     }
+
     public void stop() {
         isPlaying = false;
     }
@@ -30,12 +33,12 @@ public class Animation {
         this.frames = frames;
         frameIndex = 0;
 
-        frameTime = animTime/frames.length;
+        frameTime = animTime / frames.length;
 
         lastFrame = System.currentTimeMillis();
     }
 
-    public void draw(Canvas canvas, Rect destination){
+    public void draw(Canvas canvas, Rect destination) {
         if (!isPlaying)
             return;
 
@@ -45,18 +48,18 @@ public class Animation {
     }
 
     private void scaleRect(Rect rect) {
-        float whRatio = (float)(frames[frameIndex].getWidth())/frames[frameIndex].getWidth();
+        float whRatio = (float) (frames[frameIndex].getWidth()) / frames[frameIndex].getWidth();
         if (rect.width() > rect.height())
             rect.left = rect.right - (int) (rect.height() * whRatio);
         else
-            rect.top = rect.bottom - (int) (rect.width() * 1/whRatio);
+            rect.top = rect.bottom - (int) (rect.width() * 1 / whRatio);
     }
 
     public void update() {
         if (!isPlaying)
             return;
 
-        if (System.currentTimeMillis() - lastFrame > frameTime*1000) {
+        if (System.currentTimeMillis() - lastFrame > frameTime * 1000) {
             frameIndex++;
             frameIndex = frameIndex >= frames.length ? 0 : frameIndex;
             lastFrame = System.currentTimeMillis();

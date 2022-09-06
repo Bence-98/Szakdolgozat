@@ -4,22 +4,22 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-public class Platform implements  GameObject{
+public class Platform implements GameObject {
 
     private Rect platform;
     private int color;
 
-    public Rect getPlatform(){
+    public Rect getPlatform() {
         return platform;
     }
 
 
     public Platform(int pLeft, int pTop, int pRight, int pBottom, int color) {
         this.color = color;
-        platform = new Rect(pLeft,pTop,pRight,pBottom);
+        platform = new Rect(pLeft, pTop, pRight, pBottom);
     }
 
-    public boolean playerCollidePlatform(Player player){
+    public boolean playerCollidePlatform(Player player) {
         return Rect.intersects(platform, player.getRectangle());
     }
 

@@ -11,34 +11,33 @@
         android:id="@+id/playbtn"
         android:layout_width="500px"
         android:layout_height="150px"
-        android:layout_marginTop="150px"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="150px"
         android:text="Játék" />
 
     <Button
         android:id="@+id/sparebtn"
         android:layout_width="500px"
         android:layout_height="150px"
-        android:layout_marginTop="350px"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="350px"
         android:text="Tartalék" />
 
     <Button
         android:id="@+id/optionsbtn"
         android:layout_width="500px"
         android:layout_height="150px"
-        android:layout_marginTop="550px"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="550px"
         android:text="Beállítások" />
 
     <Button
         android:id="@+id/quitbtn"
         android:layout_width="500px"
         android:layout_height="150px"
-        android:layout_marginTop="750px"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="750px"
         android:text="Kilépés" />
-
 
 
 </RelativeLayout>

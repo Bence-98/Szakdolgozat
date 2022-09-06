@@ -17,7 +17,7 @@ public class GameplayScene implements Scene {
     private ObstacleManager obstacleManager;
     private int isGoing;
     private Rect upArrow, leftArrow, rightArrow;
-    private int szin =200;
+    private int szin = 200;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
@@ -31,12 +31,12 @@ public class GameplayScene implements Scene {
     private boolean gameOver = false;
     private long gameOverTime;
 
-    public GameplayScene(){
-        player = new Player(new Rect(100,100,200,200), Color.rgb(0,0,0));
-        playerPoint = new Point(1000,940);
+    public GameplayScene() {
+        player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
+        playerPoint = new Point(1000, 940);
         player.update(playerPoint);
 
-        biggerPlayer = new Player(new Rect(80,100,200,200),Color.rgb(0,0,0));
+        biggerPlayer = new Player(new Rect(80, 100, 200, 200), Color.rgb(0, 0, 0));
         biggerPlayer.update(playerPoint);
 
         levelCoords = new LevelCoords();
@@ -46,7 +46,7 @@ public class GameplayScene implements Scene {
     }
 
     public void reset() {
-        playerPoint = new Point(Constants.SCREEN_WIDTH /2, 3*Constants.SCREEN_HEIGHT/4);
+        playerPoint = new Point(Constants.SCREEN_WIDTH / 2, 3 * Constants.SCREEN_HEIGHT / 4);
         player.update(playerPoint);
         obstacleManager = new ObstacleManager(200, 350, 75, Color.BLACK);
         movingPlayer = false;
@@ -58,17 +58,19 @@ public class GameplayScene implements Scene {
     }
 
 
-   public void jumping() {
-        for (int i = 0; i < 25; i++){
+    public void jumping() {
+        for (int i = 0; i < 25; i++) {
             try {
                 wait(10);
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (platformManager.canIGoUp(playerPoint))
-           playerPoint.y -= 10;
+                playerPoint.y -= 10;
         }
     }
 
-    public void goingLeft(){
+    public void goingLeft() {
         int steps = 0;
         while (isGoingLeft && playerPoint.x > 50 && platformManager.canIGoLeft(playerPoint) && steps < 20) {
             playerPoint.x--;
@@ -79,7 +81,7 @@ public class GameplayScene implements Scene {
 
     }
 
-    public void goingRight(){
+    public void goingRight() {
         int steps = 0;
         while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && platformManager.canIGoRight(playerPoint) && steps < 20) {
             playerPoint.x++;
@@ -91,7 +93,7 @@ public class GameplayScene implements Scene {
             playerPoint.x += 20;*/
     }
 
-    public void gravity(){
+    public void gravity() {
 /*        fallingPlayer = player;
         fallingPlayer.getRectangle().bottom += 5;*/
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.canIGoDown(playerPoint))
@@ -124,7 +126,7 @@ public class GameplayScene implements Scene {
     }*/
 
     @Override
-    public void receiveTouch(MotionEvent event){
+    public void receiveTouch(MotionEvent event) {
 
         int pointerIndex = event.getActionIndex();
         int maskedAction = event.getActionMasked();
@@ -134,23 +136,23 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (upArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
                     jumping();
-                if (leftArrow.contains((int)event.getX(pointerIndex), (int)event.getY(pointerIndex)))
+                if (leftArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
                     isGoingLeft = true;
-                if (rightArrow.contains((int)event.getX(pointerIndex), (int)event.getY(pointerIndex)))
-                    isGoingRight =true;
+                if (rightArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
+                    isGoingRight = true;
                 break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
-                    isGoing = 0;
+                isGoing = 0;
 /*                if (isGoingRight && platformManager.playerCollidePlatform(biggerPlayer))
                     playerPoint.x -= 20;
                 if (isGoingLeft && platformManager.playerCollidePlatform(biggerPlayer))
                     playerPoint.x += 20;*/
-                    isGoingRight = false;
-                    isGoingLeft = false;
-                    szin=200;
+                isGoingRight = false;
+                isGoingLeft = false;
+                szin = 200;
                 break;
         }
     }
@@ -164,14 +166,14 @@ public class GameplayScene implements Scene {
         platformManager.draw(canvas);
 
         Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(szin,szin,szin));
+        arrowPaint.setColor(Color.rgb(szin, szin, szin));
         arrowPaint.setAlpha(100);
-        upArrow = new Rect(2000,850,2150,1000);
-        leftArrow = new Rect(50,850,200,1000);
-        rightArrow = new Rect(250,850,400,1000);
-        canvas.drawRect(upArrow,arrowPaint);
-        canvas.drawRect(leftArrow,arrowPaint);
-        canvas.drawRect(rightArrow,arrowPaint);
+        upArrow = new Rect(2000, 850, 2150, 1000);
+        leftArrow = new Rect(50, 850, 200, 1000);
+        rightArrow = new Rect(250, 850, 400, 1000);
+        canvas.drawRect(upArrow, arrowPaint);
+        canvas.drawRect(leftArrow, arrowPaint);
+        canvas.drawRect(rightArrow, arrowPaint);
 
         if (gameOver) {
             Paint paint = new Paint();
@@ -190,7 +192,7 @@ public class GameplayScene implements Scene {
             player.update(playerPoint);
             biggerPlayer.update(playerPoint);
             obstacleManager.update();
-            if (obstacleManager.playerCollide(player)){
+            if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }

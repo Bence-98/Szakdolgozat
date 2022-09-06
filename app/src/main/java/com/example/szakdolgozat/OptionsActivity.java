@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class OptionsActivity extends AppCompatActivity {
 
- //   StringBuilder textt = new StringBuilder();
+    //   StringBuilder textt = new StringBuilder();
 
 
 /*    private List<String> lvlCoords = new ArrayList();
@@ -85,9 +85,6 @@ public class OptionsActivity extends AppCompatActivity {
         textt = text;
         return text;
     }*/
-
-
-
 
 
     @Override

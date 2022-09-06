@@ -9,31 +9,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Beállítások">
-    </TextView>
+        android:text="Beállítások"></TextView>
 
     <TextView
         android:id="@+id/magassag"
         android:layout_width="500px"
         android:layout_height="250px"
-        android:layout_marginTop="200px"/>
+        android:layout_marginTop="200px" />
 
     <TextView
         android:id="@+id/szelesseg"
         android:layout_width="500px"
         android:layout_height="250px"
-        android:layout_marginTop="400px"/>
+        android:layout_marginTop="400px" />
 
     <TextView
         android:id="@+id/ido"
         android:layout_width="500px"
         android:layout_height="250px"
-        android:layout_marginTop="600px"/>
+        android:layout_marginTop="600px" />
 
     <TextView
         android:id="@+id/olvasas"
         android:layout_width="500px"
         android:layout_height="250px"
-        android:layout_marginTop="800px"/>
+        android:layout_marginTop="800px" />
 
 </RelativeLayout>
