@@ -44,7 +44,6 @@ public class GameplayScene implements Scene {
         goal = new Goal(currLvlCoords, Color.GREEN);
     }
 
-    // Load Next Level !!!
 
     public void nextLevel(){
         playerPoint.set(1000,940);
