@@ -15,13 +15,11 @@ public class GameplayScene implements Scene {
     private Player player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
-    private int isGoing;
     private Rect upArrow, leftArrow, rightArrow;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
-    private int[] currLvl;
-    private int[] currLvlObs;
+    private int currLvlStartingLine = 0;
 
 
     private boolean gameOver = false;
@@ -33,12 +31,13 @@ public class GameplayScene implements Scene {
         player.update(playerPoint);
 
         levelCoords = new LevelCoords();
-        currLvl = levelCoords.getLevelOne();
-        platformManager = new PlatformManager(currLvl, Color.BLACK);
+
+        int[] currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
+        platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
 
-        currLvl = levelCoords.getLevelOneObs();
-        obstacleManager = new ObstacleManager(currLvl, Color.RED);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+1);
+        obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
     }
 
     public void reset() {
@@ -107,7 +106,6 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
-                isGoing = 0;
                 isGoingRight = false;
                 isGoingLeft = false;
                 break;
