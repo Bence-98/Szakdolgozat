@@ -9,8 +9,8 @@ public class Goal implements GameObject{
     private Rect rectangle;
     private int color;
 
-
     public Rect getRectangle() {return rectangle;}
+
 
     public Goal(int[] coords, int color){
         this.color = color;

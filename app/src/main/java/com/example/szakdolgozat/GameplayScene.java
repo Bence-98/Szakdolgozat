@@ -20,6 +20,7 @@ public class GameplayScene implements Scene {
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
     private int currLvlStartingLine = 0;
+    private int[] currLvlCoords;
     private Goal goal;
 
     private boolean gameOver = false;
@@ -32,7 +33,7 @@ public class GameplayScene implements Scene {
 
         levelCoords = new LevelCoords();
 
-        int[] currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
 
@@ -45,6 +46,22 @@ public class GameplayScene implements Scene {
 
     // Load Next Level !!!
 
+    public void nextLevel(){
+        playerPoint.set(1000,940);
+        player.update(playerPoint);
+        currLvlStartingLine += 3;
+
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
+        platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
+
+
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+1);
+        obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
+
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+2);
+        goal = new Goal(currLvlCoords, Color.GREEN);
+
+    }
 
 
     public void reset() {
@@ -153,14 +170,13 @@ public class GameplayScene implements Scene {
         gravity();
         if (!gameOver) {
             player.update(playerPoint);
-            obstacleManager.update();
+            //obstacleManager.update();
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
-            if (goal.playerCollideGoal(player)){
-                currLvlStartingLine +=3;
             }
-
+            if (goal.playerCollideGoal(player)){
+                nextLevel();
             }
         }
         if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
