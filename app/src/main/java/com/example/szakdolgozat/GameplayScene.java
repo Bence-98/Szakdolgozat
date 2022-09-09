@@ -20,7 +20,7 @@ public class GameplayScene implements Scene {
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
     private int currLvlStartingLine = 0;
-
+    private Goal goal;
 
     private boolean gameOver = false;
     private long gameOverTime;
@@ -38,7 +38,14 @@ public class GameplayScene implements Scene {
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine+1);
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
+
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+2);
+        goal = new Goal(currLvlCoords, Color.GREEN);
     }
+
+    // Load Next Level !!!
+
+
 
     public void reset() {
         playerPoint = new Point(1000,940);
@@ -119,6 +126,7 @@ public class GameplayScene implements Scene {
         player.draw(canvas);
         obstacleManager.draw(canvas);
         platformManager.draw(canvas);
+        goal.draw(canvas);
 
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(125,125,125));
@@ -149,6 +157,10 @@ public class GameplayScene implements Scene {
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
+            if (goal.playerCollideGoal(player)){
+                currLvlStartingLine +=3;
+            }
+
             }
         }
         if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
