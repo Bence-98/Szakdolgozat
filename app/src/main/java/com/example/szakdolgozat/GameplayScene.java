@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class GameplayScene implements Scene {
@@ -37,16 +40,16 @@ public class GameplayScene implements Scene {
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+1);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+2);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         goal = new Goal(currLvlCoords, Color.GREEN);
     }
 
 
-    public void nextLevel(){
-        playerPoint.set(1000,940);
+    public void nextLevel() {
+        playerPoint.set(1000, 940);
         player.update(playerPoint);
         currLvlStartingLine += 3;
 
@@ -54,17 +57,17 @@ public class GameplayScene implements Scene {
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+1);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine+2);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         goal = new Goal(currLvlCoords, Color.GREEN);
 
     }
 
 
     public void reset() {
-        playerPoint = new Point(1000,940);
+        playerPoint = new Point(1000, 940);
         player.update(playerPoint);
     }
 
@@ -77,7 +80,7 @@ public class GameplayScene implements Scene {
     public void jumping() {
         for (int i = 0; i < 25; i++) {
             try {
-                wait(10);
+                Thread.sleep(5);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -106,7 +109,6 @@ public class GameplayScene implements Scene {
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.canIGoDown(playerPoint))
             playerPoint.y += 10;
     }
-
 
 
     @Override
@@ -145,7 +147,7 @@ public class GameplayScene implements Scene {
         goal.draw(canvas);
 
         Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(125,125,125));
+        arrowPaint.setColor(Color.rgb(125, 125, 125));
         arrowPaint.setAlpha(100);
         upArrow = new Rect(2000, 850, 2150, 1000);
         leftArrow = new Rect(50, 850, 200, 1000);
@@ -174,7 +176,7 @@ public class GameplayScene implements Scene {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }
-            if (goal.playerCollideGoal(player)){
+            if (goal.playerCollideGoal(player)) {
                 nextLevel();
             }
         }
