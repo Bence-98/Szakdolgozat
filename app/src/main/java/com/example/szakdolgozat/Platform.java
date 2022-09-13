@@ -10,8 +10,8 @@ public class Platform implements GameObject {
 
     private Rect platform;
     private int color;
-/*    private Animation justGrass;
-    private AnimationManager animationManager;*/
+    private Animation justGrass;
+    private AnimationManager animationManager;
 
     public Rect getPlatform() {
         return platform;
@@ -22,12 +22,12 @@ public class Platform implements GameObject {
         this.color = color;
         platform = new Rect(pLeft, pTop, pRight, pBottom);
 
-/*        BitmapFactory bf = new BitmapFactory();
+        BitmapFactory bf = new BitmapFactory();
         Bitmap grass = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.grass);
 
         justGrass = new Animation(new Bitmap[]{grass},2);
 
-        animationManager = new AnimationManager(new Animation[]{justGrass});*/
+        animationManager = new AnimationManager(new Animation[]{justGrass});
     }
 
     public boolean playerCollidePlatform(Player player) {
@@ -42,9 +42,11 @@ public class Platform implements GameObject {
         //animationManager.draw(canvas,platform);
     }
 
+
+
     @Override
     public void update() {
-
+        //animationManager.update();
     }
 
 }

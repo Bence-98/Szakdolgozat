@@ -22,7 +22,7 @@ public class GameplayScene implements Scene {
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
-    private int currLvlStartingLine = 0;
+    private int currLvlStartingLine = -3;
     private int[] currLvlCoords;
     private Goal goal;
 
@@ -32,11 +32,12 @@ public class GameplayScene implements Scene {
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
         playerPoint = new Point(1000, 940);
-        player.update(playerPoint);
+        //player.update(playerPoint);
 
         levelCoords = new LevelCoords();
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
+        nextLevel();
+/*        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
 
@@ -44,7 +45,7 @@ public class GameplayScene implements Scene {
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
-        goal = new Goal(currLvlCoords, Color.GREEN);
+        goal = new Goal(currLvlCoords, Color.GREEN);*/
     }
 
 
@@ -106,8 +107,8 @@ public class GameplayScene implements Scene {
     }
 
     public void gravity() {
-        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50 && platformManager.canIGoDown(playerPoint))
-            playerPoint.y += 10;
+        if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
+            playerPoint.y += platformManager.canIGoDown(playerPoint);
     }
 
 

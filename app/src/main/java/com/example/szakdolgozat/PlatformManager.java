@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class PlatformManager {
     private ArrayList<Platform> platforms;
+    private AnimationManager animationManager;
 
     public PlatformManager(int[] level, int color) {
         platforms = new ArrayList<>();
@@ -37,11 +38,12 @@ public class PlatformManager {
         return true;
     }
 
-    public boolean canIGoDown(Point point) {
+
+    public int canIGoDown(Point point){
         for (Platform pf : platforms)
             if (pf.getPlatform().contains(point.x + 50, point.y + 60) || pf.getPlatform().contains(point.x - 50, point.y + 60))
-                return false;
-        return true;
+                return pf.getPlatform().top-(point.y+51);
+            return 10;
     }
 
     public boolean canIGoUp(Point point) {
@@ -55,5 +57,6 @@ public class PlatformManager {
     public void draw(Canvas canvas) {
         for (Platform pf : platforms)
             pf.draw(canvas);
+            //animationManager.draw(canvas, pf.getPlatform());
     }
 }
