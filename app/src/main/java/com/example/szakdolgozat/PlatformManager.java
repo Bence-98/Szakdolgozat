@@ -57,6 +57,10 @@ public class PlatformManager {
     public void draw(Canvas canvas) {
         for (Platform pf : platforms)
             pf.draw(canvas);
-            //animationManager.draw(canvas, pf.getPlatform());
+    }
+
+    public void update(){
+/*        for (Platform pf : platforms)
+            pf.update();*/
     }
 }

@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.MotionEvent;
 
-import java.util.concurrent.TimeUnit;
 
 
 public class GameplayScene implements Scene {
@@ -25,6 +23,7 @@ public class GameplayScene implements Scene {
     private int currLvlStartingLine = -3;
     private int[] currLvlCoords;
     private Goal goal;
+
 
     private boolean gameOver = false;
     private long gameOverTime;
