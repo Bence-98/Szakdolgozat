@@ -27,27 +27,18 @@ public class GameplayScene implements Scene {
     private int actualPositionX;
     private Background background;
 
-
+    private boolean goalReached = false;
     private boolean gameOver = false;
     private long gameOverTime;
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
         playerPoint = new Point(250, 940);
-        //player.update(playerPoint);
 
         levelCoords = new LevelCoords();
         background = new Background();
         nextLevel();
-/*        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
-        platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
-
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
-        obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
-
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
-        goal = new Goal(currLvlCoords, Color.GREEN);*/
     }
 
 
@@ -55,7 +46,7 @@ public class GameplayScene implements Scene {
         playerPoint.set(250, 940);
         player.update(playerPoint);
         currLvlStartingLine += 3;
-
+        background.reset();
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
@@ -70,8 +61,6 @@ public class GameplayScene implements Scene {
 
 
     public void reset() {
-        //playerPoint = new Point(1000, 940);
-        //player.update(playerPoint);
         currLvlStartingLine -=3;
         nextLevel();
     }
@@ -104,7 +93,8 @@ public class GameplayScene implements Scene {
 
     public void goingRight() {
         int steps = 0;
-        while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && platformManager.canIGoRight(playerPoint) && steps < 20) {
+        if (!gameOver && !goalReached)
+        while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
             if (playerPoint.x > 750) {
                 actualPositionX++;
                 background.update(actualPositionX);
@@ -116,6 +106,7 @@ public class GameplayScene implements Scene {
             playerPoint.x++;
             steps++;
         }
+
 
     }
 
@@ -165,7 +156,7 @@ public class GameplayScene implements Scene {
         goal.draw(canvas);
 
         Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(125, 125, 125));
+        arrowPaint.setColor(Color.rgb(255, 125, 125));
         arrowPaint.setAlpha(100);
         upArrow = new Rect(2000, 850, 2150, 1000);
         leftArrow = new Rect(50, 850, 200, 1000);
@@ -177,8 +168,14 @@ public class GameplayScene implements Scene {
         if (gameOver) {
             Paint paint = new Paint();
             paint.setTextSize(100);
-            paint.setColor(Color.GREEN);
+            paint.setColor(Color.RED);
             drawCenterText(canvas, paint, "Game Over");
+        }
+        if (goalReached){
+            Paint paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.GREEN);
+            drawCenterText(canvas, paint, "Good job");
         }
     }
 
@@ -187,7 +184,7 @@ public class GameplayScene implements Scene {
         goingLeft();
         goingRight();
         gravity();
-        if (!gameOver) {
+        if (!gameOver && !goalReached) {
             player.update(playerPoint);
             //obstacleManager.update();
             if (obstacleManager.playerCollide(player)) {
@@ -195,12 +192,17 @@ public class GameplayScene implements Scene {
                 gameOverTime = System.currentTimeMillis();
             }
             if (goal.playerCollideGoal(player)) {
-                nextLevel();
+                goalReached = true;
+                gameOverTime = System.currentTimeMillis();
             }
         }
         if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
             reset();
             gameOver = false;
+        }
+        if (goalReached && System.currentTimeMillis() - gameOverTime > 1000){
+            nextLevel();
+            goalReached = false;
         }
     }
 

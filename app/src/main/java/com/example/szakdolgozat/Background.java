@@ -7,8 +7,8 @@ import android.graphics.Canvas;
 
 public class Background {
 
-    int landscapeX = 0, buildingsX = 0;
-    Bitmap landscape, buildings;
+    private int landscapeX = 0, buildingsX = 0;
+    private Bitmap landscape, buildings;
 
 
     public Background() {
@@ -39,5 +39,9 @@ public class Background {
             buildingsX = 0;
     }
 
+    public void reset(){
+        landscapeX = 0;
+        buildingsX = 0;
+    }
 
 }
