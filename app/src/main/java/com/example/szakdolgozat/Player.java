@@ -18,6 +18,8 @@ public class Player implements GameObject {
     private Animation jumpRight;
     private Animation jumpLeft;
     private AnimationManager animManager;
+    private int actualPositionX;
+
 
 
     public Rect getRectangle() {
@@ -58,6 +60,10 @@ public class Player implements GameObject {
 
     }
 
+    public void movingPlatforms(int x){
+        actualPositionX = x;
+    }
+
     @Override
     public void draw(Canvas canvas) {
        /* Paint paint = new Paint();
@@ -74,6 +80,8 @@ public class Player implements GameObject {
     public void update(Point point) {
         float oldLeft = rectangle.left;
         float oldBottom = rectangle.bottom;
+        float oldLeftX = rectangle.left;
+
 
         //l,t,r,b
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);

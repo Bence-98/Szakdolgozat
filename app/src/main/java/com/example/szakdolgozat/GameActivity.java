@@ -6,6 +6,8 @@ import android.util.DisplayMetrics;
 
 public class GameActivity extends Activity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,6 +17,10 @@ public class GameActivity extends Activity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
 
+
         setContentView(new GamePanel(this));
     }
+
+
+
 }

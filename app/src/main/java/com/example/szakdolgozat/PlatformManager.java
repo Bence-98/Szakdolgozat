@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class PlatformManager {
     private ArrayList<Platform> platforms;
-    private AnimationManager animationManager;
+    //private AnimationManager animationManager;
 
     public PlatformManager(int[] level, int color) {
         platforms = new ArrayList<>();
@@ -60,7 +60,9 @@ public class PlatformManager {
     }
 
     public void update(){
-/*        for (Platform pf : platforms)
-            pf.update();*/
+        for (Platform pf: platforms) {
+            pf.getPlatform().left--;
+            pf.getPlatform().right--;
+        }
     }
 }

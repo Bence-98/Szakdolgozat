@@ -31,7 +31,10 @@ public class ObstacleManager {
 
 
     public void update() {
-
+        for (Obstacle ob: obstacles) {
+            ob.getRectangle().left--;
+            ob.getRectangle().right--;
+        }
     }
 
     public void draw(Canvas canvas) {

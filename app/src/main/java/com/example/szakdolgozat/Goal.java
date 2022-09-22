@@ -30,6 +30,8 @@ public class Goal implements GameObject{
 
     @Override
     public void update() {
+        rectangle.left--;
+        rectangle.right--;
 
     }
 }

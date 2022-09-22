@@ -23,6 +23,9 @@ public class GameplayScene implements Scene {
     private int currLvlStartingLine = -3;
     private int[] currLvlCoords;
     private Goal goal;
+    private int movingId;
+    private int actualPositionX;
+    private Background background;
 
 
     private boolean gameOver = false;
@@ -30,11 +33,11 @@ public class GameplayScene implements Scene {
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
-        playerPoint = new Point(1000, 940);
+        playerPoint = new Point(250, 940);
         //player.update(playerPoint);
 
         levelCoords = new LevelCoords();
-
+        background = new Background();
         nextLevel();
 /*        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
@@ -49,7 +52,7 @@ public class GameplayScene implements Scene {
 
 
     public void nextLevel() {
-        playerPoint.set(1000, 940);
+        playerPoint.set(250, 940);
         player.update(playerPoint);
         currLvlStartingLine += 3;
 
@@ -67,8 +70,10 @@ public class GameplayScene implements Scene {
 
 
     public void reset() {
-        playerPoint = new Point(1000, 940);
-        player.update(playerPoint);
+        //playerPoint = new Point(1000, 940);
+        //player.update(playerPoint);
+        currLvlStartingLine -=3;
+        nextLevel();
     }
 
     @Override
@@ -100,9 +105,18 @@ public class GameplayScene implements Scene {
     public void goingRight() {
         int steps = 0;
         while (isGoingRight && playerPoint.x + 50 < Constants.SCREEN_WIDTH && platformManager.canIGoRight(playerPoint) && steps < 20) {
+            if (playerPoint.x > 750) {
+                actualPositionX++;
+                background.update(actualPositionX);
+                platformManager.update();
+                obstacleManager.update();
+                goal.update();
+                player.movingPlatforms(actualPositionX);
+            } else
             playerPoint.x++;
             steps++;
         }
+
     }
 
     public void gravity() {
@@ -114,25 +128,28 @@ public class GameplayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
 
-        int pointerIndex = event.getActionIndex();
-        int maskedAction = event.getActionMasked();
-
-        switch (maskedAction) {
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                if (upArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
+                if (upArrow.contains((int) event.getX(), (int) event.getY()))
                     jumping();
-                if (leftArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
+                if (leftArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     isGoingLeft = true;
-                if (rightArrow.contains((int) event.getX(pointerIndex), (int) event.getY(pointerIndex)))
+                    movingId = event.getPointerId(event.getActionIndex());
+                }
+                if (rightArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     isGoingRight = true;
+                    movingId = event.getPointerId(event.getActionIndex());
+                }
                 break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
-                isGoingRight = false;
-                isGoingLeft = false;
+                if (movingId == event.getPointerId(event.getActionIndex())) {
+                    isGoingRight = false;
+                    isGoingLeft = false;
+                }
                 break;
         }
     }
@@ -140,10 +157,11 @@ public class GameplayScene implements Scene {
     @Override
     public void draw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
+        background.draw(canvas);
 
         player.draw(canvas);
-        obstacleManager.draw(canvas);
         platformManager.draw(canvas);
+        obstacleManager.draw(canvas);
         goal.draw(canvas);
 
         Paint arrowPaint = new Paint();
