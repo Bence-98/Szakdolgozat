@@ -23,7 +23,7 @@ public class GameplayScene implements Scene {
     private int currLvlStartingLine = -3;
     private int[] currLvlCoords;
     private Goal goal;
-    private int movingId;
+    private int movingId = 0;
     private int actualPositionX;
     private Background background;
 
@@ -44,7 +44,7 @@ public class GameplayScene implements Scene {
 
     public void nextLevel() {
         playerPoint.set(250, 940);
-        player.update(playerPoint);
+        player.update(playerPoint, true, isGoingLeft);
         currLvlStartingLine += 3;
         background.reset();
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
@@ -118,7 +118,7 @@ public class GameplayScene implements Scene {
 
     @Override
     public void receiveTouch(MotionEvent event) {
-
+        //movingId = 0;
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
@@ -136,7 +136,6 @@ public class GameplayScene implements Scene {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
-            case MotionEvent.ACTION_CANCEL:
                 if (movingId == event.getPointerId(event.getActionIndex())) {
                     isGoingRight = false;
                     isGoingLeft = false;
@@ -185,7 +184,7 @@ public class GameplayScene implements Scene {
         goingRight();
         gravity();
         if (!gameOver && !goalReached) {
-            player.update(playerPoint);
+            player.update(playerPoint, isGoingRight,isGoingLeft);
             //obstacleManager.update();
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;

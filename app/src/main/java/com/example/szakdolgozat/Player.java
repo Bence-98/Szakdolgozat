@@ -19,6 +19,7 @@ public class Player implements GameObject {
     private Animation jumpLeft;
     private AnimationManager animManager;
     private int actualPositionX;
+    private int state = 0;
 
 
 
@@ -77,31 +78,37 @@ public class Player implements GameObject {
         animManager.update();
     }
 
-    public void update(Point point) {
-        float oldLeft = rectangle.left;
-        float oldBottom = rectangle.bottom;
-        float oldLeftX = rectangle.left;
 
+    public void update(Point point, boolean right, boolean left) {
+        float oldBottom = rectangle.bottom;
 
         //l,t,r,b
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
 
-        int state = 0;
+        //int state = 0;
         if (rectangle.bottom - oldBottom == 0) {
-            if (rectangle.left - oldLeft > 5)
+            if (right)
                 state = 1;
-            else if (rectangle.left - oldLeft < -5)
+            else if (left)
                 state = 2;
         } else {
-            if (rectangle.left - oldLeft > 5)
+            if (right)
                 state = 3;
-            else if (rectangle.left - oldLeft < -5)
+            else if (left)
                 state = 4;
         }
 
+        if (right||left){
         animManager.playAnim(state);
-        animManager.update();
-    }
+        animManager.update();}
 
+        if (!right && !left){
+            if (state == 3)
+                state = 1;
+            if (state == 4)
+                state = 2;
+            animManager.playAnim(state);
+        }
+    }
 
 }
