@@ -2,6 +2,7 @@ package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,23 @@ public class PlatformManager {
         }
     }
 
+    public ArrayList getArray() {
+        return platforms;
+    }
+
 /*    public boolean playerCollidePlatform(Player player) {
         for (Platform pf : platforms)
             if (pf.playerCollidePlatform(player))
                 return true;
         return false;
     }*/
+
+    public boolean projectileCollidePlatform(Projectile projectile) {
+        for (Platform pf : platforms)
+            if (Rect.intersects(pf.getPlatform(), projectile.getRect()))
+                return true;
+        return false;
+    }
 
     public boolean canIGoRight(Point point) {
         for (Platform pf : platforms)
@@ -39,11 +51,11 @@ public class PlatformManager {
     }
 
 
-    public int canIGoDown(Point point){
+    public int canIGoDown(Point point) {
         for (Platform pf : platforms)
             if (pf.getPlatform().contains(point.x + 50, point.y + 60) || pf.getPlatform().contains(point.x - 50, point.y + 60))
-                return pf.getPlatform().top-(point.y+51);
-            return 10;
+                return pf.getPlatform().top - (point.y + 51);
+        return 15;
     }
 
     public boolean canIGoUp(Point point) {
@@ -59,8 +71,8 @@ public class PlatformManager {
             pf.draw(canvas);
     }
 
-    public void update(){
-        for (Platform pf: platforms) {
+    public void update() {
+        for (Platform pf : platforms) {
             pf.getPlatform().left--;
             pf.getPlatform().right--;
         }

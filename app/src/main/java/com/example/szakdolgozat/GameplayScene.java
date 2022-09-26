@@ -7,6 +7,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameplayScene implements Scene {
@@ -16,7 +18,7 @@ public class GameplayScene implements Scene {
     private Player player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
-    private Rect upArrow, leftArrow, rightArrow;
+    private Rect upArrow, leftArrow, rightArrow, fireButton;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
@@ -26,6 +28,8 @@ public class GameplayScene implements Scene {
     private int movingId = 0;
     private int actualPositionX;
     private Background background;
+    private ProjectileManager projectileManager;
+    private CollisionDetection collisionDetection;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -39,6 +43,7 @@ public class GameplayScene implements Scene {
         background = new Background();
         nextLevel();
 
+
     }
 
 
@@ -50,18 +55,22 @@ public class GameplayScene implements Scene {
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
-
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         goal = new Goal(currLvlCoords, Color.GREEN);
 
+
+        projectileManager = new ProjectileManager();
+
+        collisionDetection = new CollisionDetection(platformManager,obstacleManager,goal, projectileManager);
+
     }
 
 
     public void reset() {
-        currLvlStartingLine -=3;
+        currLvlStartingLine -= 3;
         nextLevel();
     }
 
@@ -72,15 +81,18 @@ public class GameplayScene implements Scene {
 
 
     public void jumping() {
-        for (int i = 0; i < 25; i++) {
-            try {
-                Thread.sleep(5);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (platformManager.canIGoDown(playerPoint) == 0)
+            for (int i = 0; i < 25; i++) {
+                try {
+                    Thread.sleep(5);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (platformManager.canIGoUp(playerPoint))
+                    playerPoint.y -= 15;
             }
-            if (platformManager.canIGoUp(playerPoint))
-                playerPoint.y -= 10;
-        }
+
+
     }
 
     public void goingLeft() {
@@ -94,18 +106,18 @@ public class GameplayScene implements Scene {
     public void goingRight() {
         int steps = 0;
         if (!gameOver && !goalReached)
-        while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
-            if (playerPoint.x > 750) {
-                actualPositionX++;
-                background.update(actualPositionX);
-                platformManager.update();
-                obstacleManager.update();
-                goal.update();
-                player.movingPlatforms(actualPositionX);
-            } else
-            playerPoint.x++;
-            steps++;
-        }
+            while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
+                if (playerPoint.x > 750) {
+                    actualPositionX++;
+                    background.update(actualPositionX);
+                    platformManager.update();
+                    obstacleManager.update();
+                    goal.update();
+                    player.movingPlatforms(actualPositionX);
+                } else
+                    playerPoint.x++;
+                steps++;
+            }
 
 
     }
@@ -122,7 +134,7 @@ public class GameplayScene implements Scene {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                if (upArrow.contains((int) event.getX(), (int) event.getY()))
+                if (upArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex())))
                     jumping();
                 if (leftArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     isGoingLeft = true;
@@ -132,7 +144,13 @@ public class GameplayScene implements Scene {
                     isGoingRight = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
-                break;
+                if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                    if (player.getDirection())
+                        projectileManager.fire(playerPoint.x + 50, playerPoint.y, player.getDirection());
+                    else
+                        projectileManager.fire(playerPoint.x - 50, playerPoint.y, player.getDirection());
+                }
+                    break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
@@ -150,6 +168,7 @@ public class GameplayScene implements Scene {
         background.draw(canvas);
 
         player.draw(canvas);
+        projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
         goal.draw(canvas);
@@ -160,9 +179,11 @@ public class GameplayScene implements Scene {
         upArrow = new Rect(2000, 850, 2150, 1000);
         leftArrow = new Rect(50, 850, 200, 1000);
         rightArrow = new Rect(250, 850, 400, 1000);
+        fireButton = new Rect(2000, 650, 2150, 800);
         canvas.drawRect(upArrow, arrowPaint);
         canvas.drawRect(leftArrow, arrowPaint);
         canvas.drawRect(rightArrow, arrowPaint);
+        canvas.drawRect(fireButton, arrowPaint);
 
         if (gameOver) {
             Paint paint = new Paint();
@@ -170,7 +191,7 @@ public class GameplayScene implements Scene {
             paint.setColor(Color.RED);
             drawCenterText(canvas, paint, "Game Over");
         }
-        if (goalReached){
+        if (goalReached) {
             Paint paint = new Paint();
             paint.setTextSize(100);
             paint.setColor(Color.GREEN);
@@ -184,8 +205,9 @@ public class GameplayScene implements Scene {
         goingRight();
         gravity();
         if (!gameOver && !goalReached) {
-            player.update(playerPoint, isGoingRight,isGoingLeft);
-            //obstacleManager.update();
+            player.update(playerPoint, isGoingRight, isGoingLeft);
+            projectileManager.update();
+            collisionDetection.bulletCollision();
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
@@ -199,7 +221,7 @@ public class GameplayScene implements Scene {
             reset();
             gameOver = false;
         }
-        if (goalReached && System.currentTimeMillis() - gameOverTime > 1000){
+        if (goalReached && System.currentTimeMillis() - gameOverTime > 1000) {
             nextLevel();
             goalReached = false;
         }

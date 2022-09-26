@@ -26,6 +26,7 @@ public class Goal implements GameObject{
         return Rect.intersects(rectangle, player.getRectangle());
     }
 
+
     @Override
     public void draw(Canvas canvas) {
         /*Paint paint = new Paint();

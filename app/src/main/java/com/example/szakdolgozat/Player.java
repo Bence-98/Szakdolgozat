@@ -73,6 +73,12 @@ public class Player implements GameObject {
         animManager.draw(canvas, rectangle);
     }
 
+    public boolean getDirection(){
+        if (state == 1 || state == 3)
+            return true;
+        else return false;
+    }
+
     @Override
     public void update() {
         animManager.update();
