@@ -30,6 +30,7 @@ public class GameplayScene implements Scene {
     private Background background;
     private ProjectileManager projectileManager;
     private CollisionDetection collisionDetection;
+    private long lastFire;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -37,7 +38,7 @@ public class GameplayScene implements Scene {
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
-        playerPoint = new Point(250, 940);
+        playerPoint = new Point(200, 440);
 
         levelCoords = new LevelCoords();
         background = new Background();
@@ -48,10 +49,11 @@ public class GameplayScene implements Scene {
 
 
     public void nextLevel() {
-        playerPoint.set(250, 940);
+        playerPoint.set(200, 440);
         player.update(playerPoint, true, isGoingLeft);
         currLvlStartingLine += 3;
         background.reset();
+        actualPositionX = 0;
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
 
@@ -64,7 +66,7 @@ public class GameplayScene implements Scene {
 
         projectileManager = new ProjectileManager();
 
-        collisionDetection = new CollisionDetection(platformManager,obstacleManager,goal, projectileManager);
+        collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager);
 
     }
 
@@ -107,7 +109,7 @@ public class GameplayScene implements Scene {
         int steps = 0;
         if (!gameOver && !goalReached)
             while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
-                if (playerPoint.x > 750) {
+                if (playerPoint.x > 750 && actualPositionX <= 9500 - Constants.SCREEN_WIDTH) {
                     actualPositionX++;
                     background.update(actualPositionX);
                     platformManager.update();
@@ -145,12 +147,15 @@ public class GameplayScene implements Scene {
                     movingId = event.getPointerId(event.getActionIndex());
                 }
                 if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
-                    if (player.getDirection())
-                        projectileManager.fire(playerPoint.x + 50, playerPoint.y, player.getDirection());
-                    else
-                        projectileManager.fire(playerPoint.x - 50, playerPoint.y, player.getDirection());
+                    if (lastFire < System.currentTimeMillis() - 1000) {
+                        if (player.getDirection())
+                            projectileManager.fire(playerPoint.x + 50, playerPoint.y, player.getDirection());
+                        else
+                            projectileManager.fire(playerPoint.x - 50, playerPoint.y, player.getDirection());
+                        lastFire = System.currentTimeMillis();
+                    }
                 }
-                    break;
+                break;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:

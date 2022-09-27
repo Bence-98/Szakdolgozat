@@ -22,26 +22,26 @@ public class Projectile implements GameObject {
         bullet = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.bullet);
         bullet = Bitmap.createScaledBitmap(bullet, 16, 16, false);
 
-        if (direction == true) {
+        if (direction) {
             Matrix m = new Matrix();
             m.preScale(-1, 1);
             bullet = Bitmap.createBitmap(bullet, 0, 0, bullet.getWidth(), bullet.getHeight(), m, false);
         }
     }
 
-    public Rect getRect(){
+    public Rect getRect() {
         return rect;
     }
 
 
     @Override
     public void update() {
-        if (direction){
-            rect.left += 20;
-            rect.right += 20;
-        }else{
-            rect.left -= 20;
-            rect.right -= 20;
+        if (direction) {
+            rect.left += 25;
+            rect.right += 25;
+        } else {
+            rect.left -= 25;
+            rect.right -= 25;
         }
     }
 

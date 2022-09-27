@@ -29,6 +29,7 @@ public class CollisionDetection {
     }
 
     public void update() {
+        if (!projectiles.isEmpty())
         bulletCollision();
     }
 
