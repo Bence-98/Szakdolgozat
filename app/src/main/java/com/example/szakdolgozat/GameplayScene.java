@@ -22,7 +22,7 @@ public class GameplayScene implements Scene {
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
-    private int currLvlStartingLine = -3;
+    private int currLvlStartingLine = -4;
     private int[] currLvlCoords;
     private Goal goal;
     private int movingId = 0;
@@ -31,6 +31,7 @@ public class GameplayScene implements Scene {
     private ProjectileManager projectileManager;
     private CollisionDetection collisionDetection;
     private long lastFire;
+    private EnemyManager enemyManager;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -51,7 +52,7 @@ public class GameplayScene implements Scene {
     public void nextLevel() {
         playerPoint.set(200, 440);
         player.update(playerPoint, true, isGoingLeft);
-        currLvlStartingLine += 3;
+        currLvlStartingLine += 4;
         background.reset();
         actualPositionX = 0;
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
@@ -61,8 +62,10 @@ public class GameplayScene implements Scene {
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
-        goal = new Goal(currLvlCoords, Color.GREEN);
+        enemyManager = new EnemyManager(currLvlCoords);
 
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
+        goal = new Goal(currLvlCoords, Color.GREEN);
 
         projectileManager = new ProjectileManager();
 
@@ -72,7 +75,7 @@ public class GameplayScene implements Scene {
 
 
     public void reset() {
-        currLvlStartingLine -= 3;
+        currLvlStartingLine -= 4;
         nextLevel();
     }
 
@@ -114,6 +117,7 @@ public class GameplayScene implements Scene {
                     background.update(actualPositionX);
                     platformManager.update();
                     obstacleManager.update();
+                    enemyManager.floatLeft();
                     goal.update();
                     player.movingPlatforms(actualPositionX);
                 } else
@@ -172,11 +176,13 @@ public class GameplayScene implements Scene {
         canvas.drawColor(Color.WHITE);
         background.draw(canvas);
 
-        player.draw(canvas);
+
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
         goal.draw(canvas);
+        enemyManager.draw(canvas);
+        player.draw(canvas);
 
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(255, 125, 125));
@@ -213,6 +219,7 @@ public class GameplayScene implements Scene {
             player.update(playerPoint, isGoingRight, isGoingLeft);
             projectileManager.update();
             collisionDetection.bulletCollision();
+            enemyManager.update();
             if (obstacleManager.playerCollide(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();

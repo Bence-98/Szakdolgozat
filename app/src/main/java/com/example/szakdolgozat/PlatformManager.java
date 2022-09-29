@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class PlatformManager {
     private ArrayList<Platform> platforms;
-    //private AnimationManager animationManager;
+
 
     public PlatformManager(int[] level, int color) {
         platforms = new ArrayList<>();

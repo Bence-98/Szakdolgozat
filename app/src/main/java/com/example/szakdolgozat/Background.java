@@ -7,41 +7,57 @@ import android.graphics.Canvas;
 
 public class Background {
 
-    private int landscapeX = 0, buildingsX = 0;
-    private Bitmap landscape, buildings;
+    private int skyX = 0, rocksX = 0, cloudsX = 0;
+    private Bitmap sky, rocks, clouds;
 
 
     public Background() {
-        landscape = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.landscape);
-        buildings = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.buildings);
+        sky = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sky);
+        rocks = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.rocks);
+        clouds = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.clouds);
 
-        landscape = Bitmap.createScaledBitmap(landscape, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
-        buildings = Bitmap.createScaledBitmap(buildings, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
+
+        sky = Bitmap.createScaledBitmap(sky, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
+        rocks = Bitmap.createScaledBitmap(rocks, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
+        clouds = Bitmap.createScaledBitmap(clouds, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
+
 
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(landscape, landscapeX, 0, null);
-        canvas.drawBitmap(landscape, landscapeX + Constants.SCREEN_WIDTH, 0, null);
-        canvas.drawBitmap(buildings, buildingsX, 0, null);
-        canvas.drawBitmap(buildings, buildingsX + Constants.SCREEN_WIDTH, 0, null);
+        canvas.drawBitmap(sky, skyX, 0, null);
+        canvas.drawBitmap(sky, skyX + Constants.SCREEN_WIDTH, 0, null);
+
+        canvas.drawBitmap(rocks, rocksX, 0, null);
+        canvas.drawBitmap(rocks, rocksX + Constants.SCREEN_WIDTH, 0, null);
+        canvas.drawBitmap(clouds, cloudsX, 0, null);
+        canvas.drawBitmap(clouds, cloudsX + Constants.SCREEN_WIDTH, 0, null);
+
 
     }
 
     public void update(int scale) {
+        if (scale % 20 == 0)
+            skyX -= 1;
         if (scale % 10 == 0)
-        landscapeX -= 1;
+            rocksX -= 2;
         if (scale % 5 == 0)
-        buildingsX -= 2;
-        if (landscapeX < -Constants.SCREEN_WIDTH)
-            landscapeX = 0;
-        if (buildingsX < -Constants.SCREEN_WIDTH)
-            buildingsX = 0;
+            cloudsX -= 2;
+
+        if (skyX < -Constants.SCREEN_WIDTH)
+            skyX = 0;
+        if (rocksX < -Constants.SCREEN_WIDTH)
+            rocksX = 0;
+        if (cloudsX < -Constants.SCREEN_WIDTH)
+            cloudsX = 0;
+
     }
 
-    public void reset(){
-        landscapeX = 0;
-        buildingsX = 0;
+    public void reset() {
+        skyX = 0;
+        rocksX = 0;
+        cloudsX = 0;
+
     }
 
 }
