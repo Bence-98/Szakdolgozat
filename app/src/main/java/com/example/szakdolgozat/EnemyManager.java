@@ -11,9 +11,11 @@ public class EnemyManager {
     public EnemyManager(int[] level) {
         enemies = new ArrayList<>();
         spriteSheet = new SpriteSheet(Constants.CURRENT_CONTEXT);
+        Animator animator = new Animator(spriteSheet.getEnemySpriteArray());
+
 
         for (int i = 0; level.length - 1 > i; i += 5) {
-            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i+4], spriteSheet.getEnemySprite()));
+            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i+4], animator));
         }
     }
 

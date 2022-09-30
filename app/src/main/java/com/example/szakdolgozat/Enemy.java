@@ -1,8 +1,7 @@
 package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+
 import android.graphics.Rect;
 
 
@@ -13,16 +12,16 @@ public class Enemy implements GameObject {
     private boolean direction = true;
     private int x = 0;
     private int speed = 5;
-    private Sprite sprite;
+    private Animator animator;
 
     public Rect getEnemy() {
         return enemy;
     }
 
-    public Enemy(int left, int top, int right, int bottom, int distance, Sprite sprite) {
+    public Enemy(int left, int top, int right, int bottom, int distance, Animator animator) {
         this.distance = distance;
         enemy = new Rect(left, top, right, bottom);
-        this.sprite = sprite;
+        this.animator = animator;
     }
 
     @Override
@@ -30,10 +29,12 @@ public class Enemy implements GameObject {
 /*        Paint paint = new Paint();
         paint.setColor(Color.MAGENTA);
         canvas.drawRect(enemy, paint);*/
-
-        sprite.draw(canvas,enemy);
+        animator.draw(canvas, this);
     }
 
+    public boolean getDirection(){
+        return direction;
+    }
 
     @Override
     public void update() {
