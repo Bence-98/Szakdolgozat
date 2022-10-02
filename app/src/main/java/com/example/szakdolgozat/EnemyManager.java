@@ -1,6 +1,7 @@
 package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 
@@ -15,22 +16,33 @@ public class EnemyManager {
 
 
         for (int i = 0; level.length - 1 > i; i += 5) {
-            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i+4], animator));
+            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i + 4], animator));
         }
     }
 
-    public void draw(Canvas canvas){
-        for (Enemy nmy: enemies)
+    public Enemy profectileCollideEnemy(Projectile projectile) {
+        for (Enemy nmy : enemies)
+            if (Rect.intersects(nmy.getEnemy(), projectile.getRect()))
+                return nmy;
+        return null;
+    }
+
+    public void die(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    public void draw(Canvas canvas) {
+        for (Enemy nmy : enemies)
             nmy.draw(canvas);
     }
 
-    public void update(){
-        for (Enemy nmy: enemies)
+    public void update() {
+        for (Enemy nmy : enemies)
             nmy.update();
     }
 
-    public void floatLeft(){
-        for (Enemy nmy : enemies){
+    public void floatLeft() {
+        for (Enemy nmy : enemies) {
             nmy.getEnemy().left--;
             nmy.getEnemy().right--;
         }

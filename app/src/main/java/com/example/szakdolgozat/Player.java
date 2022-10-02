@@ -42,7 +42,7 @@ public class Player implements GameObject {
         setPlayerState(PlayerState.IDLE_RIGHT);
 
 
-      /*  BitmapFactory bf = new BitmapFactory();
+        BitmapFactory bf = new BitmapFactory();
         Bitmap idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue);
         Bitmap walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk1);
         Bitmap walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
@@ -69,7 +69,6 @@ public class Player implements GameObject {
         jumpLeft = new Animation(new Bitmap[]{jump}, 1);
 
         animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});
-*/
     }
 
     public void movingPlatforms(int x) {
@@ -78,12 +77,12 @@ public class Player implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
+/*        Paint paint = new Paint();
         paint.setColor(Color.BLUE);
-        canvas.drawRect(rectangle, paint);
-        if (playerState == PlayerState.WALK_RIGHT)
-        animator.draw(canvas, rectangle, 5);
-        //animManager.draw(canvas, rectangle);
+        canvas.drawRect(rectangle, paint);*/
+        //if (playerState == PlayerState.WALK_RIGHT)
+        //animator.draw(canvas, rectangle, 1);
+        animManager.draw(canvas, rectangle);
 
     }
 
@@ -95,18 +94,18 @@ public class Player implements GameObject {
 
     @Override
     public void update() {
-        //animManager.update();
+        animManager.update();
     }
 
 
     public void update(Point point, boolean right, boolean left) {
-        //float oldBottom = rectangle.bottom;
+        float oldBottom = rectangle.bottom;
 
         //l,t,r,b
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
 
         //int state = 0;
-        /*if (rectangle.bottom - oldBottom == 0) {
+        if (rectangle.bottom - oldBottom == 0) {
             if (right)
                 state = 1;
             else if (left)
@@ -119,8 +118,8 @@ public class Player implements GameObject {
         }
 
         if (right || left) {
-       *//* animManager.playAnim(state);
-        animManager.update();*//*
+        animManager.playAnim(state);
+        animManager.update();
         }
 
         if (!right && !left) {
@@ -129,7 +128,7 @@ public class Player implements GameObject {
             if (state == 4)
                 state = 2;
             //animManager.playAnim(state);
-        }*/
+        }
     }
 
 }

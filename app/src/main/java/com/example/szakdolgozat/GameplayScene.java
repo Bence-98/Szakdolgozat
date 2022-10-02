@@ -71,7 +71,7 @@ public class GameplayScene implements Scene {
 
         projectileManager = new ProjectileManager();
 
-        collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager);
+        collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager);
 
     }
 
