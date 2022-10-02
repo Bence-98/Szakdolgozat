@@ -13,6 +13,7 @@ public class Enemy implements GameObject {
     private int x = 0;
     private int speed = 5;
     private Animator animator;
+    private int state;
 
     public Rect getEnemy() {
         return enemy;
@@ -29,7 +30,7 @@ public class Enemy implements GameObject {
 /*        Paint paint = new Paint();
         paint.setColor(Color.MAGENTA);
         canvas.drawRect(enemy, paint);*/
-        animator.draw(canvas, this);
+        animator.draw(canvas, enemy, state);
     }
 
     public boolean getDirection(){
@@ -39,10 +40,12 @@ public class Enemy implements GameObject {
     @Override
     public void update() {
         if (direction) {
+            state = 0;
             x += speed;
             enemy.left += speed;
             enemy.right += speed;
         } else {
+            state = 1;
             x -= speed;
             enemy.left -= speed;
             enemy.right -= speed;

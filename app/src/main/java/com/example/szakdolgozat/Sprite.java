@@ -7,13 +7,13 @@ public class Sprite {
     private SpriteSheet spriteSheet;
     private Rect rect;
 
-    public Sprite(SpriteSheet spriteSheet, Rect rect){
+    public Sprite(SpriteSheet spriteSheet, Rect rect) {
         this.spriteSheet = spriteSheet;
         this.rect = rect;
     }
 
-    public void draw(Canvas canvas, Rect destRect){
-        canvas.drawBitmap(spriteSheet.getBitmap(), rect, new Rect(destRect.left,destRect.top,destRect.right,destRect.bottom), null);
+    public void draw(Canvas canvas, Rect destRect, int state) {
+        canvas.drawBitmap(spriteSheet.getBitmap(state), rect, new Rect(destRect.left, destRect.top, destRect.right, destRect.bottom), null);
 
     }
 }

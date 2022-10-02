@@ -1,23 +1,32 @@
 package com.example.szakdolgozat;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 
-public class SpriteSheet {
-    private Bitmap bitmap;
-    private int x = 200;
+import java.util.ArrayList;
 
-    public SpriteSheet(Context context) {
+public class SpriteSheet {
+    private ArrayList<Bitmap> bitmap = new ArrayList<>();
+
+    public SpriteSheet() {
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inScaled = false;
-        bitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_100);
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_100));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_100_backwards));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle_100));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle_100_backwards));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run_100));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run_100_backwards));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump_100));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump_100_backwards));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death_100));
+        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death_100_backwards));
 
 
     }
 
-    public Sprite[] getEnemySpriteArray() {
+    public Sprite[] getSpriteArray() {
         Sprite[] spriteArray = new Sprite[6];
         spriteArray[0] = new Sprite(this, new Rect(0, 0, 250, 250));
         spriteArray[1] = new Sprite(this, new Rect(300, 0, 550, 250));
@@ -28,7 +37,7 @@ public class SpriteSheet {
         return spriteArray;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
+    public Bitmap getBitmap(int i) {
+        return bitmap.get(i);
     }
 }

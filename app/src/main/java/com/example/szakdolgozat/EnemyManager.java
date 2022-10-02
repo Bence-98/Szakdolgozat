@@ -10,8 +10,8 @@ public class EnemyManager {
 
     public EnemyManager(int[] level) {
         enemies = new ArrayList<>();
-        spriteSheet = new SpriteSheet(Constants.CURRENT_CONTEXT);
-        Animator animator = new Animator(spriteSheet.getEnemySpriteArray());
+        spriteSheet = new SpriteSheet();
+        Animator animator = new Animator(spriteSheet.getSpriteArray());
 
 
         for (int i = 0; level.length - 1 > i; i += 5) {

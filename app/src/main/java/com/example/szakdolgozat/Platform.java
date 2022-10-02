@@ -1,7 +1,10 @@
 package com.example.szakdolgozat;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
@@ -9,6 +12,7 @@ public class Platform implements GameObject {
 
     private Rect platform;
     private int color;
+    private Bitmap bricks;
 
 
     public Rect getPlatform() {
@@ -19,7 +23,11 @@ public class Platform implements GameObject {
     public Platform(int pLeft, int pTop, int pRight, int pBottom, int color) {
         this.color = color;
         platform = new Rect(pLeft, pTop, pRight, pBottom);
+        bricks = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.brick);
 
+        bricks = Bitmap.createBitmap(bricks);
+
+        //bricks = Bitmap.createScaledBitmap(bricks,platform.right-platform.left,platform.bottom-platform.top,false);
 
     }
 
@@ -33,6 +41,8 @@ public class Platform implements GameObject {
         paint.setColor(color);
         canvas.drawRect(platform, paint);
         //animationManager.draw(canvas,platform);
+        //canvas.drawBitmap(bricks,platform.left,platform.top,null);
+        canvas.drawRect(0,100,21,21, paint);
     }
 
 

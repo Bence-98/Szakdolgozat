@@ -33,6 +33,8 @@ public class GameplayScene implements Scene {
     private long lastFire;
     private EnemyManager enemyManager;
 
+    private PlayerState playerState;
+
     private boolean goalReached = false;
     private boolean gameOver = false;
     private long gameOverTime;
@@ -147,6 +149,7 @@ public class GameplayScene implements Scene {
                     movingId = event.getPointerId(event.getActionIndex());
                 }
                 if (rightArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                    player.setPlayerState(playerState.WALK_RIGHT);
                     isGoingRight = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }

@@ -3,7 +3,9 @@ package com.example.szakdolgozat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -20,18 +22,27 @@ public class Player implements GameObject {
     private AnimationManager animManager;
     private int actualPositionX;
     private int state = 0;
+    private PlayerState playerState;
 
+
+    private Animator animator;
 
 
     public Rect getRectangle() {
         return rectangle;
     }
 
+    public void setPlayerState(PlayerState playerState){
+        this.playerState = playerState;
+    }
+
     public Player(Rect rectangle, int color) {
         this.rectangle = rectangle;
         this.color = color;
+        setPlayerState(PlayerState.IDLE_RIGHT);
 
-        BitmapFactory bf = new BitmapFactory();
+
+      /*  BitmapFactory bf = new BitmapFactory();
         Bitmap idleImg = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue);
         Bitmap walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk1);
         Bitmap walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
@@ -58,22 +69,25 @@ public class Player implements GameObject {
         jumpLeft = new Animation(new Bitmap[]{jump}, 1);
 
         animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});
-
+*/
     }
 
-    public void movingPlatforms(int x){
+    public void movingPlatforms(int x) {
         actualPositionX = x;
     }
 
     @Override
     public void draw(Canvas canvas) {
-       /* Paint paint = new Paint();
-        paint.setColor(color);
-        canvas.drawRect(rectangle, paint);*/
-        animManager.draw(canvas, rectangle);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLUE);
+        canvas.drawRect(rectangle, paint);
+        if (playerState == PlayerState.WALK_RIGHT)
+        animator.draw(canvas, rectangle, 5);
+        //animManager.draw(canvas, rectangle);
+
     }
 
-    public boolean getDirection(){
+    public boolean getDirection() {
         if (state == 1 || state == 3)
             return true;
         else return false;
@@ -81,18 +95,18 @@ public class Player implements GameObject {
 
     @Override
     public void update() {
-        animManager.update();
+        //animManager.update();
     }
 
 
     public void update(Point point, boolean right, boolean left) {
-        float oldBottom = rectangle.bottom;
+        //float oldBottom = rectangle.bottom;
 
         //l,t,r,b
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);
 
         //int state = 0;
-        if (rectangle.bottom - oldBottom == 0) {
+        /*if (rectangle.bottom - oldBottom == 0) {
             if (right)
                 state = 1;
             else if (left)
@@ -104,17 +118,18 @@ public class Player implements GameObject {
                 state = 4;
         }
 
-        if (right||left){
-        animManager.playAnim(state);
-        animManager.update();}
+        if (right || left) {
+       *//* animManager.playAnim(state);
+        animManager.update();*//*
+        }
 
-        if (!right && !left){
+        if (!right && !left) {
             if (state == 3)
                 state = 1;
             if (state == 4)
                 state = 2;
-            animManager.playAnim(state);
-        }
+            //animManager.playAnim(state);
+        }*/
     }
 
 }
