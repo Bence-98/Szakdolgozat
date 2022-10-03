@@ -32,12 +32,12 @@ public class GameplayScene implements Scene {
     private CollisionDetection collisionDetection;
     private long lastFire;
     private EnemyManager enemyManager;
-
-    private PlayerState playerState;
+    private boolean direction = true;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
     private long gameOverTime;
+    private int state = 2;
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
@@ -53,7 +53,8 @@ public class GameplayScene implements Scene {
 
     public void nextLevel() {
         playerPoint.set(200, 440);
-        player.update(playerPoint, true, isGoingLeft);
+        //player.update(playerPoint, true, isGoingLeft);
+        player.update(playerPoint);
         currLvlStartingLine += 4;
         background.reset();
         actualPositionX = 0;
@@ -89,15 +90,15 @@ public class GameplayScene implements Scene {
 
     public void jumping() {
         if (platformManager.canIGoDown(playerPoint) == 0)
-            for (int i = 0; i < 25; i++) {
-                try {
-                    Thread.sleep(5);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (platformManager.canIGoUp(playerPoint))
-                    playerPoint.y -= 15;
+        for (int i = 0; i < 25; i++) {
+            try {
+                Thread.sleep(5);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            if (platformManager.canIGoUp(playerPoint))
+                playerPoint.y -= 15;
+        }
 
 
     }
@@ -133,32 +134,55 @@ public class GameplayScene implements Scene {
     public void gravity() {
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
             playerPoint.y += platformManager.canIGoDown(playerPoint);
+
+    }
+
+
+    public void calculateState() {
+        if (platformManager.canIGoDown(playerPoint) == 0) {
+            if (isGoingRight) {
+                state = PlayerState.WALK_RIGHT.ordinal();
+                direction = true;
+            }
+            if (isGoingLeft) {
+                state = PlayerState.WALK_LEFT.ordinal();
+                direction = false;
+            }
+            if (!isGoingRight && !isGoingLeft) {
+                if (direction)
+                    state = PlayerState.IDLE_RIGHT.ordinal();
+                else state = PlayerState.IDLE_LEFT.ordinal();
+            }
+        } else if (direction)
+            state = PlayerState.JUMP_RIGHT.ordinal();
+        else state = PlayerState.JUMP_LEFT.ordinal();
+
     }
 
 
     @Override
     public void receiveTouch(MotionEvent event) {
-        //movingId = 0;
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                if (upArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex())))
+                if (upArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+
                     jumping();
+                }
                 if (leftArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     isGoingLeft = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
                 if (rightArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
-                    player.setPlayerState(playerState.WALK_RIGHT);
                     isGoingRight = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
                 if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     if (lastFire < System.currentTimeMillis() - 1000) {
                         if (player.getDirection())
-                            projectileManager.fire(playerPoint.x + 50, playerPoint.y, player.getDirection());
+                            projectileManager.fire(playerPoint.x + 50, playerPoint.y - 5, player.getDirection());
                         else
-                            projectileManager.fire(playerPoint.x - 50, playerPoint.y, player.getDirection());
+                            projectileManager.fire(playerPoint.x - 50, playerPoint.y - 5, player.getDirection());
                         lastFire = System.currentTimeMillis();
                     }
                 }
@@ -185,7 +209,7 @@ public class GameplayScene implements Scene {
         obstacleManager.draw(canvas);
         goal.draw(canvas);
         enemyManager.draw(canvas);
-        player.draw(canvas);
+
 
         Paint arrowPaint = new Paint();
         arrowPaint.setColor(Color.rgb(255, 125, 125));
@@ -199,6 +223,8 @@ public class GameplayScene implements Scene {
         canvas.drawRect(rightArrow, arrowPaint);
         canvas.drawRect(fireButton, arrowPaint);
 
+
+        player.draw(canvas);
         if (gameOver) {
             Paint paint = new Paint();
             paint.setTextSize(100);
@@ -218,8 +244,10 @@ public class GameplayScene implements Scene {
         goingLeft();
         goingRight();
         gravity();
+        calculateState();
         if (!gameOver && !goalReached) {
-            player.update(playerPoint, isGoingRight, isGoingLeft);
+            player.setPlayerState(state);
+            player.update(playerPoint);
             projectileManager.update();
             collisionDetection.bulletCollision();
             enemyManager.update();

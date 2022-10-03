@@ -28,8 +28,8 @@ public class CollisionDetection {
         for (Projectile prtl : projectiles) {
             if (platformManager.projectileCollidePlatform(prtl) || obstacleManager.projectileCollidePlatform(prtl) || Rect.intersects(goal.getRectangle(), prtl.getRect()))
                 projectileManager.deleteProjectile(prtl);
-            if (enemyManager.profectileCollideEnemy(prtl) != null) {
-                enemyManager.die(enemyManager.profectileCollideEnemy(prtl));
+            if (enemyManager.projectileCollideEnemy(prtl) != null) {
+                enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl));
                 projectileManager.deleteProjectile(prtl);
             }
 

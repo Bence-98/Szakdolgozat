@@ -5,7 +5,7 @@ import android.graphics.Rect;
 
 public class Animator {
     private Sprite[] spriteArray;
-    private int movingFrameIndex = 1;
+    private int movingFrameIndex = 0;
     private int frameTime = 10;
 
 
@@ -16,15 +16,18 @@ public class Animator {
     public void draw(Canvas canvas, Rect rect, int state) {
         drawFrame(canvas, rect, spriteArray[movingFrameIndex], state);
 
+        if (!(state == PlayerState.JUMP_RIGHT.ordinal() || state == PlayerState.JUMP_LEFT.ordinal())) {
 
-        frameTime--;
-        if (frameTime == 0) {
-            frameTime = 10;
-            movingFrameIndex++;
-            if (movingFrameIndex == 6)
-                movingFrameIndex = 0;
 
-        }
+            frameTime--;
+            if (frameTime == 0) {
+                frameTime = 10;
+                movingFrameIndex++;
+                if (movingFrameIndex == 6)
+                    movingFrameIndex = 0;
+
+            }
+        } else movingFrameIndex = 1;
     }
 
 

@@ -1,3 +1,4 @@
+/*
 package com.example.szakdolgozat;
 
 import android.graphics.Bitmap;
@@ -66,3 +67,4 @@ public class Animation {
         }
     }
 }
+*/

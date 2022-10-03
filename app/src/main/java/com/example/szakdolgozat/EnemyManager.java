@@ -20,14 +20,14 @@ public class EnemyManager {
         }
     }
 
-    public Enemy profectileCollideEnemy(Projectile projectile) {
+    public Enemy projectileCollideEnemy(Projectile projectile) {
         for (Enemy nmy : enemies)
             if (Rect.intersects(nmy.getEnemy(), projectile.getRect()))
                 return nmy;
         return null;
     }
 
-    public void die(Enemy enemy) {
+    public void enemyDie(Enemy enemy) {
         enemies.remove(enemy);
     }
 
