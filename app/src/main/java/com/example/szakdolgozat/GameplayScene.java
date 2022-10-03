@@ -180,9 +180,9 @@ public class GameplayScene implements Scene {
                 if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     if (lastFire < System.currentTimeMillis() - 1000) {
                         if (player.getDirection())
-                            projectileManager.fire(playerPoint.x + 50, playerPoint.y - 5, player.getDirection());
+                            projectileManager.fire(playerPoint.x + 50, playerPoint.y + 5, player.getDirection());
                         else
-                            projectileManager.fire(playerPoint.x - 50, playerPoint.y - 5, player.getDirection());
+                            projectileManager.fire(playerPoint.x - 50, playerPoint.y + 5, player.getDirection());
                         lastFire = System.currentTimeMillis();
                     }
                 }
