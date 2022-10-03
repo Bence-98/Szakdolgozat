@@ -40,12 +40,12 @@ public class Enemy implements GameObject {
     @Override
     public void update() {
         if (direction) {
-            state = 0;
+            state = PlayerState.ENEMY_WALK_RIGHT.ordinal();
             x += speed;
             enemy.left += speed;
             enemy.right += speed;
         } else {
-            state = 1;
+            state = PlayerState.ENEMY_WALK_LEFT.ordinal();
             x -= speed;
             enemy.left -= speed;
             enemy.right -= speed;
