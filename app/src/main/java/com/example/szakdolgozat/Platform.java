@@ -7,12 +7,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 
 public class Platform implements GameObject {
 
     private Rect platform;
     private int color;
     private Bitmap bricks;
+    //private BitmapDrawable bitmapDrawable;
 
 
     public Rect getPlatform() {

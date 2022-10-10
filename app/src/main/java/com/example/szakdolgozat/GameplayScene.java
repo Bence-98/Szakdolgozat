@@ -90,15 +90,15 @@ public class GameplayScene implements Scene {
 
     public void jumping() {
         if (platformManager.canIGoDown(playerPoint) == 0)
-        for (int i = 0; i < 25; i++) {
-            try {
-                Thread.sleep(5);
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (int i = 0; i < 25; i++) {
+                try {
+                    Thread.sleep(5);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (platformManager.canIGoUp(playerPoint))
+                    playerPoint.y -= 15;
             }
-            if (platformManager.canIGoUp(playerPoint))
-                playerPoint.y -= 15;
-        }
 
 
     }
@@ -142,11 +142,9 @@ public class GameplayScene implements Scene {
         if (platformManager.canIGoDown(playerPoint) == 0) {
             if (isGoingRight) {
                 state = PlayerState.WALK_RIGHT.ordinal();
-                direction = true;
             }
             if (isGoingLeft) {
                 state = PlayerState.WALK_LEFT.ordinal();
-                direction = false;
             }
             if (!isGoingRight && !isGoingLeft) {
                 if (direction)
@@ -166,14 +164,15 @@ public class GameplayScene implements Scene {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
                 if (upArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
-
                     jumping();
                 }
                 if (leftArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                    direction = false;
                     isGoingLeft = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
                 if (rightArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                    direction = true;
                     isGoingRight = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
