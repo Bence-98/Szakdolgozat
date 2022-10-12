@@ -7,51 +7,82 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
+
+import java.util.ArrayList;
 
 public class Platform implements GameObject {
 
-    private Rect platform;
-    private int color;
-    private Bitmap bricks;
-    //private BitmapDrawable bitmapDrawable;
+    private ArrayList<Rect> platform;
+    private Rect hitbox;
+    private int top;
+
+    private Bitmap grass, dirt;
 
 
-    public Rect getPlatform() {
-        return platform;
+    public Rect getHitbox() {
+        return hitbox;
     }
 
 
-    public Platform(int pLeft, int pTop, int pRight, int pBottom, int color) {
-        this.color = color;
-        platform = new Rect(pLeft, pTop, pRight, pBottom);
-        bricks = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.brick);
+    public Platform(int firstLeft, int top, int lastLeft, int floating) {
+        platform = new ArrayList<>();
+        this.top = top;
+        grass = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.grass);
+        dirt = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dirt);
+        //grass = Bitmap.createBitmap(grass);
+        //dirt = Bitmap.createBitmap(dirt);
+        grass = Bitmap.createScaledBitmap(grass, 100, 100, false);
+        dirt = Bitmap.createScaledBitmap(dirt, 100, 100, false);
 
-        bricks = Bitmap.createBitmap(bricks);
+        if (floating == 1)
+            hitbox = new Rect(firstLeft, top, lastLeft + 100, top + 100);
+        else
+            hitbox = new Rect(firstLeft, top, lastLeft + 100, Constants.SCREEN_HEIGHT);
 
-        //bricks = Bitmap.createScaledBitmap(bricks,platform.right-platform.left,platform.bottom-platform.top,false);
 
+        int shift = 0;
+        while (firstLeft + shift <= lastLeft) {
+            platform.add(new Rect(firstLeft + shift, top, firstLeft + shift + 100, top + 100));
+            if (floating == 0) {
+                int shiftDown = 0;
+                while (top + shiftDown <= Constants.SCREEN_HEIGHT) {
+                    platform.add(new Rect(firstLeft + shift, top + shiftDown, firstLeft + shift + 100, top + shiftDown + 100));
+                    shiftDown += 100;
+                }
+            }
+            shift += 100;
+
+        }
     }
 
-    public boolean playerCollidePlatform(Player player) {
+/*    public boolean playerCollidePlatform(Player player) {
         return Rect.intersects(platform, player.getRectangle());
-    }
+    }*/
 
     @Override
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(color);
-        canvas.drawRect(platform, paint);
-        //animationManager.draw(canvas,platform);
-        //canvas.drawBitmap(bricks,platform.left,platform.top,null);
-        canvas.drawRect(0,100,21,21, paint);
-    }
+        paint.setColor(Color.BLACK);
 
+        for (Rect pf : platform) {
+            //canvas.drawRect(pf, paint);
+            if (pf.top == top)
+            canvas.drawBitmap(grass, pf.left, pf.top, null);
+            else canvas.drawBitmap(dirt, pf.left,pf.top,null);
+
+        }
+
+    }
 
 
     @Override
     public void update() {
+        for (Rect pf : platform) {
+            pf.left--;
+            pf.right--;
+        }
+        hitbox.left--;
+        hitbox.right--;
 
     }
 
