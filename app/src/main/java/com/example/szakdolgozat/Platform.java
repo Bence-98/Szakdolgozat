@@ -19,7 +19,7 @@ public class Platform implements GameObject {
     private Bitmap grass, dirt;
 
 
-    public Rect getHitbox() {
+    public Rect getPlatformHitbox() {
         return hitbox;
     }
 
@@ -61,17 +61,11 @@ public class Platform implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-
         for (Rect pf : platform) {
-            //canvas.drawRect(pf, paint);
             if (pf.top == top)
             canvas.drawBitmap(grass, pf.left, pf.top, null);
             else canvas.drawBitmap(dirt, pf.left,pf.top,null);
-
         }
-
     }
 
 

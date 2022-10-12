@@ -22,7 +22,7 @@ public class GameplayScene implements Scene {
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
-    private int currLvlStartingLine = -4;
+    private int currLvlStartingLine = -5;
     private int[] currLvlCoords;
     private Goal goal;
     private int movingId = 0;
@@ -38,6 +38,8 @@ public class GameplayScene implements Scene {
     private boolean gameOver = false;
     private long gameOverTime;
     private int state = 2;
+    private LavaManager lavaManager;
+
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
@@ -55,11 +57,11 @@ public class GameplayScene implements Scene {
         playerPoint.set(200, 440);
         //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
-        currLvlStartingLine += 4;
+        currLvlStartingLine += 5;
         background.reset();
         actualPositionX = 0;
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
-        platformManager = new PlatformManager(currLvlCoords, Color.BLACK);
+        platformManager = new PlatformManager(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
@@ -70,6 +72,9 @@ public class GameplayScene implements Scene {
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
         goal = new Goal(currLvlCoords, Color.GREEN);
 
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 4);
+        lavaManager = new LavaManager(currLvlCoords);
+
         projectileManager = new ProjectileManager();
 
         collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager);
@@ -78,7 +83,7 @@ public class GameplayScene implements Scene {
 
 
     public void reset() {
-        currLvlStartingLine -= 4;
+        currLvlStartingLine -= 5;
         nextLevel();
     }
 
@@ -119,6 +124,7 @@ public class GameplayScene implements Scene {
                     actualPositionX++;
                     background.update(actualPositionX);
                     platformManager.update();
+                    lavaManager.update();
                     obstacleManager.update();
                     enemyManager.floatLeft();
                     goal.update();
@@ -208,6 +214,7 @@ public class GameplayScene implements Scene {
         obstacleManager.draw(canvas);
         goal.draw(canvas);
         enemyManager.draw(canvas);
+        lavaManager.draw(canvas);
 
 
         Paint arrowPaint = new Paint();
@@ -250,7 +257,8 @@ public class GameplayScene implements Scene {
             projectileManager.update();
             collisionDetection.bulletCollision();
             enemyManager.update();
-            if (obstacleManager.playerCollide(player)) {
+            lavaManager.changeWave();
+            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player)) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }
