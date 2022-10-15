@@ -24,21 +24,21 @@ public class CollisionDetection {
         this.projectiles = projectileManager.getArray();
     }
 
-    public void bulletCollision() {
+    public void bulletCollision(Key key) {
         for (Projectile prtl : projectiles) {
             if (platformManager.projectileCollidePlatform(prtl) || obstacleManager.projectileCollidePlatform(prtl) || Rect.intersects(goal.getRectangle(), prtl.getRect()))
                 projectileManager.deleteProjectile(prtl);
             if (enemyManager.projectileCollideEnemy(prtl) != null) {
-                enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl));
+                enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl), key);
                 projectileManager.deleteProjectile(prtl);
             }
 
         }
     }
 
-    public void update() {
+    public void update(Key key) {
         if (!projectiles.isEmpty())
-            bulletCollision();
+            bulletCollision(key);
     }
 
 }

@@ -33,6 +33,8 @@ public class GameplayScene implements Scene {
     private long lastFire;
     private EnemyManager enemyManager;
     private boolean direction = true;
+    private Key key = new Key();
+    private HUD hud;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -60,6 +62,10 @@ public class GameplayScene implements Scene {
         currLvlStartingLine += 5;
         background.reset();
         actualPositionX = 0;
+
+        hud = new HUD();
+
+
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords);
 
@@ -124,6 +130,7 @@ public class GameplayScene implements Scene {
                     actualPositionX++;
                     background.update(actualPositionX);
                     platformManager.update();
+                    key.update();
                     lavaManager.update();
                     obstacleManager.update();
                     enemyManager.floatLeft();
@@ -208,7 +215,8 @@ public class GameplayScene implements Scene {
         canvas.drawColor(Color.WHITE);
         background.draw(canvas);
 
-
+        key.draw(canvas);
+        hud.draw(canvas);
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
@@ -255,7 +263,8 @@ public class GameplayScene implements Scene {
             player.setPlayerState(state);
             player.update(playerPoint);
             projectileManager.update();
-            collisionDetection.bulletCollision();
+            collisionDetection.update(key);
+            key.playerCollideKey(player);
             enemyManager.update();
             lavaManager.changeWave();
             if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player)) {

@@ -15,7 +15,7 @@ public class ObstacleManager {
         obstacles = new ArrayList<>();
 
         for (int i = 0; level.length - 1 > i; i += 4) {
-            obstacles.add(new Obstacle(level[i], level[i + 1], level[i + 2], level[i + 3], color));
+            obstacles.add(new Obstacle(level[i], level[i + 1]));
         }
 
 

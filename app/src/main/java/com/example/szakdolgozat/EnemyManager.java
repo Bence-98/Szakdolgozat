@@ -9,6 +9,7 @@ public class EnemyManager {
     private ArrayList<Enemy> enemies;
     private SpriteSheet spriteSheet;
 
+
     public EnemyManager(int[] level) {
         enemies = new ArrayList<>();
         spriteSheet = new SpriteSheet();
@@ -27,9 +28,12 @@ public class EnemyManager {
         return null;
     }
 
-    public void enemyDie(Enemy enemy) {
+    public void enemyDie(Enemy enemy, Key key) {
+        key.setCoords(enemy.getEnemy().left,enemy.getEnemy().top);
+        key.setVisible();
         enemies.remove(enemy);
     }
+
 
     public void draw(Canvas canvas) {
         for (Enemy nmy : enemies)

@@ -27,7 +27,7 @@ public class Lava {
 
         lavaBmpRev = Bitmap.createBitmap(lavaBmp, 0, 0, 100, 100, m, false);
 
-        hitbox = new Rect(firstLeft, top, lastLeft + 100, top + 100);
+        hitbox = new Rect(firstLeft, top+50, lastLeft + 100, top + 100);
 
         int shift = 0;
         while (firstLeft + shift <= lastLeft) {
