@@ -10,12 +10,13 @@ public class PlatformManager {
     private ArrayList<Platform> platforms;
 
 
-    public PlatformManager(int[] level, int color) {
+    public PlatformManager(int[] level) {
         platforms = new ArrayList<>();
 
         for (int i = 0; level.length - 1 > i; i += 4) {
-            platforms.add(new Platform(level[i], level[i + 1], level[i + 2], level[i + 3], color));
+            platforms.add(new Platform(level[i], level[i + 1], level[i + 2], level[i + 3]));
         }
+
     }
 
     public ArrayList getArray() {
@@ -31,21 +32,21 @@ public class PlatformManager {
 
     public boolean projectileCollidePlatform(Projectile projectile) {
         for (Platform pf : platforms)
-            if (Rect.intersects(pf.getPlatform(), projectile.getRect()))
+            if (Rect.intersects(pf.getPlatformHitbox(), projectile.getRect()))
                 return true;
         return false;
     }
 
     public boolean canIGoRight(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatform().contains(point.x + 55, point.y + 50) || pf.getPlatform().contains(point.x + 55, point.y - 50) || pf.getPlatform().contains(point.x + 55, point.y))
+            if (pf.getPlatformHitbox().contains(point.x + 55, point.y + 50) || pf.getPlatformHitbox().contains(point.x + 55, point.y - 50) || pf.getPlatformHitbox().contains(point.x + 55, point.y))
                 return false;
         return true;
     }
 
     public boolean canIGoLeft(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatform().contains(point.x - 55, point.y + 50) || pf.getPlatform().contains(point.x - 55, point.y - 50) || pf.getPlatform().contains(point.x - 55, point.y))
+            if (pf.getPlatformHitbox().contains(point.x - 55, point.y + 50) || pf.getPlatformHitbox().contains(point.x - 55, point.y - 50) || pf.getPlatformHitbox().contains(point.x - 55, point.y))
                 return false;
         return true;
     }
@@ -53,14 +54,14 @@ public class PlatformManager {
 
     public int canIGoDown(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatform().contains(point.x + 50, point.y + 60) || pf.getPlatform().contains(point.x - 50, point.y + 60))
-                return pf.getPlatform().top - (point.y + 51);
+            if (pf.getPlatformHitbox().contains(point.x + 50, point.y + 60) || pf.getPlatformHitbox().contains(point.x - 50, point.y + 60))
+                return pf.getPlatformHitbox().top - (point.y + 51);
         return 15;
     }
 
     public boolean canIGoUp(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatform().contains(point.x + 50, point.y - 55) || pf.getPlatform().contains(point.x - 50, point.y - 55))
+            if (pf.getPlatformHitbox().contains(point.x + 50, point.y - 55) || pf.getPlatformHitbox().contains(point.x - 50, point.y - 55))
                 return false;
         return true;
 
@@ -70,11 +71,8 @@ public class PlatformManager {
         for (Platform pf : platforms)
             pf.draw(canvas);
     }
-
     public void update() {
-        for (Platform pf : platforms) {
-            pf.getPlatform().left--;
-            pf.getPlatform().right--;
-        }
+        for (Platform pf : platforms)
+            pf.update();
     }
 }
