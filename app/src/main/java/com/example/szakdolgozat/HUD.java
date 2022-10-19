@@ -20,8 +20,6 @@ public class HUD {
     public void pickUpKey() {
         keyBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.hud_key);
         keyBmp = Bitmap.createScaledBitmap(keyBmp, key.width(), key.height(), false);
-        key.right += 50;
-        key.left += 50;
     }
 
 
