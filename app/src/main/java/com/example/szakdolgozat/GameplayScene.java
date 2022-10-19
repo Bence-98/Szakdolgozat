@@ -35,6 +35,7 @@ public class GameplayScene implements Scene {
     private boolean direction = true;
     private Key key = new Key();
     private HUD hud;
+    private boolean keyPicked = false;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -216,7 +217,12 @@ public class GameplayScene implements Scene {
         background.draw(canvas);
 
         key.draw(canvas);
-        hud.draw(canvas);
+
+
+        if (keyPicked)
+            hud.drawFull(canvas);
+        else hud.drawEmpty(canvas);
+
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
@@ -264,7 +270,8 @@ public class GameplayScene implements Scene {
             player.update(playerPoint);
             projectileManager.update();
             collisionDetection.update(key);
-            key.playerCollideKey(player);
+            if (key.playerCollideKey(player))
+                keyPicked = true;
             enemyManager.update();
             lavaManager.changeWave();
             if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player)) {

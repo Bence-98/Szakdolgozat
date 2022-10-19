@@ -27,16 +27,14 @@ public class Key {
         key.bottom = top + 50;
     }
 
-    public void playerCollideKey(Player player) {
+    public boolean playerCollideKey(Player player) {
         if (Rect.intersects(player.getRectangle(), key)) {
-            pickUp();
+            visible = false;
+            return true;
         }
+        return false;
     }
 
-    public void pickUp() {
-        visible = false;
-        hud.pickUpKey();
-    }
 
     public void setVisible(){
         visible = true;
