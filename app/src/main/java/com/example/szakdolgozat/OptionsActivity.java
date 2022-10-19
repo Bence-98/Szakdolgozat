@@ -100,6 +100,7 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
 
 
+
         TextView textView = (TextView) findViewById(R.id.szelesseg);
         textView.setText("Szelesseg: " + String.valueOf(Constants.SCREEN_WIDTH));
 

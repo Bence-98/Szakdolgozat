@@ -17,9 +17,9 @@ public class Obstacle implements GameObject {
 
 
     public Obstacle(int left, int top) {
-        rectangle = new Rect(left,top,left+100,top+100);
+        rectangle = new Rect(left,top,left+100,top+50);
         spike = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.spikes);
-        spike = Bitmap.createScaledBitmap(spike,100,100,false);
+        spike = Bitmap.createScaledBitmap(spike,100,50,false);
     }
 
     public boolean playerCollide(Player player) {

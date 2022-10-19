@@ -7,14 +7,12 @@ import java.util.ArrayList;
 
 public class ObstacleManager {
     private ArrayList<Obstacle> obstacles;
-    private int color;
 
 
-    public ObstacleManager(int[] level, int color) {
-        this.color = color;
+    public ObstacleManager(int[] level) {
         obstacles = new ArrayList<>();
 
-        for (int i = 0; level.length - 1 > i; i += 4) {
+        for (int i = 0; level.length - 1 > i; i += 2) {
             obstacles.add(new Obstacle(level[i], level[i + 1]));
         }
 

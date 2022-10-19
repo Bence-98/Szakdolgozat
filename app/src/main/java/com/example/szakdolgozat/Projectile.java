@@ -10,6 +10,7 @@ import android.graphics.Rect;
 public class Projectile implements GameObject {
     private Rect rect;
     boolean direction;
+    private int lifeTime;
 
     private Bitmap bullet;
 
@@ -43,7 +44,13 @@ public class Projectile implements GameObject {
             rect.left -= 25;
             rect.right -= 25;
         }
+        lifeTime += 25;
     }
+
+    public int getLifeTime(){
+        return lifeTime;
+    }
+
 
     @Override
     public void draw(Canvas canvas) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menu_background"
+    tools:context=".CharacterSelect">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:layout_marginTop="500px"
+        android:layout_marginLeft="750px"
+        app:srcCompat="@drawable/blue_avatar" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:layout_marginTop="500px"
+        android:layout_marginLeft="1280px"
+        app:srcCompat="@drawable/green_avatar" />
+</RelativeLayout>

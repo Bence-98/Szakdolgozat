@@ -1,6 +1,7 @@
 package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,15 +10,21 @@ import java.util.List;
 public class ProjectileManager {
 
     private ArrayList<Projectile> projectiles;
+    private MediaPlayer shotSound;
 
 
     public ProjectileManager() {
         projectiles = new ArrayList<>();
+        shotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT, R.raw.shot);
+        shotSound.setVolume(0.4f,0.4f);
     }
 
     public void update() {
-        for (Projectile prtl : projectiles)
+        for (Projectile prtl : projectiles){
             prtl.update();
+            if (prtl.getLifeTime() > 1000)
+                deleteProjectile(prtl);
+        }
     }
 
 
@@ -36,6 +43,7 @@ public class ProjectileManager {
 
     public void fire(int x, int y, boolean direction) {
         projectiles.add(new Projectile(x, y, direction));
+        shotSound.start();
     }
 
 }

@@ -70,7 +70,7 @@ public class GameplayScene implements Scene {
         platformManager = new PlatformManager(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
-        obstacleManager = new ObstacleManager(currLvlCoords, Color.RED);
+        obstacleManager = new ObstacleManager(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         enemyManager = new EnemyManager(currLvlCoords);
@@ -126,7 +126,7 @@ public class GameplayScene implements Scene {
         int steps = 0;
         if (!gameOver && !goalReached)
             while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
-                if (playerPoint.x > 750 && actualPositionX <= 9500 - Constants.SCREEN_WIDTH) {
+                if (playerPoint.x > 750 && actualPositionX <= 10000 - Constants.SCREEN_WIDTH) {
                     actualPositionX++;
                     background.update(actualPositionX);
                     platformManager.update();

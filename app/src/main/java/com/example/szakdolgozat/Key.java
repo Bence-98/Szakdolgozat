@@ -31,7 +31,6 @@ public class Key {
         if (Rect.intersects(player.getRectangle(), key)) {
             pickUp();
         }
-
     }
 
     public void pickUp() {

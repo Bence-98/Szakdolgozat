@@ -4,39 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/menu_background"
     tools:context=".MainActivity">
 
 
     <Button
         android:id="@+id/playbtn"
-        android:layout_width="500px"
+        android:layout_width="800px"
         android:layout_height="150px"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150px"
+        android:background="@drawable/button"
         android:text="Játék" />
 
     <Button
-        android:id="@+id/sparebtn"
-        android:layout_width="500px"
+        android:id="@+id/charselectbtn"
+        android:layout_width="800px"
         android:layout_height="150px"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="350px"
-        android:text="Tartalék" />
+        android:background="@drawable/button"
+        android:text="Karakter választás" />
 
     <Button
         android:id="@+id/optionsbtn"
-        android:layout_width="500px"
+        android:layout_width="800px"
         android:layout_height="150px"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="550px"
+        android:background="@drawable/button"
         android:text="Beállítások" />
 
     <Button
         android:id="@+id/quitbtn"
-        android:layout_width="500px"
+        android:layout_width="800px"
         android:layout_height="150px"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="750px"
+        android:background="@drawable/button"
         android:text="Kilépés" />
 
 
