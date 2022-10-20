@@ -46,8 +46,8 @@ public class Enemy implements GameObject {
         if (count > 120) {
             count = 0;
             if (direction)
-            projectileManager.fire(enemy.left+100, enemy.top+50, direction);
-            else   projectileManager.fire(enemy.left, enemy.top+50, direction);
+            projectileManager.fire(enemy.left+100, enemy.top+50, true, false);
+            else   projectileManager.fire(enemy.left, enemy.top+50, false, false);
         }
         if (direction) {
             state = PlayerState.ENEMY_WALK_RIGHT.ordinal();

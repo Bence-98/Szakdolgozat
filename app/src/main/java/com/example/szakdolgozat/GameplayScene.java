@@ -33,9 +33,11 @@ public class GameplayScene implements Scene {
     private long lastFire;
     private EnemyManager enemyManager;
     private boolean direction = true;
-    private Key key = new Key();
+    private Key key;
     private HUD hud;
-    private boolean keyPicked = false;
+    private boolean keyPicked;
+    private int level;
+    private boolean win = false;
 
     private boolean goalReached = false;
     private boolean gameOver = false;
@@ -63,9 +65,10 @@ public class GameplayScene implements Scene {
         currLvlStartingLine += 5;
         background.reset();
         actualPositionX = 0;
-
+        keyPicked = false;
         hud = new HUD();
-
+        key = new Key();
+        level++;
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
         platformManager = new PlatformManager(currLvlCoords);
@@ -93,6 +96,7 @@ public class GameplayScene implements Scene {
 
     public void reset() {
         currLvlStartingLine -= 5;
+        level--;
         nextLevel();
         player.playerDie(false);
     }
@@ -195,9 +199,9 @@ public class GameplayScene implements Scene {
                 if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     if (lastFire < System.currentTimeMillis() - 1000) {
                         if (player.getDirection())
-                            projectileManager.fire(playerPoint.x + 50, playerPoint.y + 5, player.getDirection());
+                            projectileManager.fire(playerPoint.x + 50, playerPoint.y + 5, player.getDirection(), true);
                         else
-                            projectileManager.fire(playerPoint.x - 50, playerPoint.y + 5, player.getDirection());
+                            projectileManager.fire(playerPoint.x - 50, playerPoint.y + 5, player.getDirection(), true);
                         lastFire = System.currentTimeMillis();
                     }
                 }
@@ -256,6 +260,13 @@ public class GameplayScene implements Scene {
             paint.setColor(Color.GREEN);
             drawCenterText(canvas, paint, "Good job");
         }
+
+        if (win) {
+            Paint paint = new Paint();
+            paint.setTextSize(100);
+            paint.setColor(Color.YELLOW);
+            drawCenterText(canvas, paint, "You Won");
+        }
     }
 
     @Override
@@ -278,9 +289,15 @@ public class GameplayScene implements Scene {
                 gameOverTime = System.currentTimeMillis();
             }
             if (goal.playerCollideGoal(player) && keyPicked) {
-                goalReached = true;
+                if (level == 3) {
+                    win = true;
+                } else
+                    goalReached = true;
+
                 gameOverTime = System.currentTimeMillis();
+
             }
+
         }
         if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
             reset();
@@ -290,7 +307,11 @@ public class GameplayScene implements Scene {
             nextLevel();
             goalReached = false;
         }
+        if (win && System.currentTimeMillis() - gameOverTime > 2000) {
+            System.exit(0);
+        }
     }
+
 
     private void drawCenterText(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.LEFT);

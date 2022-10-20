@@ -41,8 +41,8 @@ public class ProjectileManager {
         projectiles.remove(projectile);
     }
 
-    public void fire(int x, int y, boolean direction) {
-        projectiles.add(new Projectile(x, y, direction));
+    public void fire(int x, int y, boolean direction, boolean whose) {
+        projectiles.add(new Projectile(x, y, direction, whose));
         shotSound.start();
     }
 

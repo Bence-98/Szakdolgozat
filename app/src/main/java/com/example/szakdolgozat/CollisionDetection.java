@@ -30,11 +30,11 @@ public class CollisionDetection {
         for (Projectile prtl : projectiles) {
             if (platformManager.projectileCollidePlatform(prtl) || obstacleManager.projectileCollidePlatform(prtl) || Rect.intersects(goal.getRectangle(), prtl.getRect()))
                 projectileManager.deleteProjectile(prtl);
-            if (enemyManager.projectileCollideEnemy(prtl) != null) {
+            if (enemyManager.projectileCollideEnemy(prtl) != null && prtl.getWhose()) {
                 enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl), key);
                 projectileManager.deleteProjectile(prtl);
             }
-            if (Rect.intersects(player.getRectangle(),prtl.getRect()))
+            if (Rect.intersects(player.getRectangle(),prtl.getRect()) && prtl.getWhose() == false)
             {
                 projectileManager.deleteProjectile(prtl);
                 player.playerDie(true);

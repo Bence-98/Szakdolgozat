@@ -11,14 +11,16 @@ public class Projectile implements GameObject {
     private Rect rect;
     boolean direction;
     private int lifeTime;
+    private boolean whose; // true player, false enemy
 
     private Bitmap bullet;
 
 
-    public Projectile(int x, int y, boolean direction) {
+    public Projectile(int x, int y, boolean direction, boolean whose) {
         rect = new Rect(16, 16, 16, 16);
         rect.set(x - 8, y - 8, x + 8, y + 8);
         this.direction = direction;
+        this.whose = whose;
 
         bullet = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.bullet);
         bullet = Bitmap.createScaledBitmap(bullet, 16, 16, false);
@@ -34,6 +36,9 @@ public class Projectile implements GameObject {
         return rect;
     }
 
+    public boolean getWhose(){
+        return whose;
+    }
 
     @Override
     public void update() {
