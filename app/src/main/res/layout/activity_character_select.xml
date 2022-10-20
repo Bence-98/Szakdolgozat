@@ -8,7 +8,7 @@
     tools:context=".CharacterSelect">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/blue"
         android:layout_width="500px"
         android:layout_height="500px"
         android:layout_marginLeft="750px"
@@ -16,7 +16,7 @@
         app:srcCompat="@drawable/blue_avatar" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/green"
         android:layout_width="500px"
         android:layout_height="500px"
         android:layout_marginLeft="1280px"
@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/green_avatar" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/black"
         android:layout_width="500px"
         android:layout_height="500px"
         android:layout_marginLeft="150px"
@@ -32,7 +32,7 @@
         app:srcCompat="@drawable/black_avatar" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/yellow"
         android:layout_width="500px"
         android:layout_height="500px"
         android:layout_marginLeft="1800px"
@@ -45,5 +45,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300px"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="48sp" />
 </RelativeLayout>

@@ -10,5 +10,7 @@ public class Constants {
 
     public static long INIT_TIME;
 
-    public static boolean sound;
+    public static boolean SOUND;
+
+    public static int CHARACTER_COLOR;
 }

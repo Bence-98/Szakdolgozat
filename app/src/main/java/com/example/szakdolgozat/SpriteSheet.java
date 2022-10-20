@@ -14,18 +14,50 @@ public class SpriteSheet {
         bitmapOptions.inScaled = false;
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run));
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_backwards));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle_backwards));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run_backwards));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump_backwards));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death));
-        bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death_backwards));
 
-        //bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.));
+        switch (Constants.CHARACTER_COLOR) {
+            case 0:
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_idle));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_idle_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_run));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_run_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_jump));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_jump_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_death));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_black_death_backwards));
+                break;
+            case 1:
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_idle_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_run_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_jump_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_blue_death_backwards));
+                break;
+            case 2:
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_idle));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_idle_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_run));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_run_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_jump));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_jump_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_death));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_green_death_backwards));
+                break;
+            case 3:
 
-
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_idle));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_idle_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_run));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_run_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_jump));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_jump_backwards));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_death));
+                bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_death_backwards));
+                break;
+        }
 
     }
 
