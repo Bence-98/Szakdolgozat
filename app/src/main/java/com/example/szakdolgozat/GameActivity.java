@@ -23,7 +23,11 @@ public class GameActivity extends Activity {
 
         backgroundMusic = MediaPlayer.create(GameActivity.this, R.raw.gamemusic);
         backgroundMusic.setLooping(true);
+
+
         backgroundMusic.start();
+
+
 
         setContentView(new GamePanel(this));
     }

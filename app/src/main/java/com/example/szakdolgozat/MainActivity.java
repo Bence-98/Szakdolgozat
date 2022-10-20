@@ -20,9 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
 /*        backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
         backgroundMusic.setLooping(true);
         backgroundMusic.start();*/
+
 
 
         Button playbtn = (Button) findViewById(R.id.playbtn);

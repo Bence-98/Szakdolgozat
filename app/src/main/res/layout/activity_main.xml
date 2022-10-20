@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150px"
         android:background="@drawable/button"
-        android:text="Játék" />
+        android:text="Play" />
 
     <Button
         android:id="@+id/charselectbtn"
@@ -24,7 +24,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="350px"
         android:background="@drawable/button"
-        android:text="Karakter választás" />
+        android:text="Choose character" />
 
     <Button
         android:id="@+id/optionsbtn"
@@ -33,7 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="550px"
         android:background="@drawable/button"
-        android:text="Beállítások" />
+        android:text="Settings" />
 
     <Button
         android:id="@+id/quitbtn"
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="750px"
         android:background="@drawable/button"
-        android:text="Kilépés" />
+        android:text="Exit" />
 
 
 </RelativeLayout>

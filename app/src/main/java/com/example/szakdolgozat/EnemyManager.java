@@ -10,14 +10,14 @@ public class EnemyManager {
     private SpriteSheet spriteSheet;
 
 
-    public EnemyManager(int[] level) {
+    public EnemyManager(int[] level, ProjectileManager projectileManager) {
         enemies = new ArrayList<>();
         spriteSheet = new SpriteSheet();
         Animator animator = new Animator(spriteSheet.getSpriteArray());
 
 
         for (int i = 0; level.length - 1 > i; i += 5) {
-            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i + 4], animator));
+            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i + 4], animator, projectileManager));
         }
     }
 
@@ -29,8 +29,10 @@ public class EnemyManager {
     }
 
     public void enemyDie(Enemy enemy, Key key) {
-        key.setCoords(enemy.getEnemy().left,enemy.getEnemy().top);
-        key.setVisible();
+        if (enemies.size() == 1) {
+            key.setCoords(enemy.getEnemy().left, enemy.getEnemy().top);
+            key.setVisible();
+        }
         enemies.remove(enemy);
     }
 

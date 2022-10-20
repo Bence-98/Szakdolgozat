@@ -73,8 +73,6 @@ public class GameplayScene implements Scene {
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         obstacleManager = new ObstacleManager(currLvlCoords);
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
-        enemyManager = new EnemyManager(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
         goal = new Goal(currLvlCoords, Color.GREEN);
@@ -84,7 +82,11 @@ public class GameplayScene implements Scene {
 
         projectileManager = new ProjectileManager();
 
-        collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
+        enemyManager = new EnemyManager(currLvlCoords, projectileManager);
+
+
+        collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager, player);
 
     }
 
@@ -92,6 +94,7 @@ public class GameplayScene implements Scene {
     public void reset() {
         currLvlStartingLine -= 5;
         nextLevel();
+        player.playerDie(false);
     }
 
     @Override
@@ -148,7 +151,6 @@ public class GameplayScene implements Scene {
     public void gravity() {
         if (playerPoint.y < Constants.SCREEN_HEIGHT - 50)
             playerPoint.y += platformManager.canIGoDown(playerPoint);
-
     }
 
 
@@ -218,15 +220,12 @@ public class GameplayScene implements Scene {
 
         key.draw(canvas);
 
-
-        if (keyPicked)
-            hud.drawFull(canvas);
-        else hud.drawEmpty(canvas);
+        hud.draw(canvas, keyPicked);
 
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
-        goal.draw(canvas);
+        goal.draw(canvas, keyPicked);
         enemyManager.draw(canvas);
         lavaManager.draw(canvas);
 
@@ -274,11 +273,11 @@ public class GameplayScene implements Scene {
                 keyPicked = true;
             enemyManager.update();
             lavaManager.changeWave();
-            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player)) {
+            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y > 1000 || player.playerAlive()) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }
-            if (goal.playerCollideGoal(player)) {
+            if (goal.playerCollideGoal(player) && keyPicked) {
                 goalReached = true;
                 gameOverTime = System.currentTimeMillis();
             }

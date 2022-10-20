@@ -26,6 +26,8 @@ public class Player implements GameObject {
 
     private Animator animator;
     private SpriteSheet spriteSheet;
+    private boolean alive;
+
 
 
     public Rect getRectangle() {
@@ -98,7 +100,13 @@ public class Player implements GameObject {
         //animManager.update();
     }
 
+    public boolean playerAlive(){
+        return alive;
+    }
 
+    public void playerDie(boolean alive){
+        this.alive = alive;
+    }
 
 
     public void update(Point point) {

@@ -9,6 +9,7 @@ public class HUD {
 
     private Rect key;
     private Bitmap keyBmp, keyBmpFull;
+
     public HUD() {
         key = new Rect(50, 25, 100, 75);
 
@@ -25,7 +26,14 @@ public class HUD {
         canvas.drawBitmap(keyBmp, key.left, key.top, null);
     }
 
-    public void drawFull(Canvas canvas){
-        canvas.drawBitmap(keyBmpFull,key.left,key.top,null);
+    public void drawFull(Canvas canvas) {
+        canvas.drawBitmap(keyBmpFull, key.left, key.top, null);
+    }
+
+    public void draw(Canvas canvas, boolean keyPicked) {
+        if (keyPicked)
+            canvas.drawBitmap(keyBmpFull, key.left, key.top, null);
+        else canvas.drawBitmap(keyBmp, key.left, key.top, null);
+
     }
 }
