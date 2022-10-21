@@ -7,33 +7,55 @@
     android:background="@drawable/menu_background"
     tools:context=".OptionsActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Beállítások"></TextView>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/optionsbg" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350px"
+        android:minHeight="48dp"
+        android:text="Background song"
+        android:textSize="34sp" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550px"
+        android:checked="true"
+        android:minHeight="48dp"
+        android:text="Weapon sound"
+        android:textSize="34sp" />
 
     <TextView
-        android:id="@+id/magassag"
-        android:layout_width="500px"
-        android:layout_height="250px"
-        android:layout_marginTop="200px" />
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1085px"
+        android:layout_marginTop="710px"
+        android:text="Save"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/szelesseg"
-        android:layout_width="500px"
-        android:layout_height="250px"
-        android:layout_marginTop="400px" />
-
-    <TextView
-        android:id="@+id/ido"
-        android:layout_width="500px"
-        android:layout_height="250px"
-        android:layout_marginTop="600px" />
-
-    <TextView
-        android:id="@+id/olvasas"
-        android:layout_width="500px"
-        android:layout_height="250px"
-        android:layout_marginTop="800px" />
+        android:id="@+id/textView2"
+        style="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1555px"
+        android:layout_marginTop="220px"
+        android:text="X"
+        android:textColor="@color/black"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

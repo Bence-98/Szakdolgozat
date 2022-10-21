@@ -1,5 +1,7 @@
 package com.example.szakdolgozat;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
 
@@ -11,16 +13,20 @@ public class ProjectileManager {
 
     private ArrayList<Projectile> projectiles;
     private MediaPlayer shotSound;
-
+    private SharedPreferences sp;
+    boolean soundOn;
 
     public ProjectileManager() {
         projectiles = new ArrayList<>();
         shotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT, R.raw.shot);
-        shotSound.setVolume(0.4f,0.4f);
+        shotSound.setVolume(0.4f, 0.4f);
+
+        SharedPreferences sp = Constants.CURRENT_CONTEXT.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        soundOn = sp.getBoolean("WeaponSound", true);
     }
 
     public void update() {
-        for (Projectile prtl : projectiles){
+        for (Projectile prtl : projectiles) {
             prtl.update();
             if (prtl.getLifeTime() > 1000)
                 deleteProjectile(prtl);
@@ -28,7 +34,7 @@ public class ProjectileManager {
     }
 
 
-    public ArrayList getArray(){
+    public ArrayList getArray() {
         return projectiles;
     }
 
@@ -37,13 +43,14 @@ public class ProjectileManager {
             prtl.draw(canvas);
     }
 
-    public void deleteProjectile(Projectile projectile){
+    public void deleteProjectile(Projectile projectile) {
         projectiles.remove(projectile);
     }
 
     public void fire(int x, int y, boolean direction, boolean whose) {
         projectiles.add(new Projectile(x, y, direction, whose));
-        shotSound.start();
+        if (soundOn)
+            shotSound.start();
     }
 
 }

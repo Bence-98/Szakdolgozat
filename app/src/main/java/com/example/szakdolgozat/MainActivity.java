@@ -2,7 +2,9 @@ package com.example.szakdolgozat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,8 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
     //private MediaPlayer backgroundMusic;
-    Intent svc = new Intent(this,BgMusic.class);
+    Intent svc = new Intent(this, BgMusic.class);
+    private SharedPreferences sp;
 
 
     @Override
@@ -20,11 +23,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+        sp = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("BgMusic", true);
+        editor.putBoolean("WeaponSound", true);
+        editor.commit();
+
 
 /*        backgroundMusic = MediaPlayer.create(MainActivity.this, R.raw.backgroundmusic);
         backgroundMusic.setLooping(true);
         backgroundMusic.start();*/
-
 
 
         Button playbtn = (Button) findViewById(R.id.playbtn);
@@ -65,20 +74,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-/*
-    @Override
-    protected void onPause () {
-        super.onPause();
-        backgroundMusic.pause();
-    }
+    /*
+        @Override
+        protected void onPause () {
+            super.onPause();
+            backgroundMusic.pause();
+        }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        backgroundMusic.start();
-    }
-*/
-    protected void onStart(){
+        @Override
+        protected void onStart(){
+            super.onStart();
+            backgroundMusic.start();
+        }
+    */
+    protected void onStart() {
         super.onStart();
         startService(svc);
 

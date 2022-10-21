@@ -2,9 +2,13 @@ package com.example.szakdolgozat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -86,6 +90,7 @@ public class OptionsActivity extends AppCompatActivity {
         return text;
     }*/
 
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,23 +101,44 @@ public class OptionsActivity extends AppCompatActivity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
 
+        sp = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+
 
         setContentView(R.layout.activity_options);
 
+        CheckBox bgCheckB = (CheckBox) findViewById(R.id.checkBox);
+        CheckBox wpnCheckB = (CheckBox) findViewById(R.id.checkBox2);
+
+        bgCheckB.setChecked(sp.getBoolean("BgMusic", true));
+        wpnCheckB.setChecked(sp.getBoolean("WeaponSound", true));
 
 
-        TextView textView = (TextView) findViewById(R.id.szelesseg);
-        textView.setText("Szelesseg: " + String.valueOf(Constants.SCREEN_WIDTH));
+        TextView save = (TextView) findViewById(R.id.textView);
+        TextView close = (TextView) findViewById(R.id.textView2);
 
-        TextView textView2 = (TextView) findViewById(R.id.magassag);
-        textView2.setText("Magassag: " + String.valueOf(Constants.SCREEN_HEIGHT));
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putBoolean("BgMusic", bgCheckB.isChecked());
+                editor.putBoolean("WeaponSound", wpnCheckB.isChecked());
+                editor.commit();
+                finish();
 
-        TextView textView3 = (TextView) findViewById(R.id.ido);
-        textView3.setText("Ido: " + String.valueOf(System.currentTimeMillis()));
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
-/*        TextView textView4 = (TextView) findViewById(R.id.olvasas);
-        textView4.setText("Asd" + getCoords());*/
+
+ /*       TextView textView = (TextView) findViewById(R.id.szelesseg);
+        textView.setText("Szelesseg: " + String.valueOf(Constants.SCREEN_WIDTH));*/
+
 
     }
 }
