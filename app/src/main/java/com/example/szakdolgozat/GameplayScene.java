@@ -7,9 +7,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class GameplayScene implements Scene {
 
@@ -64,7 +61,7 @@ public class GameplayScene implements Scene {
         player.update(playerPoint);
         currLvlStartingLine += 5;
         background.reset();
-        actualPositionX = 0;
+        actualPositionX = 200;
         keyPicked = false;
         hud = new HUD();
         key = new Key();
@@ -134,7 +131,7 @@ public class GameplayScene implements Scene {
         int steps = 0;
         if (!gameOver && !goalReached)
             while (isGoingRight && platformManager.canIGoRight(playerPoint) && steps < 20) {
-                if (playerPoint.x > 750 && actualPositionX <= 10000 - Constants.SCREEN_WIDTH) {
+                if (playerPoint.x > 750 && actualPositionX <= 10200 - Constants.SCREEN_WIDTH) {
                     actualPositionX++;
                     background.update(actualPositionX);
                     platformManager.update();
@@ -275,7 +272,7 @@ public class GameplayScene implements Scene {
         goingRight();
         gravity();
         calculateState();
-        if (!gameOver && !goalReached) {
+        if (!gameOver && !goalReached && !win) {
             player.setPlayerState(state);
             player.update(playerPoint);
             projectileManager.update();

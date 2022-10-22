@@ -22,14 +22,6 @@ public class HUD {
     }
 
 
-    public void drawEmpty(Canvas canvas) {
-        canvas.drawBitmap(keyBmp, key.left, key.top, null);
-    }
-
-    public void drawFull(Canvas canvas) {
-        canvas.drawBitmap(keyBmpFull, key.left, key.top, null);
-    }
-
     public void draw(Canvas canvas, boolean keyPicked) {
         if (keyPicked)
             canvas.drawBitmap(keyBmpFull, key.left, key.top, null);
