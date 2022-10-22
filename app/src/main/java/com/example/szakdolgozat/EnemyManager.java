@@ -42,9 +42,9 @@ public class EnemyManager {
             nmy.draw(canvas);
     }
 
-    public void update() {
+    public void update(int actPosX) {
         for (Enemy nmy : enemies)
-            nmy.update();
+            nmy.update(actPosX);
     }
 
     public void floatLeft() {

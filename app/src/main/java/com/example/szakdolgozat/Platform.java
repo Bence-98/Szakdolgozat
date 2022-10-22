@@ -60,11 +60,17 @@ public class Platform implements GameObject {
     }*/
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas){
+    }
+
+
+    public void draw(Canvas canvas, int actPosX) {
         for (Rect pf : platform) {
-            if (pf.top == top)
-            canvas.drawBitmap(grass, pf.left, pf.top, null);
-            else canvas.drawBitmap(dirt, pf.left,pf.top,null);
+            if (actPosX > pf.left - Constants.SCREEN_WIDTH && actPosX-800 < pf.left) {
+                if (pf.top == top)
+                    canvas.drawBitmap(grass, pf.left, pf.top, null);
+                else canvas.drawBitmap(dirt, pf.left, pf.top, null);
+            }
         }
     }
 

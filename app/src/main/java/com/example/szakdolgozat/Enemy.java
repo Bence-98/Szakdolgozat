@@ -16,12 +16,14 @@ public class Enemy implements GameObject {
     private int state;
     private int count;
     private ProjectileManager projectileManager;
+    private int left;
 
     public Rect getEnemy() {
         return enemy;
     }
 
     public Enemy(int left, int top, int right, int bottom, int distance, Animator animator, ProjectileManager projectileManager) {
+        this.left = left;
         this.distance = distance;
         enemy = new Rect(left, top, right, bottom);
         this.animator = animator;
@@ -42,12 +44,18 @@ public class Enemy implements GameObject {
 
     @Override
     public void update() {
+
+    }
+
+    public void update(int actPosX) {
         count++;
         if (count > 120) {
             count = 0;
-            if (direction)
-            projectileManager.fire(enemy.left+100, enemy.top+50, true, false);
-            else   projectileManager.fire(enemy.left, enemy.top+50, false, false);
+            if (actPosX > left-Constants.SCREEN_WIDTH) {
+                if (direction)
+                    projectileManager.fire(enemy.left + 100, enemy.top + 50, true, false);
+                else projectileManager.fire(enemy.left, enemy.top + 50, false, false);
+            }
         }
         if (direction) {
             state = PlayerState.ENEMY_WALK_RIGHT.ordinal();

@@ -140,7 +140,7 @@ public class GameplayScene implements Scene {
                     obstacleManager.update();
                     enemyManager.floatLeft();
                     goal.update();
-                    player.movingPlatforms(actualPositionX);
+                    //player.movingPlatforms(actualPositionX);
                 } else
                     playerPoint.x++;
                 steps++;
@@ -224,7 +224,7 @@ public class GameplayScene implements Scene {
         hud.draw(canvas, keyPicked);
 
         projectileManager.draw(canvas);
-        platformManager.draw(canvas);
+        platformManager.draw(canvas,actualPositionX);
         obstacleManager.draw(canvas);
         goal.draw(canvas, keyPicked);
         enemyManager.draw(canvas);
@@ -279,7 +279,7 @@ public class GameplayScene implements Scene {
             collisionDetection.update(key);
             if (key.playerCollideKey(player))
                 keyPicked = true;
-            enemyManager.update();
+            enemyManager.update(actualPositionX);
             lavaManager.changeWave();
             if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y > 1000 || player.playerAlive()) {
                 gameOver = true;

@@ -20,7 +20,6 @@ public class Player implements GameObject {
     private Animation jumpRight;
     private Animation jumpLeft;
     private AnimationManager animManager;*/
-    private int actualPositionX;
     private int state;
 
 
@@ -74,9 +73,6 @@ public class Player implements GameObject {
         animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft, jumpRight, jumpLeft});*/
     }
 
-    public void movingPlatforms(int x) {
-        actualPositionX = x;
-    }
 
     @Override
     public void draw(Canvas canvas) {
