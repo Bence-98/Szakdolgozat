@@ -1,6 +1,5 @@
 package com.example.szakdolgozat;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
@@ -21,7 +20,7 @@ public class ProjectileManager {
         shotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT, R.raw.shot);
         shotSound.setVolume(0.4f, 0.4f);
 
-        SharedPreferences sp = Constants.CURRENT_CONTEXT.getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        SharedPreferences sp = Constants.CURRENT_CONTEXT.getSharedPreferences("Settings", Constants.CURRENT_CONTEXT.MODE_PRIVATE);
         soundOn = sp.getBoolean("WeaponSound", true);
     }
 

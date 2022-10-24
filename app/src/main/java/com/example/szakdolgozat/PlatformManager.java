@@ -67,9 +67,9 @@ public class PlatformManager {
 
     }
 
-    public void draw(Canvas canvas, int actPosX) {
+    public void draw(Canvas canvas) {
         for (Platform pf : platforms)
-            pf.draw(canvas,actPosX);
+            pf.draw(canvas);
     }
     public void update() {
         for (Platform pf : platforms)

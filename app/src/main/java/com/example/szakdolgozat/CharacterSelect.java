@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 public class CharacterSelect extends AppCompatActivity {
 
-    private ImageView black, blue, green, yellow;
+    private ImageView black, blue, green, yellow, close;
     private TextView textView;
 
     @Override
@@ -23,6 +23,8 @@ public class CharacterSelect extends AppCompatActivity {
         green = (ImageView) findViewById(R.id.green);
         yellow = (ImageView) findViewById(R.id.yellow);
 
+        close = (ImageView) findViewById(R.id.close);
+
         textView = (TextView) findViewById(R.id.textView);
 
         changeText();
@@ -32,6 +34,7 @@ public class CharacterSelect extends AppCompatActivity {
         blue.setOnClickListener(this::onClick);
         green.setOnClickListener(this::onClick);
         yellow.setOnClickListener(this::onClick);
+        close.setOnClickListener(this::onClick);
 
     }
 
@@ -52,6 +55,9 @@ public class CharacterSelect extends AppCompatActivity {
             case R.id.yellow:
                 Constants.CHARACTER_COLOR = 3;
                 changeText();
+                break;
+            case R.id.close:
+                finish();
                 break;
         }
 

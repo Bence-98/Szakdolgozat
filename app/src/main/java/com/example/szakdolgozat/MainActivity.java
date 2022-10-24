@@ -2,7 +2,6 @@ package com.example.szakdolgozat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -12,8 +11,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private MediaPlayer backgroundMusic;
-    Intent svc = new Intent(this, BgMusic.class);
+   //private MediaPlayer backgroundMusic;
+   // Intent svc = new Intent(this, BgMusic.class);
     private SharedPreferences sp;
 
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        sp = getSharedPreferences("Settings", Context.MODE_PRIVATE);
+        sp = getSharedPreferences("Settings", Constants.CURRENT_CONTEXT.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sp.edit();
         editor.putBoolean("BgMusic", true);
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     */
     protected void onStart() {
         super.onStart();
-        startService(svc);
+        //startService(svc);
 
     }
 

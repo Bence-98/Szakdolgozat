@@ -9,34 +9,34 @@
 
     <ImageView
         android:id="@+id/blue"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        android:layout_marginLeft="750px"
-        android:layout_marginTop="500px"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="255dp"
+        android:layout_marginTop="170dp"
         app:srcCompat="@drawable/blue_avatar" />
 
     <ImageView
         android:id="@+id/green"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        android:layout_marginLeft="1280px"
-        android:layout_marginTop="500px"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="430dp"
+        android:layout_marginTop="170dp"
         app:srcCompat="@drawable/green_avatar" />
 
     <ImageView
         android:id="@+id/black"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        android:layout_marginLeft="150px"
-        android:layout_marginTop="500px"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="170dp"
         app:srcCompat="@drawable/black_avatar" />
 
     <ImageView
         android:id="@+id/yellow"
-        android:layout_width="500px"
-        android:layout_height="500px"
-        android:layout_marginLeft="1800px"
-        android:layout_marginTop="500px"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_marginLeft="595dp"
+        android:layout_marginTop="170dp"
         app:srcCompat="@drawable/yellow_avatar" />
 
     <TextView
@@ -44,7 +44,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300px"
-        android:text="TextView"
+        android:layout_marginTop="100dp"
+        android:text=""
         android:textSize="48sp" />
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="700dp"
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/hud_x" />
 </RelativeLayout>

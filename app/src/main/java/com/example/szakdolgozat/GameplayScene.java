@@ -224,7 +224,7 @@ public class GameplayScene implements Scene {
         hud.draw(canvas, keyPicked);
 
         projectileManager.draw(canvas);
-        platformManager.draw(canvas,actualPositionX);
+        platformManager.draw(canvas);
         obstacleManager.draw(canvas);
         goal.draw(canvas, keyPicked);
         enemyManager.draw(canvas);
