@@ -10,8 +10,8 @@ public class SpriteSheet {
     private ArrayList<Bitmap> bitmap = new ArrayList<>();
 
     public SpriteSheet() {
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inScaled = false;
+  /*      BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+        bitmapOptions.inScaled = false;*/
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run));
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_backwards));
 
@@ -58,17 +58,23 @@ public class SpriteSheet {
                 bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_yellow_death_backwards));
                 break;
         }
-
     }
 
+    /*public void scale(){
+        bitmap.set(2,Bitmap.createScaledBitmap(bitmap.get(2),600,100,false));
+    }*/
+
     public Sprite[] getSpriteArray() {
+        int width, height;
+        width = bitmap.get(0).getWidth() / 6;
+        height = bitmap.get(0).getHeight()-50;
         Sprite[] spriteArray = new Sprite[6];
-        spriteArray[0] = new Sprite(this, new Rect(0, 0, 250, 250));
-        spriteArray[1] = new Sprite(this, new Rect(300, 0, 550, 250));
-        spriteArray[2] = new Sprite(this, new Rect(600, 0, 850, 250));
-        spriteArray[3] = new Sprite(this, new Rect(900, 0, 1150, 250));
-        spriteArray[4] = new Sprite(this, new Rect(1200, 0, 1450, 250));
-        spriteArray[5] = new Sprite(this, new Rect(1500, 0, 1750, 250));
+        spriteArray[0] = new Sprite(this, new Rect(0, 0, width, height));
+        spriteArray[1] = new Sprite(this, new Rect(width, 0, width * 2, height));
+        spriteArray[2] = new Sprite(this, new Rect(width * 2, 0, width * 3, height));
+        spriteArray[3] = new Sprite(this, new Rect(width * 3, 0, width * 4, height));
+        spriteArray[4] = new Sprite(this, new Rect(width * 4, 0, width * 5, height));
+        spriteArray[5] = new Sprite(this, new Rect(width * 5, 0, width * 6, height));
         return spriteArray;
     }
 
