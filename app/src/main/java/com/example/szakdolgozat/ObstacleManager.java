@@ -12,8 +12,8 @@ public class ObstacleManager {
     public ObstacleManager(int[] level) {
         obstacles = new ArrayList<>();
 
-        for (int i = 0; level.length - 1 > i; i += 2) {
-            obstacles.add(new Obstacle(level[i], level[i + 1]));
+        for (int i = 0; level.length - 1 > i; i += 3) {
+            obstacles.add(new Obstacle(level[i], level[i + 1], level[i+2]));
         }
 
 

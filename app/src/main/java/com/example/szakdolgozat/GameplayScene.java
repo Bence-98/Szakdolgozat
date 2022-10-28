@@ -7,6 +7,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import java.sql.Array;
+
 
 public class GameplayScene implements Scene {
 
@@ -19,7 +21,7 @@ public class GameplayScene implements Scene {
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
-    private int currLvlStartingLine = -5;
+    private int currLvlStartingLine = -6;
     private int[] currLvlCoords;
     private Goal goal;
     private int movingId = 0;
@@ -41,7 +43,7 @@ public class GameplayScene implements Scene {
     private long gameOverTime;
     private int state = 2;
     private LavaManager lavaManager;
-
+    private int playerStartingPoint[] = new int[2];
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
@@ -56,10 +58,11 @@ public class GameplayScene implements Scene {
 
 
     public void nextLevel() {
-        playerPoint.set(200, 440);
+        currLvlStartingLine += 6;
+        playerStartingPoint=levelCoords.getCoords(currLvlStartingLine);
+        playerPoint.set(playerStartingPoint[currLvlStartingLine], playerStartingPoint[currLvlStartingLine]);
         //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
-        currLvlStartingLine += 5;
         background.reset();
         actualPositionX = 200;
         keyPicked = false;
@@ -67,22 +70,22 @@ public class GameplayScene implements Scene {
         key = new Key();
         level++;
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine +1 );
         platformManager = new PlatformManager(currLvlCoords);
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         obstacleManager = new ObstacleManager(currLvlCoords);
 
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 4);
         goal = new Goal(currLvlCoords, Color.GREEN);
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 4);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 5);
         lavaManager = new LavaManager(currLvlCoords);
 
         projectileManager = new ProjectileManager();
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
         enemyManager = new EnemyManager(currLvlCoords, projectileManager);
 
 
@@ -92,7 +95,7 @@ public class GameplayScene implements Scene {
 
 
     public void reset() {
-        currLvlStartingLine -= 5;
+        currLvlStartingLine -= 6;
         level--;
         nextLevel();
         player.playerDie(false);
