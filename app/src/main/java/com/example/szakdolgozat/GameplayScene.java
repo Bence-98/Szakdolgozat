@@ -60,7 +60,7 @@ public class GameplayScene implements Scene {
     public void nextLevel() {
         currLvlStartingLine += 6;
         playerStartingPoint=levelCoords.getCoords(currLvlStartingLine);
-        playerPoint.set(playerStartingPoint[currLvlStartingLine], playerStartingPoint[currLvlStartingLine]);
+        playerPoint.set(playerStartingPoint[0], playerStartingPoint[1]);
         //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
         background.reset();
