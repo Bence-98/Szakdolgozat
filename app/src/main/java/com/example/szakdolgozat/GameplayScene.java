@@ -7,9 +7,6 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import java.sql.Array;
-
-
 public class GameplayScene implements Scene {
 
     private Rect r = new Rect();
@@ -59,7 +56,7 @@ public class GameplayScene implements Scene {
 
     public void nextLevel() {
         currLvlStartingLine += 6;
-        playerStartingPoint=levelCoords.getCoords(currLvlStartingLine);
+        playerStartingPoint = levelCoords.getCoords(currLvlStartingLine);
         playerPoint.set(playerStartingPoint[0], playerStartingPoint[1]);
         //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
@@ -70,7 +67,7 @@ public class GameplayScene implements Scene {
         key = new Key();
         level++;
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine +1 );
+        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         platformManager = new PlatformManager(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
@@ -109,7 +106,7 @@ public class GameplayScene implements Scene {
 
     public void jumping() {
         if (platformManager.canIGoDown(playerPoint) == 0)
-            for (int i = 0; i < 25; i++) {
+            for (int i = 0; i < 30; i++) {
                 try {
                     Thread.sleep(5);
                 } catch (Exception e) {
@@ -148,8 +145,6 @@ public class GameplayScene implements Scene {
                     playerPoint.x++;
                 steps++;
             }
-
-
     }
 
     public void gravity() {

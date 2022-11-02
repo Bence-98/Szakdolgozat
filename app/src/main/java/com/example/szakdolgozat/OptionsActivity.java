@@ -2,6 +2,7 @@ package com.example.szakdolgozat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
@@ -100,7 +101,7 @@ public class OptionsActivity extends AppCompatActivity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
         Constants.SCREEN_HEIGHT = dm.heightPixels;
 
-        sp = getSharedPreferences("Settings", Constants.CURRENT_CONTEXT.MODE_PRIVATE);
+        sp = getSharedPreferences("Settings", MODE_PRIVATE);
 
 
         setContentView(R.layout.activity_options);

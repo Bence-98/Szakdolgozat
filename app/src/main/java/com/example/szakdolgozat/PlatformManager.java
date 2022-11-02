@@ -39,14 +39,14 @@ public class PlatformManager {
 
     public boolean canIGoRight(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatformHitbox().contains(point.x + 45, point.y + 50) || pf.getPlatformHitbox().contains(point.x + 45, point.y - 50) || pf.getPlatformHitbox().contains(point.x + 45, point.y))
+            if (pf.getPlatformHitbox().contains(point.x + 45, point.y + 50) || pf.getPlatformHitbox().contains(point.x + 45, point.y - 45) || pf.getPlatformHitbox().contains(point.x + 45, point.y))
                 return false;
         return true;
     }
 
     public boolean canIGoLeft(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatformHitbox().contains(point.x - 45, point.y + 50) || pf.getPlatformHitbox().contains(point.x - 45, point.y - 50) || pf.getPlatformHitbox().contains(point.x - 45, point.y))
+            if (pf.getPlatformHitbox().contains(point.x - 45, point.y + 50) || pf.getPlatformHitbox().contains(point.x - 45, point.y - 45) || pf.getPlatformHitbox().contains(point.x - 45, point.y))
                 return false;
         return true;
     }
