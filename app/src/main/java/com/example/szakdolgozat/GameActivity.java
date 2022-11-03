@@ -41,5 +41,10 @@ public class GameActivity extends Activity {
         backgroundMusic.pause();
     }
 
+    protected void onStart(){
+        super.onStart();
+        backgroundMusic.start();
+    }
+
 
 }

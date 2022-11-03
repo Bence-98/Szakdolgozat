@@ -200,6 +200,8 @@ public class GameplayScene implements Scene {
                         lastFire = System.currentTimeMillis();
                     }
                 }
+                if(hud.getRestartButton().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex())))
+                    reset();
                 break;
 
             case MotionEvent.ACTION_UP:
