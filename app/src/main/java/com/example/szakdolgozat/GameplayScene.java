@@ -40,7 +40,6 @@ public class GameplayScene implements Scene {
     private long gameOverTime;
     private int state = 2;
     private LavaManager lavaManager;
-    private int playerStartingPoint[] = new int[2];
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
@@ -56,7 +55,8 @@ public class GameplayScene implements Scene {
 
     public void nextLevel() {
         currLvlStartingLine += 6;
-        playerStartingPoint = levelCoords.getCoords(currLvlStartingLine);
+        level++;
+        int[] playerStartingPoint = levelCoords.getCoords(currLvlStartingLine);
         playerPoint.set(playerStartingPoint[0], playerStartingPoint[1]);
         //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
@@ -65,7 +65,6 @@ public class GameplayScene implements Scene {
         keyPicked = false;
         hud = new HUD();
         key = new Key();
-        level++;
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         platformManager = new PlatformManager(currLvlCoords);
@@ -75,7 +74,7 @@ public class GameplayScene implements Scene {
 
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 4);
-        goal = new Goal(currLvlCoords, Color.GREEN);
+        goal = new Goal(currLvlCoords);
 
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 5);
         lavaManager = new LavaManager(currLvlCoords);

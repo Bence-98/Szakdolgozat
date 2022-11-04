@@ -10,13 +10,11 @@ public class Key {
     private Rect key;
     private Bitmap keyBmp;
     private boolean visible = false;
-    private HUD hud = new HUD();
 
     public Key() {
         key = new Rect(0, 1000, 50, 1050);
         keyBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.key);
         keyBmp = Bitmap.createScaledBitmap(keyBmp, 50, 50, false);
-
 
     }
 

@@ -8,7 +8,6 @@ import android.graphics.Rect;
 public class Goal {
 
     private Rect rectangle;
-    private int color;
     private Bitmap goalClosed, goalOpen;
 
     public Rect getRectangle() {
@@ -16,8 +15,7 @@ public class Goal {
     }
 
 
-    public Goal(int[] coords, int color) {
-        this.color = color;
+    public Goal(int[] coords) {
         rectangle = new Rect(coords[0], coords[1], coords[0] + 100, coords[1] + 200);
         goalClosed = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gate_closed);
         goalClosed = Bitmap.createScaledBitmap(goalClosed, 100, 200, false);
