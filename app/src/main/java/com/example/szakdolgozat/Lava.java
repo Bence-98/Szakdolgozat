@@ -16,7 +16,7 @@ public class Lava {
 
     private Bitmap lavaBmp, lavaBmpRev;
 
-    public Lava(int firstLeft, int top, int lastLeft) {
+    public Lava(int firstLeft, int top, int lastRight) {
         lava = new ArrayList<>();
 
         lavaBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.lava);
@@ -27,22 +27,22 @@ public class Lava {
 
         lavaBmpRev = Bitmap.createBitmap(lavaBmp, 0, 0, 100, 100, m, false);
 
-        hitbox = new Rect(firstLeft, top+50, lastLeft + 100, top + 100);
+        hitbox = new Rect(firstLeft, top + 50, lastRight, top + 100);
 
         int shift = 0;
-        while (firstLeft + shift <= lastLeft) {
+        while (firstLeft + shift <= lastRight - 100) {
             lava.add(new Rect(firstLeft + shift, top, firstLeft + shift + 100, top + 100));
             shift += 100;
         }
     }
 
 
-    public Rect getLavaHitbox(){
+    public Rect getLavaHitbox() {
         return hitbox;
     }
 
 
-    public void changeWave(){
+    public void changeWave() {
         direction = !direction;
     }
 
@@ -58,7 +58,7 @@ public class Lava {
 
 
     public void update() {
-        for (Rect lv: lava){
+        for (Rect lv : lava) {
             lv.left--;
             lv.right--;
         }

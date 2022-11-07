@@ -54,7 +54,7 @@ public class PlatformManager {
 
     public int canIGoDown(Point point) {
         for (Platform pf : platforms)
-            if (pf.getPlatformHitbox().contains(point.x + 40, point.y + 60) || pf.getPlatformHitbox().contains(point.x - 40, point.y + 60))
+            if (pf.getPlatformHitbox().contains(point.x + 40, point.y + 70) || pf.getPlatformHitbox().contains(point.x - 40, point.y + 70))
                 return pf.getPlatformHitbox().top - (point.y + 51);
         return 20;
     }

@@ -17,7 +17,7 @@ public class EnemyManager {
 
 
         for (int i = 0; level.length - 1 > i; i += 5) {
-            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], level[i + 3], level[i + 4], animator, projectileManager));
+            enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], animator, projectileManager));
         }
     }
 

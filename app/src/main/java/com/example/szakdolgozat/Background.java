@@ -27,13 +27,10 @@ public class Background {
     public void draw(Canvas canvas) {
         canvas.drawBitmap(sky, skyX, 0, null);
         canvas.drawBitmap(sky, skyX + Constants.SCREEN_WIDTH, 0, null);
-
         canvas.drawBitmap(rocks, rocksX, 0, null);
         canvas.drawBitmap(rocks, rocksX + Constants.SCREEN_WIDTH, 0, null);
         canvas.drawBitmap(clouds, cloudsX, 0, null);
         canvas.drawBitmap(clouds, cloudsX + Constants.SCREEN_WIDTH, 0, null);
-
-
     }
 
     public void update(int scale) {
@@ -50,7 +47,6 @@ public class Background {
             rocksX = 0;
         if (cloudsX < -Constants.SCREEN_WIDTH)
             cloudsX = 0;
-
     }
 
     public void reset() {

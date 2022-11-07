@@ -14,7 +14,6 @@ public class GameplayScene implements Scene {
     private Player player;
     private Point playerPoint;
     private ObstacleManager obstacleManager;
-    private Rect upArrow, leftArrow, rightArrow, fireButton;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
     private LevelCoords levelCoords;
@@ -168,7 +167,6 @@ public class GameplayScene implements Scene {
         } else if (direction)
             state = PlayerState.JUMP_RIGHT.ordinal();
         else state = PlayerState.JUMP_LEFT.ordinal();
-
     }
 
 
@@ -177,20 +175,20 @@ public class GameplayScene implements Scene {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN:
-                if (upArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                if (hud.getupArrow().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     jumping();
                 }
-                if (leftArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                if (hud.getleftArrow().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     direction = false;
                     isGoingLeft = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
-                if (rightArrow.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                if (hud.getrightArrow().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     direction = true;
                     isGoingRight = true;
                     movingId = event.getPointerId(event.getActionIndex());
                 }
-                if (fireButton.contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
+                if (hud.getfireButton().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex()))) {
                     if (lastFire < System.currentTimeMillis() - 1000) {
                         if (player.getDirection())
                             projectileManager.fire(playerPoint.x + 50, playerPoint.y + 5, player.getDirection(), true);
@@ -199,8 +197,9 @@ public class GameplayScene implements Scene {
                         lastFire = System.currentTimeMillis();
                     }
                 }
-                if(hud.getRestartButton().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex())))
-                    reset();
+                if (hud.getRestartButton().contains((int) event.getX(event.getActionIndex()), (int) event.getY(event.getActionIndex())))
+                    if (!gameOver)
+                        reset();
                 break;
 
             case MotionEvent.ACTION_UP:
@@ -220,7 +219,6 @@ public class GameplayScene implements Scene {
 
         key.draw(canvas);
 
-        hud.draw(canvas, keyPicked);
 
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
@@ -229,21 +227,9 @@ public class GameplayScene implements Scene {
         enemyManager.draw(canvas);
         lavaManager.draw(canvas);
 
-
-        Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(255, 125, 125));
-        arrowPaint.setAlpha(100);
-        upArrow = new Rect(2000, 850, 2150, 1000);
-        leftArrow = new Rect(50, 850, 200, 1000);
-        rightArrow = new Rect(250, 850, 400, 1000);
-        fireButton = new Rect(2000, 650, 2150, 800);
-        canvas.drawRect(upArrow, arrowPaint);
-        canvas.drawRect(leftArrow, arrowPaint);
-        canvas.drawRect(rightArrow, arrowPaint);
-        canvas.drawRect(fireButton, arrowPaint);
-
-
         player.draw(canvas);
+        hud.draw(canvas, keyPicked);
+
         if (gameOver) {
             Paint paint = new Paint();
             paint.setTextSize(100);
@@ -280,7 +266,7 @@ public class GameplayScene implements Scene {
                 keyPicked = true;
             enemyManager.update(actualPositionX);
             lavaManager.changeWave();
-            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y > 1000 || player.playerAlive()) {
+            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y + 50 > Constants.SCREEN_HEIGHT || player.playerAlive()) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
             }

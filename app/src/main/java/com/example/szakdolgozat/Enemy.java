@@ -22,10 +22,10 @@ public class Enemy implements GameObject {
         return enemy;
     }
 
-    public Enemy(int left, int top, int right, int bottom, int distance, Animator animator, ProjectileManager projectileManager) {
+    public Enemy(int left, int top, int distance, Animator animator, ProjectileManager projectileManager) {
         this.left = left;
         this.distance = distance;
-        enemy = new Rect(left, top, right, bottom);
+        enemy = new Rect(left, top, left + 100, top + 100);
         this.animator = animator;
         this.projectileManager = projectileManager;
     }
@@ -51,7 +51,7 @@ public class Enemy implements GameObject {
         count++;
         if (count > 120) {
             count = 0;
-            if (actPosX > left-Constants.SCREEN_WIDTH) {
+            if (actPosX > left - Constants.SCREEN_WIDTH) {
                 if (direction)
                     projectileManager.fire(enemy.left + 100, enemy.top + 50, true, false);
                 else projectileManager.fire(enemy.left, enemy.top + 50, false, false);

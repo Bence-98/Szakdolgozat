@@ -34,7 +34,7 @@ public class CollisionDetection {
                 enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl), key);
                 projectileManager.deleteProjectile(prtl);
             }
-            if (Rect.intersects(player.getRectangle(),prtl.getRect()) && prtl.getWhose() == false)
+            if (Rect.intersects(player.getRectangle(),prtl.getRect()) && !prtl.getWhose())
             {
                 projectileManager.deleteProjectile(prtl);
                 player.playerDie(true);
