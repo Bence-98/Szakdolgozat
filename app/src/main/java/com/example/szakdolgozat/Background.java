@@ -16,12 +16,9 @@ public class Background {
         rocks = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.rocks);
         clouds = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.clouds);
 
-
         sky = Bitmap.createScaledBitmap(sky, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
         rocks = Bitmap.createScaledBitmap(rocks, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
         clouds = Bitmap.createScaledBitmap(clouds, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
-
-
     }
 
     public void draw(Canvas canvas) {

@@ -41,14 +41,12 @@ public class GameplayScene implements Scene {
     private LavaManager lavaManager;
 
     public GameplayScene() {
-        player = new Player(new Rect(100, 100, 200, 200), Color.rgb(0, 0, 0));
+        player = new Player(new Rect(100, 100, 200, 200));
         playerPoint = new Point(200, 440);
 
         levelCoords = new LevelCoords();
         background = new Background();
         nextLevel();
-
-
     }
 
 
@@ -83,9 +81,7 @@ public class GameplayScene implements Scene {
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
         enemyManager = new EnemyManager(currLvlCoords, projectileManager);
 
-
         collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager, player);
-
     }
 
 
@@ -113,8 +109,6 @@ public class GameplayScene implements Scene {
                 if (platformManager.canIGoUp(playerPoint))
                     playerPoint.y -= 15;
             }
-
-
     }
 
     public void goingLeft() {
@@ -216,17 +210,13 @@ public class GameplayScene implements Scene {
     public void draw(Canvas canvas) {
         canvas.drawColor(Color.WHITE);
         background.draw(canvas);
-
         key.draw(canvas);
-
-
         projectileManager.draw(canvas);
         platformManager.draw(canvas);
         obstacleManager.draw(canvas);
         goal.draw(canvas, keyPicked);
         enemyManager.draw(canvas);
         lavaManager.draw(canvas);
-
         player.draw(canvas);
         hud.draw(canvas, keyPicked);
 
@@ -277,9 +267,7 @@ public class GameplayScene implements Scene {
                     goalReached = true;
 
                 gameOverTime = System.currentTimeMillis();
-
             }
-
         }
         if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
             reset();

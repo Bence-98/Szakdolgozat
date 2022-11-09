@@ -13,7 +13,6 @@ public class Platform implements GameObject {
     private ArrayList<Rect> platform;
     private Rect hitbox;
     private int top;
-    private boolean loaded;
 
     private Bitmap grass, dirt;
 
@@ -28,8 +27,6 @@ public class Platform implements GameObject {
         this.top = top;
         grass = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.grass);
         dirt = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dirt);
-        //grass = Bitmap.createBitmap(grass);
-        //dirt = Bitmap.createBitmap(dirt);
         grass = Bitmap.createScaledBitmap(grass, 100, 100, false);
         dirt = Bitmap.createScaledBitmap(dirt, 100, 100, false);
 
@@ -53,11 +50,6 @@ public class Platform implements GameObject {
         }
     }
 
-/*    public boolean playerCollidePlatform(Player player) {
-        return Rect.intersects(platform, player.getRectangle());
-    }*/
-
-
     @Override
     public void draw(Canvas canvas) {
         for (Rect pf : platform) {
@@ -68,7 +60,6 @@ public class Platform implements GameObject {
             }
         }
     }
-
 
     @Override
     public void update() {

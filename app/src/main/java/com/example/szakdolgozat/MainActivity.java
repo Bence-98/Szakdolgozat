@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button optionsbtn = (Button) findViewById(R.id.optionsbtn);
         optionsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,30 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
-
-
     }
 
-
-    /*
-        @Override
-        protected void onPause () {
-            super.onPause();
-            backgroundMusic.pause();
-        }
-
-        @Override
-        protected void onStart(){
-            super.onStart();
-            backgroundMusic.start();
-        }
-    */
     protected void onStart() {
         super.onStart();
         //startService(svc);
-
     }
-
 
     private void openCharacterSelectActivity() {
         Intent intent = new Intent(this, CharacterSelect.class);
@@ -90,13 +71,10 @@ public class MainActivity extends AppCompatActivity {
     public void openOptionsActivity() {
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
-        //this.overridePendingTransition(0, 0);
     }
 
     public void openGameActivity() {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
-        //this.overridePendingTransition(0, 0);
     }
-
 }

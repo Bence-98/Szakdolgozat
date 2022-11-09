@@ -12,7 +12,6 @@ public class CollisionDetection {
     private EnemyManager enemyManager;
     private Player player;
 
-
     private ArrayList<Projectile> projectiles;
 
     public CollisionDetection(PlatformManager platformManager, ObstacleManager obstacleManager, Goal goal, ProjectileManager projectileManager, EnemyManager enemyManager, Player player) {
@@ -22,7 +21,6 @@ public class CollisionDetection {
         this.projectileManager = projectileManager;
         this.enemyManager = enemyManager;
         this.player = player;
-
         this.projectiles = projectileManager.getArray();
     }
 
@@ -34,12 +32,10 @@ public class CollisionDetection {
                 enemyManager.enemyDie(enemyManager.projectileCollideEnemy(prtl), key);
                 projectileManager.deleteProjectile(prtl);
             }
-            if (Rect.intersects(player.getRectangle(),prtl.getRect()) && !prtl.getWhose())
-            {
+            if (Rect.intersects(player.getRectangle(), prtl.getRect()) && !prtl.getWhose()) {
                 projectileManager.deleteProjectile(prtl);
                 player.playerDie(true);
             }
-
         }
     }
 
@@ -47,5 +43,4 @@ public class CollisionDetection {
         if (!projectiles.isEmpty())
             bulletCollision(key);
     }
-
 }

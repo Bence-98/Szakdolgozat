@@ -20,8 +20,8 @@ public class ProjectileManager {
         playerShotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT, R.raw.shot);
         playerShotSound.setVolume(0.4f, 0.4f);
 
-        enemyShotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.enemyshot);
-        enemyShotSound.setVolume(0.4f,0.4f);
+        enemyShotSound = MediaPlayer.create(Constants.CURRENT_CONTEXT, R.raw.enemyshot);
+        enemyShotSound.setVolume(0.4f, 0.4f);
 
         SharedPreferences sp = Constants.CURRENT_CONTEXT.getSharedPreferences("Settings", Context.MODE_PRIVATE);
         soundOn = sp.getBoolean("WeaponSound", true);
@@ -53,10 +53,8 @@ public class ProjectileManager {
         projectiles.add(new Projectile(x, y, direction, whose));
         if (soundOn)
             if (whose)
-            playerShotSound.start();
+                playerShotSound.start();
             else
                 enemyShotSound.start();
-
     }
-
 }

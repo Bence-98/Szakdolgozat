@@ -52,7 +52,6 @@ public class Lava {
                 canvas.drawBitmap(lavaBmp, lv.left, lv.top, null);
             else
                 canvas.drawBitmap(lavaBmpRev, lv.left, lv.top, null);
-
         }
     }
 

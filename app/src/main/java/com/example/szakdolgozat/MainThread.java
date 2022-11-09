@@ -49,7 +49,6 @@ public class MainThread extends Thread {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             }
             timeMillis = (System.nanoTime() - startTime) / 1000000;
@@ -65,10 +64,7 @@ public class MainThread extends Thread {
             if (frameCount == MAX_FPS) {
                 averageFPS = 1000 / ((totalTime / frameCount) / 1000000);
                 frameCount = 0;
-               // System.out.println(averageFPS);
             }
-
-
         }
     }
 }

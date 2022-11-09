@@ -12,10 +12,9 @@ public class Key {
     private boolean visible = false;
 
     public Key() {
-        key = new Rect(0, 1000, 50, 1050);
+        key = new Rect(0, 1100, 50, 1150);
         keyBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.key);
         keyBmp = Bitmap.createScaledBitmap(keyBmp, 50, 50, false);
-
     }
 
     public void setCoords(int left, int top) {
@@ -34,7 +33,7 @@ public class Key {
     }
 
 
-    public void setVisible(){
+    public void setVisible() {
         visible = true;
     }
 

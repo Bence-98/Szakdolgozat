@@ -24,8 +24,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         manager = new SceneManager();
 
         setFocusable(true);
-
-
     }
 
 
@@ -62,7 +60,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         manager.receiveTouch(event);
 
         return true;
-        //return super.onTouchEvent(event);
     }
 
     public void update() {
@@ -74,8 +71,5 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
 
         manager.draw(canvas);
-
     }
-
-
 }

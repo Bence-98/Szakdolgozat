@@ -13,13 +13,13 @@ public class ObstacleManager {
         obstacles = new ArrayList<>();
 
         for (int i = 0; level.length - 1 > i; i += 3) {
-            obstacles.add(new Obstacle(level[i], level[i + 1], level[i+2]));
+            obstacles.add(new Obstacle(level[i], level[i + 1], level[i + 2]));
         }
 
 
     }
 
-    public ArrayList getArray(){
+    public ArrayList getArray() {
         return obstacles;
     }
 
@@ -40,9 +40,8 @@ public class ObstacleManager {
 
 
     public void update() {
-        for (Obstacle ob: obstacles) {
-            ob.getRectangle().left--;
-            ob.getRectangle().right--;
+        for (Obstacle ob : obstacles) {
+            ob.update();
         }
     }
 

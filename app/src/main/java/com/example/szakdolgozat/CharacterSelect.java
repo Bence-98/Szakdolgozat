@@ -29,7 +29,6 @@ public class CharacterSelect extends AppCompatActivity {
 
         changeText();
 
-
         black.setOnClickListener(this::onClick);
         blue.setOnClickListener(this::onClick);
         green.setOnClickListener(this::onClick);
@@ -38,8 +37,8 @@ public class CharacterSelect extends AppCompatActivity {
 
     }
 
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.black:
                 Constants.CHARACTER_COLOR = 0;
                 changeText();
@@ -60,11 +59,10 @@ public class CharacterSelect extends AppCompatActivity {
                 finish();
                 break;
         }
-
     }
 
-    public void changeText(){
-        switch (Constants.CHARACTER_COLOR){
+    public void changeText() {
+        switch (Constants.CHARACTER_COLOR) {
             case 0:
                 textView.setTextColor(Color.BLACK);
                 textView.setText("Black");
@@ -83,6 +81,4 @@ public class CharacterSelect extends AppCompatActivity {
                 break;
         }
     }
-
-
 }

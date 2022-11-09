@@ -32,9 +32,6 @@ public class Enemy implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-/*        Paint paint = new Paint();
-        paint.setColor(Color.MAGENTA);
-        canvas.drawRect(enemy, paint);*/
         animator.draw(canvas, enemy, state);
     }
 
@@ -44,7 +41,6 @@ public class Enemy implements GameObject {
 
     @Override
     public void update() {
-
     }
 
     public void update(int actPosX) {
@@ -70,7 +66,5 @@ public class Enemy implements GameObject {
         }
         if (x > distance || x < 0)
             direction = !direction;
-
     }
-
 }

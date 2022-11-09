@@ -36,7 +36,7 @@ public class Projectile implements GameObject {
         return rect;
     }
 
-    public boolean getWhose(){
+    public boolean getWhose() {
         return whose;
     }
 
@@ -52,10 +52,9 @@ public class Projectile implements GameObject {
         lifeTime += 25;
     }
 
-    public int getLifeTime(){
+    public int getLifeTime() {
         return lifeTime;
     }
-
 
     @Override
     public void draw(Canvas canvas) {

@@ -3,8 +3,6 @@ package com.example.szakdolgozat;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 
 public class HUD {
@@ -16,7 +14,6 @@ public class HUD {
         key = new Rect(50, 25, 100, 75);
 
         keyBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.hud_key_outline);
-
         keyBmp = Bitmap.createScaledBitmap(keyBmp, key.width(), key.height(), false);
 
         keyBmpFull = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.hud_key);
@@ -31,15 +28,14 @@ public class HUD {
         rightArrow = new Rect(250, 850, 400, 1000);
         fireButton = new Rect(2000, 650, 2150, 800);
 
-        upBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.upbutton);
-        upBitmap = Bitmap.createScaledBitmap(upBitmap, upArrow.width(),upArrow.height(),false);
-        leftBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.leftbutton);
-        leftBitmap = Bitmap.createScaledBitmap(leftBitmap, upArrow.width(),upArrow.height(),false);
-        rightBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.rightbutton);
-        rightBitmap = Bitmap.createScaledBitmap(rightBitmap, upArrow.width(),upArrow.height(),false);
-        fireBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.firebutton);
-        fireBitmap = Bitmap.createScaledBitmap(fireBitmap, upArrow.width(),upArrow.height(),false);
-
+        upBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.upbutton);
+        upBitmap = Bitmap.createScaledBitmap(upBitmap, upArrow.width(), upArrow.height(), false);
+        leftBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.leftbutton);
+        leftBitmap = Bitmap.createScaledBitmap(leftBitmap, upArrow.width(), upArrow.height(), false);
+        rightBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.rightbutton);
+        rightBitmap = Bitmap.createScaledBitmap(rightBitmap, upArrow.width(), upArrow.height(), false);
+        fireBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.firebutton);
+        fireBitmap = Bitmap.createScaledBitmap(fireBitmap, upArrow.width(), upArrow.height(), false);
     }
 
     public Rect getRestartButton() {
@@ -68,20 +64,9 @@ public class HUD {
         else canvas.drawBitmap(keyBmp, key.left, key.top, null);
 
         canvas.drawBitmap(restartBitmap, restartButton.left, restartButton.top, null);
-
-/*        Paint arrowPaint = new Paint();
-        arrowPaint.setColor(Color.rgb(255, 125, 125));
-        arrowPaint.setAlpha(100);
-
-        canvas.drawRect(upArrow, arrowPaint);
-        canvas.drawRect(leftArrow, arrowPaint);
-        canvas.drawRect(rightArrow, arrowPaint);
-        canvas.drawRect(fireButton, arrowPaint);*/
-
-        canvas.drawBitmap(upBitmap, upArrow.left,upArrow.top,null);
-        canvas.drawBitmap(leftBitmap, leftArrow.left,leftArrow.top,null);
-        canvas.drawBitmap(rightBitmap, rightArrow.left,rightArrow.top,null);
-        canvas.drawBitmap(fireBitmap, fireButton.left,fireButton.top,null);
-
+        canvas.drawBitmap(upBitmap, upArrow.left, upArrow.top, null);
+        canvas.drawBitmap(leftBitmap, leftArrow.left, leftArrow.top, null);
+        canvas.drawBitmap(rightBitmap, rightArrow.left, rightArrow.top, null);
+        canvas.drawBitmap(fireBitmap, fireButton.left, fireButton.top, null);
     }
 }

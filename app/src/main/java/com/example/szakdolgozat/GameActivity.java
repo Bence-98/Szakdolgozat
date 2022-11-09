@@ -1,7 +1,6 @@
 package com.example.szakdolgozat;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -24,13 +23,11 @@ public class GameActivity extends Activity {
         SharedPreferences sp = getApplicationContext().getSharedPreferences("Settings", MODE_PRIVATE);
         boolean soundOn = sp.getBoolean("BgMusic", true);
 
-
         backgroundMusic = MediaPlayer.create(GameActivity.this, R.raw.gamemusic);
         backgroundMusic.setLooping(true);
 
         if (soundOn)
             backgroundMusic.start();
-
 
         setContentView(new GamePanel(this));
     }
@@ -41,10 +38,8 @@ public class GameActivity extends Activity {
         backgroundMusic.pause();
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         backgroundMusic.start();
     }
-
-
 }

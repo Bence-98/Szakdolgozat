@@ -10,8 +10,6 @@ public class SpriteSheet {
     private ArrayList<Bitmap> bitmap = new ArrayList<>();
 
     public SpriteSheet() {
-  /*      BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inScaled = false;*/
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run));
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run_backwards));
 
@@ -60,14 +58,10 @@ public class SpriteSheet {
         }
     }
 
-    /*public void scale(){
-        bitmap.set(2,Bitmap.createScaledBitmap(bitmap.get(2),600,100,false));
-    }*/
-
     public Sprite[] getSpriteArray() {
         int width, height;
         width = bitmap.get(0).getWidth() / 6;
-        height = bitmap.get(0).getHeight()-50;
+        height = bitmap.get(0).getHeight() - 50;
         Sprite[] spriteArray = new Sprite[6];
         spriteArray[0] = new Sprite(this, new Rect(0, 0, width, height));
         spriteArray[1] = new Sprite(this, new Rect(width, 0, width * 2, height));

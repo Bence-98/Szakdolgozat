@@ -14,6 +14,5 @@ public class Sprite {
 
     public void draw(Canvas canvas, Rect destRect, int state) {
         canvas.drawBitmap(spriteSheet.getBitmap(state), rect, new Rect(destRect.left, destRect.top, destRect.right, destRect.bottom), null);
-
     }
 }

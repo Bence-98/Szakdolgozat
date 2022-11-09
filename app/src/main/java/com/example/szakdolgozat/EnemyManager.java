@@ -15,7 +15,6 @@ public class EnemyManager {
         spriteSheet = new SpriteSheet();
         Animator animator = new Animator(spriteSheet.getSpriteArray());
 
-
         for (int i = 0; level.length - 1 > i; i += 5) {
             enemies.add(new Enemy(level[i], level[i + 1], level[i + 2], animator, projectileManager));
         }
@@ -53,5 +52,4 @@ public class EnemyManager {
             nmy.getEnemy().right--;
         }
     }
-
 }
