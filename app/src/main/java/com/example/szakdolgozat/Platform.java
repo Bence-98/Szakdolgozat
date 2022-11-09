@@ -77,7 +77,6 @@ public class Platform implements GameObject {
                 pf.left--;
                 pf.right--;
             }
-
             hitbox.left--;
             hitbox.right--;
         }
