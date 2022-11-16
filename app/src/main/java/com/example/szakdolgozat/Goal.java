@@ -7,7 +7,7 @@ import android.graphics.Rect;
 
 public class Goal {
 
-    private Rect rectangle;
+    private final Rect rectangle;
     private Bitmap goalClosed, goalOpen;
 
     public Rect getRectangle() {

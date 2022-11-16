@@ -6,17 +6,15 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class LavaManager {
-    private ArrayList<Lava> lavas;
+    private final ArrayList<Lava> lavas;
     private int count;
 
     public LavaManager(int[] level) {
         lavas = new ArrayList<>();
-
         for (int i = 0; level.length - 1 > i; i += 3) {
             lavas.add(new Lava(level[i], level[i + 1], level[i + 2]));
         }
     }
-
 
     public void changeWave() {
         count++;
@@ -33,7 +31,6 @@ public class LavaManager {
                 return true;
         return false;
     }
-
 
     public void draw(Canvas canvas) {
         for (Lava lv : lavas)

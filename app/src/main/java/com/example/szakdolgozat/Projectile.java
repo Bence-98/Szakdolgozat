@@ -6,22 +6,18 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 
-
 public class Projectile implements GameObject {
-    private Rect rect;
+    private final Rect rect;
     boolean direction;
     private int lifeTime;
-    private boolean whose; // true player, false enemy
-
+    private final boolean whose; // true player, false enemy
     private Bitmap bullet;
-
 
     public Projectile(int x, int y, boolean direction, boolean whose) {
         rect = new Rect(16, 16, 16, 16);
         rect.set(x - 8, y - 8, x + 8, y + 8);
         this.direction = direction;
         this.whose = whose;
-
         bullet = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.bullet);
         bullet = Bitmap.createScaledBitmap(bullet, 16, 16, false);
 

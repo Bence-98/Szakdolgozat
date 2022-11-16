@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 public class OptionsActivity extends AppCompatActivity {
-
     private SharedPreferences sp;
 
     @Override
@@ -26,31 +24,22 @@ public class OptionsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_options);
 
-        CheckBox bgCheckB = (CheckBox) findViewById(R.id.checkBox);
-        CheckBox wpnCheckB = (CheckBox) findViewById(R.id.checkBox2);
+        CheckBox bgCheckB = findViewById(R.id.checkBox);
+        CheckBox wpnCheckB = findViewById(R.id.checkBox2);
 
         bgCheckB.setChecked(sp.getBoolean("BgMusic", true));
         wpnCheckB.setChecked(sp.getBoolean("WeaponSound", true));
 
-        TextView save = (TextView) findViewById(R.id.textView);
-        TextView close = (TextView) findViewById(R.id.textView2);
+        TextView save = findViewById(R.id.textView);
+        TextView close = findViewById(R.id.textView2);
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putBoolean("BgMusic", bgCheckB.isChecked());
-                editor.putBoolean("WeaponSound", wpnCheckB.isChecked());
-                editor.commit();
-                finish();
-
-            }
+        save.setOnClickListener(view -> {
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean("BgMusic", bgCheckB.isChecked());
+            editor.putBoolean("WeaponSound", wpnCheckB.isChecked());
+            editor.apply();
+            finish();
         });
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        close.setOnClickListener(view -> finish());
     }
 }

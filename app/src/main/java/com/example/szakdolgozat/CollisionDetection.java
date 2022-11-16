@@ -5,14 +5,13 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class CollisionDetection {
-    private PlatformManager platformManager;
-    private ObstacleManager obstacleManager;
-    private Goal goal;
-    private ProjectileManager projectileManager;
-    private EnemyManager enemyManager;
-    private Player player;
-
-    private ArrayList<Projectile> projectiles;
+    private final PlatformManager platformManager;
+    private final ObstacleManager obstacleManager;
+    private final Goal goal;
+    private final ProjectileManager projectileManager;
+    private final EnemyManager enemyManager;
+    private final Player player;
+    private final ArrayList<Projectile> projectiles;
 
     public CollisionDetection(PlatformManager platformManager, ObstacleManager obstacleManager, Goal goal, ProjectileManager projectileManager, EnemyManager enemyManager, Player player) {
         this.platformManager = platformManager;
@@ -34,7 +33,7 @@ public class CollisionDetection {
             }
             if (Rect.intersects(player.getRectangle(), prtl.getRect()) && !prtl.getWhose()) {
                 projectileManager.deleteProjectile(prtl);
-                player.playerDie(true);
+                player.setAlive(false);
             }
         }
     }

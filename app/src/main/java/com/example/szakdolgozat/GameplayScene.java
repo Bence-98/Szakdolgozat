@@ -9,20 +9,18 @@ import android.view.MotionEvent;
 
 public class GameplayScene implements Scene {
 
-    private Rect r = new Rect();
-
-    private Player player;
-    private Point playerPoint;
+    private final Rect r = new Rect();
+    private final Player player;
+    private final Point playerPoint;
     private ObstacleManager obstacleManager;
     private boolean isGoingLeft, isGoingRight;
     private PlatformManager platformManager;
-    private LevelCoords levelCoords;
+    private final LevelCoords levelCoords;
     private int currLvlStartingLine = -6;
-    private int[] currLvlCoords;
     private Goal goal;
     private int movingId = 0;
     private int actualPositionX;
-    private Background background;
+    private final Background background;
     private ProjectileManager projectileManager;
     private CollisionDetection collisionDetection;
     private long lastFire;
@@ -33,20 +31,20 @@ public class GameplayScene implements Scene {
     private boolean keyPicked;
     private int level;
     private boolean win = false;
-
     private boolean goalReached = false;
     private boolean gameOver = false;
     private long gameOverTime;
     private int state = 2;
     private LavaManager lavaManager;
+    private final int lastlevel;
 
     public GameplayScene() {
         player = new Player(new Rect(100, 100, 200, 200));
         playerPoint = new Point(200, 440);
-
         levelCoords = new LevelCoords();
         background = new Background();
         nextLevel();
+        lastlevel = levelCoords.getLength() / 6;
     }
 
 
@@ -55,7 +53,6 @@ public class GameplayScene implements Scene {
         level++;
         int[] playerStartingPoint = levelCoords.getCoords(currLvlStartingLine);
         playerPoint.set(playerStartingPoint[0], playerStartingPoint[1]);
-        //player.update(playerPoint, true, isGoingLeft);
         player.update(playerPoint);
         background.reset();
         actualPositionX = 200;
@@ -63,24 +60,17 @@ public class GameplayScene implements Scene {
         hud = new HUD();
         key = new Key();
 
-        currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
+        int[] currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 1);
         platformManager = new PlatformManager(currLvlCoords);
-
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 2);
         obstacleManager = new ObstacleManager(currLvlCoords);
-
-
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 4);
         goal = new Goal(currLvlCoords);
-
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 5);
         lavaManager = new LavaManager(currLvlCoords);
-
         projectileManager = new ProjectileManager();
-
         currLvlCoords = levelCoords.getCoords(currLvlStartingLine + 3);
         enemyManager = new EnemyManager(currLvlCoords, projectileManager);
-
         collisionDetection = new CollisionDetection(platformManager, obstacleManager, goal, projectileManager, enemyManager, player);
     }
 
@@ -89,14 +79,13 @@ public class GameplayScene implements Scene {
         currLvlStartingLine -= 6;
         level--;
         nextLevel();
-        player.playerDie(false);
+        player.setAlive(true);
     }
 
     @Override
     public void terminate() {
         SceneManager.ACTIVE_SCENE = 0;
     }
-
 
     public void jumping() {
         if (platformManager.canIGoDown(playerPoint) == 0)
@@ -132,7 +121,7 @@ public class GameplayScene implements Scene {
                     obstacleManager.update();
                     enemyManager.floatLeft();
                     goal.update();
-                    //player.movingPlatforms(actualPositionX);
+                    projectileManager.floatLeft();
                 } else
                     playerPoint.x++;
                 steps++;
@@ -146,21 +135,25 @@ public class GameplayScene implements Scene {
 
 
     public void calculateState() {
-        if (platformManager.canIGoDown(playerPoint) == 0) {
-            if (isGoingRight) {
-                state = PlayerState.WALK_RIGHT.ordinal();
-            }
-            if (isGoingLeft) {
-                state = PlayerState.WALK_LEFT.ordinal();
-            }
-            if (!isGoingRight && !isGoingLeft) {
-                if (direction)
-                    state = PlayerState.IDLE_RIGHT.ordinal();
-                else state = PlayerState.IDLE_LEFT.ordinal();
-            }
+        if (player.getAlive()) {
+            if (platformManager.canIGoDown(playerPoint) == 0) {
+                if (isGoingRight) {
+                    state = PlayerState.WALK_RIGHT.ordinal();
+                }
+                if (isGoingLeft) {
+                    state = PlayerState.WALK_LEFT.ordinal();
+                }
+                if (!isGoingRight && !isGoingLeft) {
+                    if (direction)
+                        state = PlayerState.IDLE_RIGHT.ordinal();
+                    else state = PlayerState.IDLE_LEFT.ordinal();
+                }
+            } else if (direction)
+                state = PlayerState.JUMP_RIGHT.ordinal();
+            else state = PlayerState.JUMP_LEFT.ordinal();
         } else if (direction)
-            state = PlayerState.JUMP_RIGHT.ordinal();
-        else state = PlayerState.JUMP_LEFT.ordinal();
+            state = PlayerState.DEATH_RIGHT.ordinal();
+        else state = PlayerState.DEATH_LEFT.ordinal();
     }
 
 
@@ -195,7 +188,6 @@ public class GameplayScene implements Scene {
                     if (!gameOver)
                         reset();
                 break;
-
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 if (movingId == event.getPointerId(event.getActionIndex())) {
@@ -219,7 +211,6 @@ public class GameplayScene implements Scene {
         lavaManager.draw(canvas);
         player.draw(canvas);
         hud.draw(canvas, keyPicked);
-
         if (gameOver) {
             Paint paint = new Paint();
             paint.setTextSize(100);
@@ -247,8 +238,8 @@ public class GameplayScene implements Scene {
         goingRight();
         gravity();
         calculateState();
+        player.setPlayerState(state);
         if (!gameOver && !goalReached && !win) {
-            player.setPlayerState(state);
             player.update(playerPoint);
             projectileManager.update();
             collisionDetection.update(key);
@@ -256,12 +247,13 @@ public class GameplayScene implements Scene {
                 keyPicked = true;
             enemyManager.update(actualPositionX);
             lavaManager.changeWave();
-            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y + 50 > Constants.SCREEN_HEIGHT || player.playerAlive()) {
+            if (obstacleManager.playerCollide(player) || lavaManager.playerCollideLava(player) || playerPoint.y + 50 > Constants.SCREEN_HEIGHT || !player.getAlive()) {
                 gameOver = true;
                 gameOverTime = System.currentTimeMillis();
+                player.setAlive(false);
             }
             if (goal.playerCollideGoal(player) && keyPicked) {
-                if (level == 3) {
+                if (level == lastlevel) {
                     win = true;
                 } else
                     goalReached = true;
@@ -269,7 +261,7 @@ public class GameplayScene implements Scene {
                 gameOverTime = System.currentTimeMillis();
             }
         }
-        if (gameOver && System.currentTimeMillis() - gameOverTime > 2000) {
+        if (gameOver && System.currentTimeMillis() - gameOverTime > 1500) {
             reset();
             gameOver = false;
         }

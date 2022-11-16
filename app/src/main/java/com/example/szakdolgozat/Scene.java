@@ -4,11 +4,11 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 public interface Scene {
-    public void update();
+    void update();
 
-    public void draw(Canvas canvas);
+    void draw(Canvas canvas);
 
-    public void terminate();
+    void terminate();
 
-    public void receiveTouch(MotionEvent event);
+    void receiveTouch(MotionEvent event);
 }

@@ -9,7 +9,7 @@ import android.util.DisplayMetrics;
 public class GameActivity extends Activity {
 
     private MediaPlayer backgroundMusic;
-
+    boolean soundOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class GameActivity extends Activity {
         Constants.SCREEN_HEIGHT = dm.heightPixels;
 
         SharedPreferences sp = getApplicationContext().getSharedPreferences("Settings", MODE_PRIVATE);
-        boolean soundOn = sp.getBoolean("BgMusic", true);
+        soundOn = sp.getBoolean("BgMusic", true);
 
         backgroundMusic = MediaPlayer.create(GameActivity.this, R.raw.gamemusic);
         backgroundMusic.setLooping(true);
@@ -40,6 +40,7 @@ public class GameActivity extends Activity {
 
     protected void onStart() {
         super.onStart();
-        backgroundMusic.start();
+        if (soundOn)
+            backgroundMusic.start();
     }
 }

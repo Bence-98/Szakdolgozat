@@ -1,22 +1,20 @@
 package com.example.szakdolgozat;
 
 import android.graphics.Canvas;
-
 import android.graphics.Rect;
 
 
 public class Enemy implements GameObject {
 
-    private Rect enemy;
-    private int distance;
+    private final Rect enemy;
+    private final int distance;
     private boolean direction = true;
     private int x = 0;
-    private int speed = 5;
-    private Animator animator;
+    private final Animator animator;
     private int state;
     private int count;
-    private ProjectileManager projectileManager;
-    private int left;
+    private final ProjectileManager projectileManager;
+    private final int left;
 
     public Rect getEnemy() {
         return enemy;
@@ -35,9 +33,6 @@ public class Enemy implements GameObject {
         animator.draw(canvas, enemy, state);
     }
 
-    public boolean getDirection() {
-        return direction;
-    }
 
     @Override
     public void update() {
@@ -45,7 +40,7 @@ public class Enemy implements GameObject {
 
     public void update(int actPosX) {
         count++;
-        if (count > 120) {
+        if (count > 60) {
             count = 0;
             if (actPosX > left - Constants.SCREEN_WIDTH) {
                 if (direction)
@@ -53,6 +48,7 @@ public class Enemy implements GameObject {
                 else projectileManager.fire(enemy.left, enemy.top + 50, false, false);
             }
         }
+        int speed = 5;
         if (direction) {
             state = PlayerState.ENEMY_WALK_RIGHT.ordinal();
             x += speed;

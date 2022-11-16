@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class CharacterSelect extends AppCompatActivity {
-
-    private ImageView black, blue, green, yellow, close;
     private TextView textView;
 
     @Override
@@ -18,14 +16,12 @@ public class CharacterSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_select);
 
-        black = (ImageView) findViewById(R.id.black);
-        blue = (ImageView) findViewById(R.id.blue);
-        green = (ImageView) findViewById(R.id.green);
-        yellow = (ImageView) findViewById(R.id.yellow);
-
-        close = (ImageView) findViewById(R.id.close);
-
-        textView = (TextView) findViewById(R.id.textView);
+        ImageView black = findViewById(R.id.black);
+        ImageView blue = findViewById(R.id.blue);
+        ImageView green = findViewById(R.id.green);
+        ImageView yellow = findViewById(R.id.yellow);
+        ImageView close = findViewById(R.id.close);
+        textView = findViewById(R.id.textView);
 
         changeText();
 
@@ -34,7 +30,6 @@ public class CharacterSelect extends AppCompatActivity {
         green.setOnClickListener(this::onClick);
         yellow.setOnClickListener(this::onClick);
         close.setOnClickListener(this::onClick);
-
     }
 
     public void onClick(View v) {

@@ -7,7 +7,7 @@ import android.graphics.Rect;
 
 public class Key {
 
-    private Rect key;
+    private final Rect key;
     private Bitmap keyBmp;
     private boolean visible = false;
 
@@ -31,7 +31,6 @@ public class Key {
         }
         return false;
     }
-
 
     public void setVisible() {
         visible = true;

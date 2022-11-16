@@ -6,13 +6,12 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class EnemyManager {
-    private ArrayList<Enemy> enemies;
-    private SpriteSheet spriteSheet;
+    private final ArrayList<Enemy> enemies;
 
 
     public EnemyManager(int[] level, ProjectileManager projectileManager) {
         enemies = new ArrayList<>();
-        spriteSheet = new SpriteSheet();
+        SpriteSheet spriteSheet = new SpriteSheet();
         Animator animator = new Animator(spriteSheet.getSpriteArray());
 
         for (int i = 0; level.length - 1 > i; i += 5) {

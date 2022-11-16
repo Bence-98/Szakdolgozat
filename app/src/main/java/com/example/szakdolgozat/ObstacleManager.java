@@ -6,21 +6,13 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class ObstacleManager {
-    private ArrayList<Obstacle> obstacles;
-
+    private final ArrayList<Obstacle> obstacles;
 
     public ObstacleManager(int[] level) {
         obstacles = new ArrayList<>();
-
         for (int i = 0; level.length - 1 > i; i += 3) {
             obstacles.add(new Obstacle(level[i], level[i + 1], level[i + 2]));
         }
-
-
-    }
-
-    public ArrayList getArray() {
-        return obstacles;
     }
 
     public boolean playerCollide(Player player) {

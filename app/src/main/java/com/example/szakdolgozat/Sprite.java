@@ -4,8 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 public class Sprite {
-    private SpriteSheet spriteSheet;
-    private Rect rect;
+    private final SpriteSheet spriteSheet;
+    private final Rect rect;
 
     public Sprite(SpriteSheet spriteSheet, Rect rect) {
         this.spriteSheet = spriteSheet;

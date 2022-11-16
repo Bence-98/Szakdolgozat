@@ -4,18 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-
 public class Background {
-
     private int skyX = 0, rocksX = 0, cloudsX = 0;
     private Bitmap sky, rocks, clouds;
-
 
     public Background() {
         sky = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sky);
         rocks = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.rocks);
         clouds = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.clouds);
-
         sky = Bitmap.createScaledBitmap(sky, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
         rocks = Bitmap.createScaledBitmap(rocks, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
         clouds = Bitmap.createScaledBitmap(clouds, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT, false);
@@ -37,7 +33,6 @@ public class Background {
             rocksX -= 2;
         if (scale % 5 == 0)
             cloudsX -= 2;
-
         if (skyX < -Constants.SCREEN_WIDTH)
             skyX = 0;
         if (rocksX < -Constants.SCREEN_WIDTH)
@@ -50,7 +45,5 @@ public class Background {
         skyX = 0;
         rocksX = 0;
         cloudsX = 0;
-
     }
-
 }

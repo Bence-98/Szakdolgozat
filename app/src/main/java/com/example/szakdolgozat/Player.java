@@ -5,15 +5,10 @@ import android.graphics.Point;
 import android.graphics.Rect;
 
 public class Player implements GameObject {
-
-    private Rect rectangle;
-
+    private final Rect rectangle;
     private int state;
-
-    private Animator animator;
-    private SpriteSheet spriteSheet;
-    private boolean alive;
-
+    private final Animator animator;
+    private boolean alive = true;
 
     public Rect getRectangle() {
         return rectangle;
@@ -26,10 +21,13 @@ public class Player implements GameObject {
     public Player(Rect rectangle) {
         this.rectangle = rectangle;
 
-        spriteSheet = new SpriteSheet();
+        SpriteSheet spriteSheet = new SpriteSheet();
         animator = new Animator(spriteSheet.getSpriteArray());
     }
 
+    public boolean getAlive() {
+        return alive;
+    }
 
     @Override
     public void draw(Canvas canvas) {
@@ -37,23 +35,16 @@ public class Player implements GameObject {
     }
 
     public boolean getDirection() {
-        if (state == 2 || state == 4 || state == 6)
-            return true;
-        else return false;
+        return state == 2 || state == 4 || state == 6;
     }
 
     @Override
     public void update() {
     }
 
-    public boolean playerAlive() {
-        return alive;
-    }
-
-    public void playerDie(boolean alive) {
+    public void setAlive(boolean alive) {
         this.alive = alive;
     }
-
 
     public void update(Point point) {
         rectangle.set(point.x - rectangle.width() / 2, point.y - rectangle.height() / 2, point.x + rectangle.width() / 2, point.y + rectangle.height() / 2);

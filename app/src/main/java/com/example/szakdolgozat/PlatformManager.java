@@ -7,19 +7,13 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class PlatformManager {
-    private ArrayList<Platform> platforms;
-
+    private final ArrayList<Platform> platforms;
 
     public PlatformManager(int[] level) {
         platforms = new ArrayList<>();
-
         for (int i = 0; level.length - 1 > i; i += 4) {
             platforms.add(new Platform(level[i], level[i + 1], level[i + 2], level[i + 3]));
         }
-    }
-
-    public ArrayList getArray() {
-        return platforms;
     }
 
     public boolean projectileCollidePlatform(Projectile projectile) {

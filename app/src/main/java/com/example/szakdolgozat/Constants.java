@@ -3,14 +3,12 @@ package com.example.szakdolgozat;
 import android.content.Context;
 
 public class Constants {
-    public static int SCREEN_WIDTH;
-    public static int SCREEN_HEIGHT;
+    protected static int SCREEN_WIDTH;
+    protected static int SCREEN_HEIGHT;
 
-    public static Context CURRENT_CONTEXT;
+    protected static Context CURRENT_CONTEXT;
 
-    public static long INIT_TIME;
+    protected static long INIT_TIME;
 
-    public static boolean SOUND;
-
-    public static int CHARACTER_COLOR;
+    protected static int CHARACTER_COLOR;
 }

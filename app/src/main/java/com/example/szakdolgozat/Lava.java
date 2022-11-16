@@ -10,15 +10,14 @@ import java.util.ArrayList;
 
 public class Lava {
 
-    private ArrayList<Rect> lava;
-    private Rect hitbox;
+    private final ArrayList<Rect> lava;
+    private final Rect hitbox;
     private boolean direction = true;
-
-    private Bitmap lavaBmp, lavaBmpRev;
+    private Bitmap lavaBmp;
+    private final Bitmap lavaBmpRev;
 
     public Lava(int firstLeft, int top, int lastRight) {
         lava = new ArrayList<>();
-
         lavaBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.lava);
         lavaBmp = Bitmap.createScaledBitmap(lavaBmp, 100, 100, false);
 
@@ -35,7 +34,6 @@ public class Lava {
             shift += 100;
         }
     }
-
 
     public Rect getLavaHitbox() {
         return hitbox;
@@ -54,7 +52,6 @@ public class Lava {
                 canvas.drawBitmap(lavaBmpRev, lv.left, lv.top, null);
         }
     }
-
 
     public void update() {
         for (Rect lv : lava) {

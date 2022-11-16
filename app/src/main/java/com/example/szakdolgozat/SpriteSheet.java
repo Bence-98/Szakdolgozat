@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class SpriteSheet {
-    private ArrayList<Bitmap> bitmap = new ArrayList<>();
+    private final ArrayList<Bitmap> bitmap = new ArrayList<>();
 
     public SpriteSheet() {
         bitmap.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.gunner_red_run));

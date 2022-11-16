@@ -7,12 +7,11 @@ import android.media.MediaPlayer;
 
 import java.util.ArrayList;
 
-
 public class ProjectileManager {
 
-    private ArrayList<Projectile> projectiles;
-    private MediaPlayer playerShotSound, enemyShotSound;
-    private SharedPreferences sp;
+    private final ArrayList<Projectile> projectiles;
+    private final MediaPlayer playerShotSound;
+    private final MediaPlayer enemyShotSound;
     boolean soundOn;
 
     public ProjectileManager() {
@@ -35,8 +34,7 @@ public class ProjectileManager {
         }
     }
 
-
-    public ArrayList getArray() {
+    public ArrayList<Projectile> getArray() {
         return projectiles;
     }
 
@@ -47,6 +45,13 @@ public class ProjectileManager {
 
     public void deleteProjectile(Projectile projectile) {
         projectiles.remove(projectile);
+    }
+
+    public void floatLeft() {
+        for (Projectile prtl : projectiles) {
+            prtl.getRect().left--;
+            prtl.getRect().right--;
+        }
     }
 
     public void fire(int x, int y, boolean direction, boolean whose) {

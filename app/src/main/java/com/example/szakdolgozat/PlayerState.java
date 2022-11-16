@@ -10,5 +10,5 @@ public enum PlayerState {
     JUMP_RIGHT,
     JUMP_LEFT,
     DEATH_RIGHT,
-    DEATH_LEFT;
+    DEATH_LEFT
 }

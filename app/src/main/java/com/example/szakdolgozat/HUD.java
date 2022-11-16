@@ -7,15 +7,18 @@ import android.graphics.Rect;
 
 public class HUD {
 
-    private Rect key, restartButton, upArrow, leftArrow, rightArrow, fireButton;
+    private final Rect key;
+    private final Rect restartButton;
+    private final Rect upArrow;
+    private final Rect leftArrow;
+    private final Rect rightArrow;
+    private final Rect fireButton;
     private Bitmap keyBmp, keyBmpFull, restartBitmap, upBitmap, leftBitmap, rightBitmap, fireBitmap;
 
     public HUD() {
         key = new Rect(50, 25, 100, 75);
-
         keyBmp = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.hud_key_outline);
         keyBmp = Bitmap.createScaledBitmap(keyBmp, key.width(), key.height(), false);
-
         keyBmpFull = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.hud_key);
         keyBmpFull = Bitmap.createScaledBitmap(keyBmpFull, key.width(), key.height(), false);
 
@@ -27,7 +30,6 @@ public class HUD {
         leftArrow = new Rect(50, 850, 200, 1000);
         rightArrow = new Rect(250, 850, 400, 1000);
         fireButton = new Rect(2000, 650, 2150, 800);
-
         upBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.upbutton);
         upBitmap = Bitmap.createScaledBitmap(upBitmap, upArrow.width(), upArrow.height(), false);
         leftBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.leftbutton);

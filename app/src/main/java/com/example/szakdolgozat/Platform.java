@@ -1,6 +1,5 @@
 package com.example.szakdolgozat;
 
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,18 +8,14 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 public class Platform implements GameObject {
-
-    private ArrayList<Rect> platform;
-    private Rect hitbox;
-    private int top;
-
+    private final ArrayList<Rect> platform;
+    private final Rect hitbox;
+    private final int top;
     private Bitmap grass, dirt;
-
 
     public Rect getPlatformHitbox() {
         return hitbox;
     }
-
 
     public Platform(int firstLeft, int top, int lastRight, int floating) {
         platform = new ArrayList<>();
@@ -34,7 +29,6 @@ public class Platform implements GameObject {
             hitbox = new Rect(firstLeft, top, lastRight, top + 100);
         else
             hitbox = new Rect(firstLeft, top, lastRight, Constants.SCREEN_HEIGHT);
-
 
         int shift = 0;
         while (firstLeft + shift <= lastRight - 100) {
