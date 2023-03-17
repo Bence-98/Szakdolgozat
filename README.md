@@ -1,2 +1,2 @@
 # Szakdolgozat
-APK: users.iit.uni-miskolc.hu/~kelemen4/szakdolgozat.apk
+APK: https://users.iit.uni-miskolc.hu/~kelemen4/szakdolgozat.apk
